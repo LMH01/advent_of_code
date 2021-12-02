@@ -2,7 +2,7 @@ use std::error::Error;
 
 use adventofcode_lmh01_lib::read_file;
 
-fn main() -> Result<(), Box<dyn Error>>{
+fn main() -> Result<(), Box<dyn Error>> {
     let vec = read_file("input.txt")?;
     let mut horizontal = 0;
     let mut depth = 0;
