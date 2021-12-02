@@ -1,7 +1,9 @@
+use std::error::Error;
+
 use adventofcode_lmh01_lib::read_file;
 
-fn main() {
-    let vec = read_file("input.txt");
+fn main() -> Result<(), Box<dyn Error>>{
+    let vec = read_file("input.txt")?;
     let mut horizontal = 0;
     let mut depth = 0;
     let mut aim = 0;
@@ -19,6 +21,8 @@ fn main() {
     println!("Final horizontal: {}", horizontal);
     println!("Final depth: {}", depth);
     println!("Final result: {}", depth * horizontal);
+
+    Ok(())
 }
 
 fn replace_line(line: &str, to_replace: &str) -> i32 {
