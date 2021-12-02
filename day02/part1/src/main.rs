@@ -1,0 +1,23 @@
+use adventofcode_lmh01_lib::read_file;
+
+fn main() {
+    let vec = read_file("input.txt");
+    let mut horizontal = 0;
+    let mut depth = 0;
+    for line in vec {
+        if line.contains("forward") {
+            horizontal+=replace_line(&line, "forward");
+        } else if line.contains("down") {
+            depth+=replace_line(&line, "down");
+        } else if line.contains("up") {
+            depth-=replace_line(&line, "up");
+        }
+    }
+    println!("Final horizontal: {}", horizontal);
+    println!("Final depth: {}", depth);
+    println!("Final result: {}", depth*horizontal);
+}
+
+fn replace_line(line: &String, to_replace: &str) -> i32{
+    return line.replace(to_replace, "").trim().to_string().parse().unwrap_or(0);
+}
