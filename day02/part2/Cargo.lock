@@ -8,7 +8,7 @@ version = "1.0.0"
 source = "git+https://github.com/LMH01/adventofcode_lmh01_lib.git#4c7501def69a7908dd0f0a6a78979c61ca367462"
 
 [[package]]
-name = "part2"
+name = "aoc_2021_day3_part2"
 version = "0.1.0"
 dependencies = [
  "adventofcode_lmh01_lib",
