@@ -6,7 +6,7 @@ use adventofcode_lmh01_lib::read_file;
 fn main() -> Result<(), Box<dyn Error>> {
     let vec = read_file("input.txt")?;
     let mut fish = get_draw_numbers(vec.get(0).unwrap_or(&String::from(""))).unwrap();
-    for i in 1..=256 {
+    for i in 1..=80 {
         // 80 days
         let mut fish_to_add = 0;
         for f in fish.iter_mut() {
