@@ -1,26 +1,32 @@
-use std::{collections::HashMap, error::Error};
 use std::cmp::Ordering;
+use std::error::Error;
 
 use adventofcode_lmh01_lib::read_file;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let vec = read_file("test_input.txt")?;
-    let mut fish = get_draw_numbers(vec.iter().next().unwrap_or(&String::from(""))).unwrap();
-    for i in 0..=80 {// 80 days
+    let vec = read_file("input.txt")?;
+    let mut fish = get_draw_numbers(vec.get(0).unwrap_or(&String::from(""))).unwrap();
+    for i in 1..=256 {
+        // 80 days
         let mut fish_to_add = 0;
         for f in fish.iter_mut() {
-            if f > &mut 0 {
-                *f = *f - 1;
-            } else if f ==  &0 {
-                *f = 6;
-                fish_to_add += 1;
+            match f.cmp(&&mut 0) {
+                Ordering::Greater => {
+                    *f -= 1;
+                },
+                Ordering::Equal => {
+                    *f = 6;
+                    fish_to_add += 1;
+                },
+                Ordering::Less => (),
             }
         }
-        for _i in 0..=fish_to_add {
+        for _i in 1..=fish_to_add {
             fish.push(8);
         }
-        println!("[Day {}] Current fish: {}", i, fish.len());
+        println!("[Day {:2.0}] Current fish: {:?}", i, fish.len());
     }
+    println!("Fish total: {}", fish.len());
     Ok(())
 }
 
