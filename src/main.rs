@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use crate::days::{day1, day2, day3, day4, day5, day6, day7};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
@@ -32,14 +34,19 @@ struct Opts {
         about = "Run all days, even those that take longer to complete",
     )]
     all: bool,
+
+    #[clap(
+        short,
+        long,
+        about = "Measures and displays the execution time",
+        )]
+    measure_time: bool,
 }
 
 fn main() -> miette::Result<()> {
     let opts = Opts::parse();
 
-    // all panic macros that are called in the following will be replaced by miette error handling
-    // eventually in the feature.
-    // This is just a temporary solution
+    let timer = Instant::now();
 
     // Handle function calling when day is supplied
 
@@ -89,6 +96,9 @@ fn main() -> miette::Result<()> {
         )?;
         run_day(day6::part1, day6::part2, 6, (true, true), opts.debug)?;
         run_day(day7::part1, day7::part2, 7, (true, true), opts.debug)?;
+    }
+    if opts.measure_time {
+        println!("Execution took {:.2?}", timer.elapsed())
     }
     Ok(())
 }
