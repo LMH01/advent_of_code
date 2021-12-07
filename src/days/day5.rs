@@ -1,8 +1,9 @@
 use adventofcode_lmh01_lib::read_file;
+use miette::{IntoDiagnostic, Result};
 
-use std::{cmp::Ordering, error::Error};
+use std::cmp::Ordering;
 
-pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part1(debug: bool) -> Result<()> {
     let vec = read_file("input/day5.txt")?;
     let mut lines: Vec<Line> = Vec::new();
     let mut board = Board::new();
@@ -26,17 +27,17 @@ pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
             );
         }
         board.set_line_active(
-            p1.1.parse()?,
-            p1.0.parse()?,
-            p2.1.parse()?,
-            p2.0.parse()?,
+            p1.1.parse().into_diagnostic()?,
+            p1.0.parse().into_diagnostic()?,
+            p2.1.parse().into_diagnostic()?,
+            p2.0.parse().into_diagnostic()?,
             false,
         );
         lines.push(Line {
-            x1: p1.1.parse()?,
-            y1: p1.0.parse()?,
-            x2: p2.1.parse()?,
-            y2: p2.0.parse()?,
+            x1: p1.1.parse().into_diagnostic()?,
+            y1: p1.0.parse().into_diagnostic()?,
+            x2: p2.1.parse().into_diagnostic()?,
+            y2: p2.0.parse().into_diagnostic()?,
         });
     }
     if debug {
@@ -52,7 +53,7 @@ pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part2(debug: bool) -> Result<()> {
     let vec = read_file("input/day5.txt")?;
     let mut lines: Vec<Line> = Vec::new();
     let mut board = Board::new();
@@ -76,17 +77,17 @@ pub fn part2(debug: bool) -> Result<(), Box<dyn Error>> {
             );
         }
         board.set_line_active(
-            p1.1.parse()?,
-            p1.0.parse()?,
-            p2.1.parse()?,
-            p2.0.parse()?,
-            true,
+            p1.1.parse().into_diagnostic()?,
+            p1.0.parse().into_diagnostic()?,
+            p2.1.parse().into_diagnostic()?,
+            p2.0.parse().into_diagnostic()?,
+            false,
         );
         lines.push(Line {
-            x1: p1.1.parse()?,
-            y1: p1.0.parse()?,
-            x2: p2.1.parse()?,
-            y2: p2.0.parse()?,
+            x1: p1.1.parse().into_diagnostic()?,
+            y1: p1.0.parse().into_diagnostic()?,
+            x2: p2.1.parse().into_diagnostic()?,
+            y2: p2.0.parse().into_diagnostic()?,
         });
     }
 

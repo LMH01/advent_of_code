@@ -1,8 +1,9 @@
 use adventofcode_lmh01_lib::{get_draw_numbers, read_file};
+use miette::{IntoDiagnostic, Result};
 
-use std::{collections::HashMap, error::Error};
+use std::collections::HashMap;
 
-pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part1(_debug: bool) -> Result<()> {
     let vec = read_file("input/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
@@ -47,7 +48,7 @@ pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<()> {
     let vec = read_file("input/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
@@ -70,7 +71,7 @@ pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
     }
     bingo_boards.push(BingoBoard::new(current_bingo_numbers, board_number));
     //let mut already_won_boards = 0;
-    let bingo_board_amount: i32 = bingo_boards.len().try_into()?;
+    let bingo_board_amount: i32 = bingo_boards.len().try_into().into_diagnostic()?;
     let mut already_won_boards = Vec::new();
     println!("Bingo boards: {}", bingo_board_amount);
     'outer: for i in draw_numbers {
@@ -80,7 +81,8 @@ pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
                 Some(value) => {
                     if value && !already_won_boards.contains(&board.board_number) {
                         already_won_boards.push(board.board_number);
-                        let already_won_boards_len: i32 = already_won_boards.len().try_into()?;
+                        let already_won_boards_len: i32 =
+                            already_won_boards.len().try_into().into_diagnostic()?;
                         if already_won_boards_len > bingo_board_amount - 1 {
                             println!("Board that wins last: {:?}", board.board_number);
                             board.print_board();

@@ -1,8 +1,9 @@
 use adventofcode_lmh01_lib::{get_draw_numbers, read_file};
+use miette::Result;
 
-use std::{cmp::Ordering, error::Error, u128::MAX as U128_MAX, u32::MAX};
+use std::{cmp::Ordering, u128::MAX as U128_MAX, u32::MAX};
 
-pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part1(debug: bool) -> Result<()> {
     let vec = read_file("input/day7.txt")?;
     let crabs = get_draw_numbers::<u32>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut least_fuel_consumption: (u32, u32) = (MAX, MAX);
@@ -27,7 +28,7 @@ pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part2(debug: bool) -> Result<()> {
     let vec = read_file("input/day7.txt")?;
     let crabs = get_draw_numbers::<u128>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut least_fuel_consumption: (u128, u128) = (U128_MAX, U128_MAX);
@@ -56,7 +57,7 @@ pub fn part2(debug: bool) -> Result<(), Box<dyn Error>> {
             least_fuel_consumption = (i, current_fuel_consumption);
         }
         if debug {
-            println!("{:04} | {:07}", i, current_fuel_consumption);
+            println!("{:04} | {:010}", i, current_fuel_consumption);
         }
     }
     println!("Fuel consumption: {}", least_fuel_consumption.1);

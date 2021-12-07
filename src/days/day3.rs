@@ -1,8 +1,7 @@
 use adventofcode_lmh01_lib::{read_file, transform_vec};
+use miette::{IntoDiagnostic, Result};
 
-use std::error::Error;
-
-pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part1(_debug: bool) -> Result<()> {
     let vec = transform_vec(read_file("input/day3.txt")?);
     let mut gamma = String::new();
     let mut epsilon = String::new();
@@ -28,8 +27,8 @@ pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
             std::cmp::Ordering::Equal => (),
         }
     }
-    let gamma_as_int = isize::from_str_radix(&gamma, 2)?;
-    let epsilon_as_int = isize::from_str_radix(&epsilon, 2)?;
+    let gamma_as_int = isize::from_str_radix(&gamma, 2).into_diagnostic()?;
+    let epsilon_as_int = isize::from_str_radix(&epsilon, 2).into_diagnostic()?;
     println!("Gamma rate: {}\nEpsilon rate: {}", gamma, epsilon);
     println!(
         "Gamma rate: {}\nEpsilon rate: {}",
@@ -39,7 +38,7 @@ pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<()> {
     let vec = read_file("input/day3.txt")?;
     let ogr = get_raiting(&vec, 0, SystemRaiting::OxygenGeneratorRating)
         .get(0)
@@ -52,8 +51,8 @@ pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
     println!("Oxygen Generator Raiting: {:?}", &ogr);
     println!("CO2 Scrubber Raiting: {:?}", &csr);
     // convert values from binary to decimal
-    let ogr_int = isize::from_str_radix(&ogr, 2)?;
-    let csr_int = isize::from_str_radix(&csr, 2)?;
+    let ogr_int = isize::from_str_radix(&ogr, 2).into_diagnostic()?;
+    let csr_int = isize::from_str_radix(&csr, 2).into_diagnostic()?;
     println!("Result: {}", ogr_int * csr_int);
     Ok(())
 }

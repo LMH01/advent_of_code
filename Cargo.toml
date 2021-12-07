@@ -9,3 +9,4 @@ edition = "2021"
 adventofcode_lmh01_lib = { git = "https://github.com/LMH01/adventofcode_lmh01_lib.git" }
 clap = "3.0.0-beta.5"
 #adventofcode_lmh01_lib = { path = "../../adventofcode_lmh01_lib" }
+miette = {version = "3.2.0", features = ["fancy"] }

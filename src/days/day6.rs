@@ -1,8 +1,9 @@
 use adventofcode_lmh01_lib::{get_draw_numbers, read_file};
+use miette::Result;
 
-use std::{cmp::Ordering, error::Error};
+use std::cmp::Ordering;
 
-pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part1(debug: bool) -> Result<()> {
     let vec = read_file("input/day6.txt")?;
     let mut fish = get_draw_numbers::<u8>(vec.get(0).unwrap_or(&String::from("")))?;
     for i in 1..=80 {
@@ -31,7 +32,7 @@ pub fn part1(debug: bool) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<()> {
     let vec = read_file("input/day6.txt")?;
     let fish = get_draw_numbers::<u8>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut ages: Ages = Ages {
