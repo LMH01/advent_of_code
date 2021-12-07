@@ -3,7 +3,7 @@ use std::i32::MAX;
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part1(debug: bool) -> Result<()> {
     let content = read_file("input/day1.txt")?;
     let mut x;
     let mut y = MAX;
@@ -14,14 +14,16 @@ pub fn part1(_debug: bool) -> Result<()> {
             increases += 1;
         }
         y = x;
-        //println!("{}", i);
+        if debug {
+            println!("{}", i);
+        }
     }
     println!("Total increases: {}", increases);
 
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part2(debug: bool) -> Result<()> {
     let content = read_file("input/day1.txt")?;
     let mut increases = 0;
     let mut i = 0;
@@ -41,22 +43,32 @@ pub fn part2(_debug: bool) -> Result<()> {
                     .unwrap();
             }
         }
-        //print!("{}", current_number);
+        if debug {
+            print!("{}", current_number);
+        }
         match last_number {
-            None =>
-                /*println!(" (N/A - no previous sum)")*/
-                {}
+            None => {
+                if debug {
+                    println!(" (N/A - no previous sum)")
+                }
+            }
             Some(value) => match current_number.cmp(&value) {
-                std::cmp::Ordering::Less =>
-                    /*println!(" (decreased)")*/
-                    {}
+                std::cmp::Ordering::Less => {
+                    if debug {
+                        println!(" (decreased)")
+                    }
+                }
                 std::cmp::Ordering::Greater => {
-                    //println!(" (increased)");
+                    if debug {
+                        println!(" (increased)");
+                    }
                     increases += 1;
                 }
-                std::cmp::Ordering::Equal =>
-                    /*println!(" (no change)")*/
-                    {}
+                std::cmp::Ordering::Equal => {
+                    if debug {
+                        println!(" (no change)")
+                    }
+                }
             },
         }
         last_number = Some(current_number);
