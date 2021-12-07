@@ -2,7 +2,7 @@ use adventofcode_lmh01_lib::{get_draw_numbers, read_file};
 
 use std::{collections::HashMap, error::Error};
 
-pub fn part1() -> Result<(), Box<dyn Error>> {
+pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
     let vec = read_file("input/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
@@ -47,7 +47,7 @@ pub fn part1() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2() -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
     let vec = read_file("input/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;

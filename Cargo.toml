@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 adventofcode_lmh01_lib = { git = "https://github.com/LMH01/adventofcode_lmh01_lib.git" }
+clap = "3.0.0-beta.5"
 #adventofcode_lmh01_lib = { path = "../../adventofcode_lmh01_lib" }

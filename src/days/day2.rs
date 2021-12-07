@@ -2,7 +2,7 @@ use adventofcode_lmh01_lib::read_file;
 
 use std::error::Error;
 
-pub fn part1() -> Result<(), Box<dyn Error>> {
+pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
     let vec = read_file("input/day2.txt")?;
     let mut horizontal = 0;
     let mut depth = 0;
@@ -22,7 +22,7 @@ pub fn part1() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2() -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
     let vec = read_file("input/day2.txt")?;
     let mut horizontal = 0;
     let mut depth = 0;

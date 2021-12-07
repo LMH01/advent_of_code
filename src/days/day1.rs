@@ -2,7 +2,7 @@ use std::{error::Error, i32::MAX};
 
 use adventofcode_lmh01_lib::read_file;
 
-pub fn part1() -> Result<(), Box<dyn Error>> {
+pub fn part1(_debug: bool) -> Result<(), Box<dyn Error>> {
     let content = read_file("input/day1.txt")?;
     let mut x;
     let mut y = MAX;
@@ -20,7 +20,7 @@ pub fn part1() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-pub fn part2() -> Result<(), Box<dyn Error>> {
+pub fn part2(_debug: bool) -> Result<(), Box<dyn Error>> {
     let content = read_file("input/day1.txt")?;
     let mut increases = 0;
     let mut i = 0;
