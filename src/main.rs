@@ -47,32 +47,33 @@ fn main() -> miette::Result<()> {
     // Handle function calling when day is supplied
 
     if let Some(day) = opts.day {
-        if !(1..=8).contains(&day) {
-            println!("No solution available for day {}", day);
-        } else {
-            let mut parts: (bool, bool) = (true, true);
-            if let Some(part) = opts.part {
-                match part {
-                    1 => parts = (true, false),
-                    2 => parts = (false, true),
-                    _ => {
-                        return Err(miette!(
-                            "Invalid parts argument. Should be 1 or 2. was {}",
-                            part
-                        ))
-                    }
+        let mut parts: (bool, bool) = (true, true);
+        if let Some(part) = opts.part {
+            match part {
+                1 => parts = (true, false),
+                2 => parts = (false, true),
+                _ => {
+                    return Err(miette!(
+                        "Invalid parts argument. Should be 1 or 2. was {}",
+                        part
+                    ))
                 }
             }
-            match day {
-                1 => run_day(day1::part1, day1::part2, 1, parts, opts.debug)?,
-                2 => run_day(day2::part1, day2::part2, 2, parts, opts.debug)?,
-                3 => run_day(day3::part1, day3::part2, 3, parts, opts.debug)?,
-                4 => run_day(day4::part1, day4::part2, 4, parts, opts.debug)?,
-                5 => run_day(day5::part1, day5::part2, 5, parts, opts.debug)?,
-                6 => run_day(day6::part1, day6::part2, 6, parts, opts.debug)?,
-                7 => run_day(day7::part1, day7::part2, 7, parts, opts.debug)?,
-                8 => run_day(day8::part1, day8::part2, 8, parts, opts.debug)?,
-                _ => (),
+        }
+        match day {
+            1 => run_day(day1::part1, day1::part2, 1, parts, opts.debug)?,
+            2 => run_day(day2::part1, day2::part2, 2, parts, opts.debug)?,
+            3 => run_day(day3::part1, day3::part2, 3, parts, opts.debug)?,
+            4 => run_day(day4::part1, day4::part2, 4, parts, opts.debug)?,
+            5 => run_day(day5::part1, day5::part2, 5, parts, opts.debug)?,
+            6 => run_day(day6::part1, day6::part2, 6, parts, opts.debug)?,
+            7 => run_day(day7::part1, day7::part2, 7, parts, opts.debug)?,
+            8 => run_day(day8::part1, day8::part2, 8, parts, opts.debug)?,
+            _ => {
+                return Err(miette!(
+                    "Unable to run: No solution available yet for day {}.",
+                    &day
+                ))
             }
         }
     } else {

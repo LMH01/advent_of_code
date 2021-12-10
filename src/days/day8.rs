@@ -200,14 +200,10 @@ fn resolve_ac_mappings(
     let mut times_char_b = 0;
     for part in parts {
         if part.len() == 5 {
-            if part.contains(|char| 
-                *aight_time_chars.get(0).unwrap() == char
-            ) {
+            if part.contains(|char| *aight_time_chars.get(0).unwrap() == char) {
                 times_char_a += 1;
             }
-            if part.contains(|char| 
-                *aight_time_chars.get(1).unwrap() == char
-            ) {
+            if part.contains(|char| *aight_time_chars.get(1).unwrap() == char) {
                 times_char_b += 1;
             }
         }
@@ -240,14 +236,10 @@ fn resolve_dg_mappings(
     let mut times_char_b = 0;
     for part in parts {
         if part.len() == 6 {
-            if part.contains(|char| 
-                *seven_time_chars.get(0).unwrap() == char
-            ) {
+            if part.contains(|char| *seven_time_chars.get(0).unwrap() == char) {
                 times_char_a += 1;
             }
-            if part.contains(|char| 
-                *seven_time_chars.get(1).unwrap() == char
-            ) {
+            if part.contains(|char| *seven_time_chars.get(1).unwrap() == char) {
                 times_char_b += 1;
             }
         }
