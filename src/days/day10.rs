@@ -84,7 +84,7 @@ pub fn part2(debug: bool) -> Result<()> {
         }
         completion_scores.push(completion_string_score(&completion_string));
     }
-    completion_scores.sort();
+    completion_scores.sort_unstable();
     // This statement can panic if completion_scores does contain an odd number of elements
     println!("Middle score: {}", completion_scores.get(completion_scores.len()/2).unwrap());
     Ok(())
@@ -100,7 +100,7 @@ fn increase_error_score(c: char, error_score: &mut i32) {
     }
 }
 
-fn get_incomplete_lines(content: &Vec<String>, corrupted_lines: &Vec<&String>) -> Vec<String> {
+fn get_incomplete_lines(content: &[String], corrupted_lines: &[&String]) -> Vec<String> {
     let mut output: Vec<String> = Vec::new();
     for line in content {
         let mut line_corrupted = false;
@@ -119,7 +119,7 @@ fn get_incomplete_lines(content: &Vec<String>, corrupted_lines: &Vec<&String>) -
 fn completion_string_score(string: &str) -> i64 {
     let mut score = 0;
     for char in string.chars() {
-        score = score * 5;
+        score *= 5;
         match char {
             ')' => score += 1,
             ']' => score += 2,
