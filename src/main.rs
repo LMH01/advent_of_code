@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use crate::days::{day1, day2, day3, day4, day5, day6, day7};
+use crate::days::{day1, day2, day3, day4, day5, day6, day7, day8};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
 use miette::miette;
@@ -35,11 +35,7 @@ struct Opts {
     )]
     all: bool,
 
-    #[clap(
-        short,
-        long,
-        about = "Measures and displays the execution time",
-        )]
+    #[clap(short, long, about = "Measures and displays the execution time")]
     measure_time: bool,
 }
 
@@ -51,7 +47,7 @@ fn main() -> miette::Result<()> {
     // Handle function calling when day is supplied
 
     if let Some(day) = opts.day {
-        if !(1..=7).contains(&day) {
+        if !(1..=8).contains(&day) {
             println!("No solution available for day {}", day);
         } else {
             let mut parts: (bool, bool) = (true, true);
@@ -75,6 +71,7 @@ fn main() -> miette::Result<()> {
                 5 => run_day(day5::part1, day5::part2, 5, parts, opts.debug)?,
                 6 => run_day(day6::part1, day6::part2, 6, parts, opts.debug)?,
                 7 => run_day(day7::part1, day7::part2, 7, parts, opts.debug)?,
+                8 => run_day(day8::part1, day8::part2, 8, parts, opts.debug)?,
                 _ => (),
             }
         }
@@ -96,6 +93,7 @@ fn main() -> miette::Result<()> {
         )?;
         run_day(day6::part1, day6::part2, 6, (true, true), opts.debug)?;
         run_day(day7::part1, day7::part2, 7, (true, true), opts.debug)?;
+        run_day(day8::part1, day8::part2, 8, (true, true), opts.debug)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())
