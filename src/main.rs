@@ -69,7 +69,7 @@ fn main() -> miette::Result<()> {
             6 => run_day(day6::part1, day6::part2, 6, parts, opts.debug)?,
             7 => run_day(day7::part1, day7::part2, 7, parts, opts.debug)?,
             8 => run_day(day8::part1, day8::part2, 8, parts, opts.debug)?,
-            10 => run_day(day10::part1, day10::part2, 8, parts, opts.debug)?,
+            10 => run_day(day10::part1, day10::part2, 10, parts, opts.debug)?,
             _ => {
                 return Err(miette!(
                     "Unable to run: No solution available yet for day {}.",
@@ -96,7 +96,7 @@ fn main() -> miette::Result<()> {
         run_day(day6::part1, day6::part2, 6, (true, true), opts.debug)?;
         run_day(day7::part1, day7::part2, 7, (true, true), opts.debug)?;
         run_day(day8::part1, day8::part2, 8, (true, true), opts.debug)?;
-        run_day(day10::part1, day10::part2, 8, (true, true), opts.debug)?;
+        run_day(day10::part1, day10::part2, 10, (true, true), opts.debug)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())
