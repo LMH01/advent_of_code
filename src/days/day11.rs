@@ -9,12 +9,17 @@ pub fn part1(debug: bool) -> Result<()> {
             octopuses.push(char::to_digit(char, 10).unwrap().try_into().unwrap());
         }
     }
-    print_octopuses(&mut octopuses);
+    if debug {
+        println!("Start octopusses:");
+        print_octopuses(&mut octopuses);
+    }
     let mut flashes = 0;
     for i in 1..=100 {
         if debug {
             println!("Simulating step {}...", i);
-            simulate_step(&mut octopuses, &mut flashes);
+        }
+        simulate_step(&mut octopuses, &mut flashes);
+        if debug {
             println!("After {}:", i);
             print_octopuses(&mut octopuses);
         }
@@ -24,7 +29,33 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("input/day11_test.txt")?;
+    let content = read_file("input/day11.txt")?;
+    let mut octopuses: Vec<u8> = Vec::new();
+    for line in content {
+        for char in line.chars() {
+            octopuses.push(char::to_digit(char, 10).unwrap().try_into().unwrap());
+        }
+    }
+    if debug {
+        println!("Start octopusses:");
+        print_octopuses(&mut octopuses);
+    }
+    for i in 1..=1000 {
+        if debug {
+            println!("Simulating step {}...", i);
+        }
+
+        let mut flashes = 0;
+        simulate_step(&mut octopuses, &mut flashes);
+        if debug {
+            println!("After {}:", i);
+            print_octopuses(&mut octopuses);
+        }
+        if flashes == 100 {
+            println!("All octopuses flash in step {}", i);
+            break;
+        }
+    }
     Ok(())
 }
 
@@ -48,7 +79,7 @@ fn simulate_step(octopuses: &mut Vec<u8>, flashes: &mut i32) {
                 loop_needed = true;
             }
         }
-        
+
         // Set energy values of adjacent octopuses
         for i in octopuses_to_flash {
             increase_adjacent_energy_levels(&i, octopuses);
@@ -69,6 +100,7 @@ fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut Vec<u
     // This can probably be solved much cleaner
     let positive_steps;
     let negative_steps;
+    // Determine what octopuses are adjacent to the input octopus
     if vec![19, 29, 39, 49, 59, 69, 79, 89].contains(&octopus_number) {
         positive_steps = vec![9, 10];
         negative_steps = vec![1, 10, 11];
@@ -99,11 +131,12 @@ fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut Vec<u
     }
     let mut octopuses_to_increase: Vec<usize> = Vec::new();
     for i in positive_steps {
-        octopuses_to_increase.push(octopus_number+i);
+        octopuses_to_increase.push(octopus_number + i);
     }
     for i in negative_steps {
-        octopuses_to_increase.push(octopus_number-i);
+        octopuses_to_increase.push(octopus_number - i);
     }
+    // Increase the value for all octopuses that are listed in vector octopuses_to_increase
     for (index, value) in octopuses.iter_mut().enumerate() {
         if octopuses_to_increase.contains(&index) {
             *value += 1;
