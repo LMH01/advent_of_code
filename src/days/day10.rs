@@ -80,13 +80,19 @@ pub fn part2(debug: bool) -> Result<()> {
             }
         }
         if debug {
-            println!("Completion score: {:012}", completion_string_score(&completion_string));
+            println!(
+                "Completion score: {:012}",
+                completion_string_score(&completion_string)
+            );
         }
         completion_scores.push(completion_string_score(&completion_string));
     }
     completion_scores.sort_unstable();
     // This statement can panic if completion_scores does contain an odd number of elements
-    println!("Middle score: {}", completion_scores.get(completion_scores.len()/2).unwrap());
+    println!(
+        "Middle score: {}",
+        completion_scores.get(completion_scores.len() / 2).unwrap()
+    );
     Ok(())
 }
 
