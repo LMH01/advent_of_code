@@ -66,12 +66,12 @@ pub fn part2(debug: bool) -> Result<()> {
         match char {
             'x' => {
                 fold_x(&mut dots, current_size.0, current_size.1);
-                current_size = (current_size.0/2, current_size.1);
-            },
+                current_size = (current_size.0 / 2, current_size.1);
+            }
             'y' => {
                 fold_y(&mut dots, current_size.0, current_size.1);
-                current_size = (current_size.0, current_size.1/2);
-            },
+                current_size = (current_size.0, current_size.1 / 2);
+            }
             _ => (),
         }
     }
@@ -133,8 +133,8 @@ fn get_size(input: &Vec<String>) -> Result<(usize, usize)> {
 
 /// Fold dots in y direction
 fn fold_y(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
-    let middle_line = max_y/2;
-    let mut folded: Vec<Vec<bool>> = initialize_dots(max_x, middle_line-1);
+    let middle_line = max_y / 2;
+    let mut folded: Vec<Vec<bool>> = initialize_dots(max_x, middle_line - 1);
     for (index_y, line) in dots.iter().enumerate() {
         if index_y < middle_line {
             for (index_x, dot) in line.iter().enumerate() {
@@ -146,7 +146,7 @@ fn fold_y(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
             for (index_x, dot) in line.iter().enumerate() {
                 if *dot {
                     let distance_to_middle = index_y - middle_line;
-                    set_dot_active(index_x, middle_line-distance_to_middle, &mut folded);
+                    set_dot_active(index_x, middle_line - distance_to_middle, &mut folded);
                 }
             }
         }
@@ -156,8 +156,8 @@ fn fold_y(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
 
 /// Fold dots in x direction
 fn fold_x(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
-    let middle_line = max_x/2;
-    let mut folded: Vec<Vec<bool>> = initialize_dots(middle_line-1, max_y);
+    let middle_line = max_x / 2;
+    let mut folded: Vec<Vec<bool>> = initialize_dots(middle_line - 1, max_y);
     for (index_y, line) in dots.iter().enumerate() {
         for (index_x, dot) in line.iter().enumerate() {
             if index_x < middle_line {
@@ -167,7 +167,7 @@ fn fold_x(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
             } else if index_x > middle_line {
                 if *dot {
                     let distance_to_middle = index_x - middle_line;
-                    set_dot_active(middle_line-distance_to_middle, index_y, &mut folded);
+                    set_dot_active(middle_line - distance_to_middle, index_y, &mut folded);
                 }
             }
         }

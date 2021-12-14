@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use crate::days::{day1, day10, day11, day13, day2, day3, day4, day5, day6, day7, day8};
+use crate::days::{day1, day10, day11, day13, day14, day2, day3, day4, day5, day6, day7, day8};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
 use miette::miette;
@@ -72,6 +72,7 @@ fn main() -> miette::Result<()> {
             10 => run_day(day10::part1, day10::part2, 10, parts, opts.debug)?,
             11 => run_day(day11::part1, day11::part2, 11, parts, opts.debug)?,
             13 => run_day(day13::part1, day13::part2, 13, parts, opts.debug)?,
+            14 => run_day(day14::part1, day14::part2, 14, parts, opts.debug)?,
             _ => {
                 return Err(miette!(
                     "Unable to run: No solution available yet for day {}.",
@@ -100,6 +101,7 @@ fn main() -> miette::Result<()> {
         run_day(day10::part1, day10::part2, 10, (true, true), opts.debug)?;
         run_day(day11::part1, day11::part2, 11, (true, true), opts.debug)?;
         run_day(day13::part1, day13::part2, 13, (true, true), opts.debug)?;
+        run_day(day14::part1, day14::part2, 14, (true, true), opts.debug)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())
