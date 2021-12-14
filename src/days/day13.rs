@@ -8,8 +8,8 @@ pub fn part1(debug: bool) -> Result<()> {
     let mut dots: Vec<Vec<bool>> = initialize_dots(size.0, size.1);
     // Set the active dots
     for line in content {
-        if let Some(x) = line.split(",").nth(0) {
-            if let Some(y) = line.split(",").nth(1) {
+        if let Some(x) = line.split(',').next() {
+            if let Some(y) = line.split(',').nth(1) {
                 if debug {
                     println!("Setting dot active: ({}, {})", x, y);
                 }
@@ -40,8 +40,8 @@ pub fn part2(debug: bool) -> Result<()> {
     let mut folding_directions: Vec<char> = Vec::new();
     // Set the active dots
     for line in content {
-        if let Some(x) = line.split(",").nth(0) {
-            if let Some(y) = line.split(",").nth(1) {
+        if let Some(x) = line.split(',').next() {
+            if let Some(y) = line.split(',').nth(1) {
                 if debug {
                     println!("Setting dot active: ({}, {})", x, y);
                 }
@@ -93,7 +93,7 @@ fn initialize_dots(max_x: usize, max_y: usize) -> Vec<Vec<bool>> {
 }
 
 /// Prints the dots to the console
-fn print_dots(dots: &Vec<Vec<bool>>) {
+fn print_dots(dots: &[Vec<bool>]) {
     println!("Printing:");
     for line in dots {
         for dot in line {
@@ -103,7 +103,7 @@ fn print_dots(dots: &Vec<Vec<bool>>) {
                 print!(".");
             }
         }
-        println!("");
+        println!();
     }
 }
 
@@ -113,12 +113,12 @@ fn set_dot_active(x: usize, y: usize, dots: &mut Vec<Vec<bool>>) {
 }
 
 /// Analyses the input file and determies the max x and y coordinate
-fn get_size(input: &Vec<String>) -> Result<(usize, usize)> {
+fn get_size(input: &[String]) -> Result<(usize, usize)> {
     let mut max_x: usize = 0;
     let mut max_y: usize = 0;
     for line in input {
-        if let Some(x) = line.split(",").nth(0) {
-            if let Some(y) = line.split(",").nth(1) {
+        if let Some(x) = line.split(',').next() {
+            if let Some(y) = line.split(',').nth(1) {
                 if x.parse::<usize>().into_diagnostic()? > max_x {
                     max_x = x.parse().into_diagnostic()?;
                 }
@@ -136,19 +136,25 @@ fn fold_y(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
     let middle_line = max_y / 2;
     let mut folded: Vec<Vec<bool>> = initialize_dots(max_x, middle_line - 1);
     for (index_y, line) in dots.iter().enumerate() {
-        if index_y < middle_line {
+        match index_y.cmp(&middle_line) {
+            std::cmp::Ordering::Less => {
             for (index_x, dot) in line.iter().enumerate() {
                 if *dot {
                     set_dot_active(index_x, index_y, &mut folded);
                 }
             }
-        } else if index_y > middle_line {
+
+            },
+            std::cmp::Ordering::Greater => {
             for (index_x, dot) in line.iter().enumerate() {
                 if *dot {
                     let distance_to_middle = index_y - middle_line;
                     set_dot_active(index_x, middle_line - distance_to_middle, &mut folded);
                 }
             }
+
+            },
+            _ => (),
         }
     }
     *dots = folded;
@@ -164,11 +170,9 @@ fn fold_x(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
                 if *dot {
                     set_dot_active(index_x, index_y, &mut folded);
                 }
-            } else if index_x > middle_line {
-                if *dot {
-                    let distance_to_middle = index_x - middle_line;
-                    set_dot_active(middle_line - distance_to_middle, index_y, &mut folded);
-                }
+            } else if index_x > middle_line && *dot {
+                let distance_to_middle = index_x - middle_line;
+                set_dot_active(middle_line - distance_to_middle, index_y, &mut folded);
             }
         }
     }
@@ -176,7 +180,7 @@ fn fold_x(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
 }
 
 /// Returns how many dots are set to true in the vector
-fn visible_dots(dots: &Vec<Vec<bool>>) -> i32 {
+fn visible_dots(dots: &[Vec<bool>]) -> i32 {
     let mut visible_dots = 0;
     for line in dots {
         for dot in line {
