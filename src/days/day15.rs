@@ -39,11 +39,11 @@ fn neighbor_positions(pos: (usize, usize), max_x_size: usize, max_y_size: usize)
     if pos.1 != 0 {
         positions.push((pos.0, pos.1-1));
     }
-    if pos.0 != max_x_size {
-        positions.push((pos.0, pos.1+1));
-    }
-    if pos.1 != max_y_size {
+    if pos.0 != max_x_size-1 {
         positions.push((pos.0+1, pos.1));
+    }
+    if pos.1 != max_y_size-1 {
+        positions.push((pos.0, pos.1+1));
     }
     positions
 }
