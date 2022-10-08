@@ -185,8 +185,8 @@ checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
 
 [[package]]
 name = "lmh01_pathfinding"
-version = "1.0.0"
-source = "git+https://github.com/LMH01/rust_pathfinding.git#1f81c3ffeedd585b41e7dbd76d8be3c69c4b23bd"
+version = "2.0.0"
+source = "git+https://github.com/LMH01/rust_pathfinding.git#6d3902f0a9a6c28e8bec1d167f655ea69f3f86ec"
 
 [[package]]
 name = "memchr"
