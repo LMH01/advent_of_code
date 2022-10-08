@@ -104,6 +104,7 @@ fn main() -> miette::Result<()> {
         run_day(day11::part1, day11::part2, 11, (true, true), opts.debug)?;
         run_day(day13::part1, day13::part2, 13, (true, true), opts.debug)?;
         run_day(day14::part1, day14::part2, 14, (true, true), opts.debug)?;
+        run_day(day15::part1, day15::part2, 15, (true, true), opts.debug)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())

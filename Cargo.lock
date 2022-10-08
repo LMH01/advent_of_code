@@ -23,6 +23,7 @@ version = "0.1.0"
 dependencies = [
  "adventofcode_lmh01_lib",
  "clap",
+ "lmh01_pathfinding",
  "miette",
 ]
 
@@ -181,6 +182,11 @@ name = "libc"
 version = "0.2.109"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
+
+[[package]]
+name = "lmh01_pathfinding"
+version = "1.0.0"
+source = "git+https://github.com/LMH01/rust_pathfinding.git#1f81c3ffeedd585b41e7dbd76d8be3c69c4b23bd"
 
 [[package]]
 name = "memchr"
