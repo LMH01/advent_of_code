@@ -200,7 +200,7 @@ fn resolve_ac_mappings(
     let mut times_char_b = 0;
     for part in parts {
         if part.len() == 5 {
-            if part.contains(|char| *aight_time_chars.get(0).unwrap() == char) {
+            if part.contains(|char| *aight_time_chars.first().unwrap() == char) {
                 times_char_a += 1;
             }
             if part.contains(|char| *aight_time_chars.get(1).unwrap() == char) {
@@ -209,11 +209,11 @@ fn resolve_ac_mappings(
         }
     }
     if times_char_a == 3 {
-        segment_mappings.insert(*aight_time_chars.get(0).unwrap(), 'a');
+        segment_mappings.insert(*aight_time_chars.first().unwrap(), 'a');
         segment_mappings.insert(*aight_time_chars.get(1).unwrap(), 'c');
     } else if times_char_b == 3 {
         segment_mappings.insert(*aight_time_chars.get(1).unwrap(), 'a');
-        segment_mappings.insert(*aight_time_chars.get(0).unwrap(), 'c');
+        segment_mappings.insert(*aight_time_chars.first().unwrap(), 'c');
     }
 }
 
@@ -236,7 +236,7 @@ fn resolve_dg_mappings(
     let mut times_char_b = 0;
     for part in parts {
         if part.len() == 6 {
-            if part.contains(|char| *seven_time_chars.get(0).unwrap() == char) {
+            if part.contains(|char| *seven_time_chars.first().unwrap() == char) {
                 times_char_a += 1;
             }
             if part.contains(|char| *seven_time_chars.get(1).unwrap() == char) {
@@ -245,10 +245,10 @@ fn resolve_dg_mappings(
         }
     }
     if times_char_a == 3 {
-        segment_mappings.insert(*seven_time_chars.get(0).unwrap(), 'g');
+        segment_mappings.insert(*seven_time_chars.first().unwrap(), 'g');
         segment_mappings.insert(*seven_time_chars.get(1).unwrap(), 'd');
     } else if times_char_b == 3 {
         segment_mappings.insert(*seven_time_chars.get(1).unwrap(), 'g');
-        segment_mappings.insert(*seven_time_chars.get(0).unwrap(), 'd');
+        segment_mappings.insert(*seven_time_chars.first().unwrap(), 'd');
     }
 }

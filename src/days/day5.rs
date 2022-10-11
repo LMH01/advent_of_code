@@ -13,10 +13,10 @@ pub fn part1(debug: bool) -> Result<()> {
         let mut p2: (&str, &str) = ("", "");
 
         if let Some((a, b)) = line.split_once(" -> ") {
-            if let Some((a, b)) = a.split_once(",") {
+            if let Some((a, b)) = a.split_once(',') {
                 p1 = (a, b);
             }
-            if let Some((a, b)) = b.split_once(",") {
+            if let Some((a, b)) = b.split_once(',') {
                 p2 = (a, b);
             }
         }
@@ -63,10 +63,10 @@ pub fn part2(debug: bool) -> Result<()> {
         let mut p2: (&str, &str) = ("", "");
 
         if let Some((a, b)) = line.split_once(" -> ") {
-            if let Some((a, b)) = a.split_once(",") {
+            if let Some((a, b)) = a.split_once(',') {
                 p1 = (a, b);
             }
-            if let Some((a, b)) = b.split_once(",") {
+            if let Some((a, b)) = b.split_once(',') {
                 p2 = (a, b);
             }
         }

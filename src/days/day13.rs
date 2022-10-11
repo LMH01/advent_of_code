@@ -108,7 +108,7 @@ fn print_dots(dots: &[Vec<bool>]) {
 }
 
 /// Sets the input coordinate active
-fn set_dot_active(x: usize, y: usize, dots: &mut Vec<Vec<bool>>) {
+fn set_dot_active(x: usize, y: usize, dots: &mut [Vec<bool>]) {
     *dots.get_mut(y).unwrap().get_mut(x).unwrap() = true;
 }
 

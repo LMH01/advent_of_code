@@ -96,7 +96,7 @@ fn simulate_step(octopuses: &mut Vec<u8>, flashes: &mut i32) {
     }
 }
 
-fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut Vec<u8>) {
+fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut [u8]) {
     // This can probably be solved much cleaner
     let positive_steps;
     let negative_steps;
@@ -144,7 +144,7 @@ fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut Vec<u
     }
 }
 
-fn print_octopuses(octopuses: &mut Vec<u8>) {
+fn print_octopuses(octopuses: &mut [u8]) {
     for (index, value) in octopuses.iter().enumerate() {
         match index {
             0 => print!("Line 01: "),

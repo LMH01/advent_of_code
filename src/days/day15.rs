@@ -19,7 +19,7 @@ pub fn part2(debug: bool) -> Result<()> {
             for (i_x, x) in y.iter().enumerate() {
                 print!("{}", x);
                 if i_x % 10 == 9 {
-                    print!("{}", ' ');
+                    print!(" ");
                 }
             }
             if i % 10 == 9 {
@@ -41,7 +41,7 @@ fn duplicate_map(mut map: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
             larger_map.push(y.iter().map(|x| {
                 let mut new_risk = x + i;
                 if new_risk >= 10 {
-                    new_risk = new_risk-9;
+                    new_risk -= 9;
                 }
                 new_risk
             }).collect());
@@ -56,7 +56,7 @@ fn duplicate_map(mut map: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
             for x in y {
                 let mut new_risk = x + i;
                 if new_risk >= 10 {
-                    new_risk = new_risk-9;
+                    new_risk -= 9;
                 }
                 new_line.push(new_risk);
             }
@@ -69,13 +69,11 @@ fn duplicate_map(mut map: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
 fn setup_vec(content: Vec<String>) -> (Vec<Vec<i32>>, usize) {
     let mut vec: Vec<Vec<i32>> = Vec::new();
     let mut max_x_size = 0;
-    let mut index = 0;
     for line in content {
         max_x_size = line.len();
         let mut inner_vec: Vec<i32> = Vec::new();
         for c in line.chars() {
             inner_vec.push(i32::try_from(c.to_digit(10).unwrap()).unwrap());
-            index += 1;
         }
         vec.push(inner_vec);
     }
