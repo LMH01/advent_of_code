@@ -66,7 +66,7 @@ fn duplicate_map(mut map: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     larger_map
 }
 
-fn setup_vec(content: Vec<String>) -> (Vec<Vec<i32>>, usize) {
+pub fn setup_vec(content: Vec<String>) -> (Vec<Vec<i32>>, usize) {
     let mut vec: Vec<Vec<i32>> = Vec::new();
     let mut max_x_size = 0;
     for line in content {
