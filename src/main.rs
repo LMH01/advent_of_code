@@ -65,6 +65,7 @@ fn main() -> miette::Result<()> {
         }
     } else {
        run_year(&opts, 2021)?; 
+       run_year(&opts, 2022)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())
