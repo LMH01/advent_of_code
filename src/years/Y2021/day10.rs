@@ -2,7 +2,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {
-    let content = read_file("input/day10.txt")?;
+    let content = read_file("../input/Y2021/day10.txt")?;
     let mut synatx_error_score = 0;
     for line in content {
         let mut brackets: Vec<char> = Vec::new();
@@ -29,7 +29,7 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("input/day10.txt")?;
+    let content = read_file("../input/Y2021/day10.txt")?;
     let mut corrupted_lines = Vec::new();
     for line in &content {
         let mut brackets: Vec<char> = Vec::new();
