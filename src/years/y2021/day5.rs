@@ -4,7 +4,7 @@ use miette::{IntoDiagnostic, Result};
 use std::cmp::Ordering;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let vec = read_file("input/day5.txt")?;
+    let vec = read_file("../input/y2021/day5.txt")?;
     let mut lines: Vec<Line> = Vec::new();
     let mut board = Board::new();
 
@@ -54,7 +54,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let vec = read_file("input/day5.txt")?;
+    let vec = read_file("../input/y2021/day5.txt")?;
     let mut lines: Vec<Line> = Vec::new();
     let mut board = Board::new();
 

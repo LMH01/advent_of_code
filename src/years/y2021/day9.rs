@@ -7,7 +7,7 @@ use miette::Result;
 use super::day15::setup_vec;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day9.txt")?;
+    let content = read_file("../input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);
     let mut risk = 0;
@@ -22,13 +22,13 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day9.txt")?;
+    let content = read_file("../input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);
     let mut basins = basins(&vec.0, vec.0[0].len(), lowpoints);
     let mut largest_basins = Vec::new();
     basins.sort();
-    for i in 1..=3 {
+    for _i in 1..=3 {
         largest_basins.push(basins.pop().unwrap());
     }
     println!("Largest basins: {:?}", largest_basins);
@@ -60,7 +60,7 @@ fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize
     let mut basins = Vec::new();
     // Get basin size of entry
     for entry in lowpoints {
-        let mut neighbors = neighbor_positions((entry.0, entry.1), max_x_size, input.len());
+        let neighbors = neighbor_positions((entry.0, entry.1), max_x_size, input.len());
         let mut open_neighbors = Vec::new();
         let mut closed_neighbors: HashSet<(usize, usize)> = HashSet::new();
         let mut basin_size = 0;

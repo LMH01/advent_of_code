@@ -2,7 +2,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::{IntoDiagnostic, Result};
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day13.txt")?;
+    let content = read_file("../input/y2021/day13.txt")?;
     // Determine what the maximum grid size is
     let size = get_size(&content)?;
     let mut dots: Vec<Vec<bool>> = initialize_dots(size.0, size.1);
@@ -33,7 +33,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day13.txt")?;
+    let content = read_file("../input/y2021/day13.txt")?;
     // Determine what the maximum grid size is
     let size = get_size(&content)?;
     let mut dots: Vec<Vec<bool>> = initialize_dots(size.0, size.1);

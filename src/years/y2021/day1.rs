@@ -4,7 +4,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day1.txt")?;
+    let content = read_file("../input/y2021/day1.txt")?;
     let mut x;
     let mut y = MAX;
     let mut increases = 0;
@@ -24,7 +24,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day1.txt")?;
+    let content = read_file("../input/y2021/day1.txt")?;
     let mut increases = 0;
     let mut i = 0;
     let mut last_number = None;

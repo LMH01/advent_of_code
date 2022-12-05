@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use crate::years::Y2021;
+use crate::years::y2021;
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
 use miette::miette;
@@ -78,27 +78,27 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
     println!();
     match year {
         2021 => {
-            run_day(Y2021::day1::part1, Y2021::day1::part2, 1, (true, true), opts.debug)?;
-            run_day(Y2021::day2::part1, Y2021::day2::part2, 2, (true, true), opts.debug)?;
-            run_day(Y2021::day3::part1, Y2021::day3::part2, 3, (true, true), opts.debug)?;
-            run_day(Y2021::day4::part1, Y2021::day4::part2, 4, (true, true), opts.debug)?;
+            run_day(y2021::day1::part1, y2021::day1::part2, 1, (true, true), opts.debug)?;
+            run_day(y2021::day2::part1, y2021::day2::part2, 2, (true, true), opts.debug)?;
+            run_day(y2021::day3::part1, y2021::day3::part2, 3, (true, true), opts.debug)?;
+            run_day(y2021::day4::part1, y2021::day4::part2, 4, (true, true), opts.debug)?;
             run_slow_day(
-                Y2021::day5::part1,
-                Y2021::day5::part2,
+                y2021::day5::part1,
+                y2021::day5::part2,
                 5,
                 (true, true),
                 opts.debug,
                 opts.all,
             )?;
-            run_day(Y2021::day6::part1, Y2021::day6::part2, 6, (true, true), opts.debug)?;
-            run_day(Y2021::day7::part1, Y2021::day7::part2, 7, (true, true), opts.debug)?;
-            run_day(Y2021::day8::part1, Y2021::day8::part2, 8, (true, true), opts.debug)?;
-            run_day(Y2021::day9::part1, Y2021::day9::part2, 9, (true, true), opts.debug)?;
-            run_day(Y2021::day10::part1, Y2021::day10::part2, 10, (true, true), opts.debug)?;
-            run_day(Y2021::day11::part1, Y2021::day11::part2, 11, (true, true), opts.debug)?;
-            run_day(Y2021::day13::part1, Y2021::day13::part2, 13, (true, true), opts.debug)?;
-            run_day(Y2021::day14::part1, Y2021::day14::part2, 14, (true, true), opts.debug)?;
-            run_day(Y2021::day15::part1, Y2021::day15::part2, 15, (true, true), opts.debug)?;
+            run_day(y2021::day6::part1, y2021::day6::part2, 6, (true, true), opts.debug)?;
+            run_day(y2021::day7::part1, y2021::day7::part2, 7, (true, true), opts.debug)?;
+            run_day(y2021::day8::part1, y2021::day8::part2, 8, (true, true), opts.debug)?;
+            run_day(y2021::day9::part1, y2021::day9::part2, 9, (true, true), opts.debug)?;
+            run_day(y2021::day10::part1, y2021::day10::part2, 10, (true, true), opts.debug)?;
+            run_day(y2021::day11::part1, y2021::day11::part2, 11, (true, true), opts.debug)?;
+            run_day(y2021::day13::part1, y2021::day13::part2, 13, (true, true), opts.debug)?;
+            run_day(y2021::day14::part1, y2021::day14::part2, 14, (true, true), opts.debug)?;
+            run_day(y2021::day15::part1, y2021::day15::part2, 15, (true, true), opts.debug)?;
             Ok(())
         },
         _ => Err(miette!("Unable to run: No solution available for year {}.", year)),
@@ -122,20 +122,20 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
     match year {
         2021 => {
             match day {
-                1 => run_day(Y2021::day1::part1, Y2021::day1::part2, 1, parts, opts.debug)?,
-                2 => run_day(Y2021::day2::part1, Y2021::day2::part2, 2, parts, opts.debug)?,
-                3 => run_day(Y2021::day3::part1, Y2021::day3::part2, 3, parts, opts.debug)?,
-                4 => run_day(Y2021::day4::part1, Y2021::day4::part2, 4, parts, opts.debug)?,
-                5 => run_day(Y2021::day5::part1, Y2021::day5::part2, 5, parts, opts.debug)?,
-                6 => run_day(Y2021::day6::part1, Y2021::day6::part2, 6, parts, opts.debug)?,
-                7 => run_day(Y2021::day7::part1, Y2021::day7::part2, 7, parts, opts.debug)?,
-                8 => run_day(Y2021::day8::part1, Y2021::day8::part2, 8, parts, opts.debug)?,
-                9 => run_day(Y2021::day9::part1, Y2021::day9::part2, 9, parts, opts.debug)?,
-                10 => run_day(Y2021::day10::part1, Y2021::day10::part2, 10, parts, opts.debug)?,
-                11 => run_day(Y2021::day11::part1, Y2021::day11::part2, 11, parts, opts.debug)?,
-                13 => run_day(Y2021::day13::part1, Y2021::day13::part2, 13, parts, opts.debug)?,
-                14 => run_day(Y2021::day14::part1, Y2021::day14::part2, 14, parts, opts.debug)?,
-                15 => run_day(Y2021::day15::part1, Y2021::day15::part2, 15, parts, opts.debug)?,
+                1 => run_day(y2021::day1::part1, y2021::day1::part2, 1, parts, opts.debug)?,
+                2 => run_day(y2021::day2::part1, y2021::day2::part2, 2, parts, opts.debug)?,
+                3 => run_day(y2021::day3::part1, y2021::day3::part2, 3, parts, opts.debug)?,
+                4 => run_day(y2021::day4::part1, y2021::day4::part2, 4, parts, opts.debug)?,
+                5 => run_day(y2021::day5::part1, y2021::day5::part2, 5, parts, opts.debug)?,
+                6 => run_day(y2021::day6::part1, y2021::day6::part2, 6, parts, opts.debug)?,
+                7 => run_day(y2021::day7::part1, y2021::day7::part2, 7, parts, opts.debug)?,
+                8 => run_day(y2021::day8::part1, y2021::day8::part2, 8, parts, opts.debug)?,
+                9 => run_day(y2021::day9::part1, y2021::day9::part2, 9, parts, opts.debug)?,
+                10 => run_day(y2021::day10::part1, y2021::day10::part2, 10, parts, opts.debug)?,
+                11 => run_day(y2021::day11::part1, y2021::day11::part2, 11, parts, opts.debug)?,
+                13 => run_day(y2021::day13::part1, y2021::day13::part2, 13, parts, opts.debug)?,
+                14 => run_day(y2021::day14::part1, y2021::day14::part2, 14, parts, opts.debug)?,
+                15 => run_day(y2021::day15::part1, y2021::day15::part2, 15, parts, opts.debug)?,
                 _ => {
                     return Err(miette!(
                         "Unable to run: No solution available for year {} day {}.",

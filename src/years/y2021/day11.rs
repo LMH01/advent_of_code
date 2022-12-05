@@ -2,7 +2,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day11.txt")?;
+    let content = read_file("../input/y2021/day11.txt")?;
     let mut octopuses: Vec<u8> = Vec::new();
     for line in content {
         for char in line.chars() {
@@ -29,7 +29,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day11.txt")?;
+    let content = read_file("../input/y2021/day11.txt")?;
     let mut octopuses: Vec<u8> = Vec::new();
     for line in content {
         for char in line.chars() {

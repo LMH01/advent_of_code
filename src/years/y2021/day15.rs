@@ -3,14 +3,14 @@ use lmh01_pathfinding::{Graph, djikstra};
 use miette::Result;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day15.txt")?; 
+    let content = read_file("../input/y2021/day15.txt")?; 
     let vec = setup_vec(content);
     run_djikstra(vec.0, debug, vec.1);
     Ok(())
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("../input/Y2021/day15.txt")?; 
+    let content = read_file("../input/y2021/day15.txt")?; 
     let vec = setup_vec(content);
     let larger_map = duplicate_map(vec.0);
     if debug {
