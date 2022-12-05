@@ -3,26 +3,36 @@ use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {
     let content = read_file("input/y2022/day01.txt")?;
-    let mut max_calories = 0;
+    let mut calories = get_calories(&content);
+    calories.sort();
+    let max = calories.pop().unwrap();
+    println!("Max calories: {}", max);
+    Ok(())
+}
+
+pub fn part2(_debug: bool) -> Result<()> {
+    let content = read_file("input/y2022/day01.txt")?;
+    let mut calories = get_calories(&content);
+    calories.sort();
+    let mut total = calories.pop().unwrap();
+    total += calories.pop().unwrap();
+    total += calories.pop().unwrap();
+    println!("Top 3 total calories: {}", total);
+    Ok(())
+}
+
+/// Returns vector that contains all sums of calories
+fn get_calories(content: &Vec<String>) -> Vec<i32> {
+    let mut calories: Vec<i32> = Vec::new();
     let mut current_calories = 0;
     for line in content {
         if line.is_empty() {
-            if current_calories > max_calories {
-                max_calories = current_calories;
-            }
+            calories.push(current_calories);
             current_calories = 0;
         } else {
             current_calories += line.parse::<i32>().unwrap();
         }
     }
-    if current_calories > max_calories {
-        max_calories = current_calories;
-    }
-    println!("Max calories: {}", max_calories);
-    Ok(())
-}
-
-pub fn part2(_debug: bool) -> Result<()> {
-    let _content = read_file("../input/y2022/day01.txt")?;
-    Ok(())
+    calories.push(current_calories);
+    calories
 }
