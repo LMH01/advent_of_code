@@ -5,7 +5,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     let content = read_file("input/y2022/day02.txt")?;
     let mut points = 0;
     for line in content {
-        points += match_points(line.chars().nth(0).unwrap(), line.chars().nth(2).unwrap());
+        points += match_points(line.chars().next().unwrap(), line.chars().nth(2).unwrap());
         points += object_points(line.chars().nth(2).unwrap());
     }
     println!("Points: {}", points);
@@ -13,7 +13,40 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("input/y2022()(/day02.txt")?;
+    let content = read_file("input/y2022/day02.txt")?;
+    let mut points = 0;
+    for line in content {
+        let opponent = line.chars().next().unwrap();
+        let outcome = line.chars().nth(2).unwrap();
+        match opponent {
+            'A' => {
+                match outcome {
+                    'X' => points += 3,
+                    'Y' => points += 4,
+                    'Z' => points += 8,
+                    _ => (),
+                }
+            }
+            'B' => {
+                match outcome {
+                    'X' => points += 1,
+                    'Y' => points += 5,
+                    'Z' => points += 9,
+                    _ => (),
+                }
+            }
+            'C' => {
+                match outcome {
+                    'X' => points += 2,
+                    'Y' => points += 6,
+                    'Z' => points += 7,
+                    _ => (),
+                }
+            }
+            _ => (),
+        }
+    }
+    println!("Points: {}", points);
     Ok(())
 }
 
