@@ -4,7 +4,7 @@ use miette::{IntoDiagnostic, Result};
 use std::collections::HashMap;
 
 pub fn part1(_debug: bool) -> Result<()> {
-    let vec = read_file("../input/y2021/day4.txt")?;
+    let vec = read_file("input/y2021/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
     let mut current_bingo_numbers: Vec<i32> = Vec::new();
@@ -49,7 +49,7 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let vec = read_file("../input/y2021/day4.txt")?;
+    let vec = read_file("input/y2021/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
     let mut current_bingo_numbers: Vec<i32> = Vec::new();

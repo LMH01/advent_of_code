@@ -7,7 +7,7 @@ use miette::Result;
 use super::day15::setup_vec;
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/y2021/day9.txt")?;
+    let content = read_file("input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);
     let mut risk = 0;
@@ -22,7 +22,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("../input/y2021/day9.txt")?;
+    let content = read_file("input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);
     let mut basins = basins(&vec.0, vec.0[0].len(), lowpoints);

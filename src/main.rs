@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use crate::years::y2021;
+use crate::years::{y2021, y2022};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
 use miette::miette;
@@ -101,6 +101,10 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
             run_day(y2021::day15::part1, y2021::day15::part2, 15, (true, true), opts.debug)?;
             Ok(())
         },
+        2022 => {
+            run_day(y2022::day01::part1, y2022::day01::part2, 1, (true, true), opts.debug)?;
+            Ok(())
+        }
         _ => Err(miette!("Unable to run: No solution available for year {}.", year)),
     }
 }
@@ -145,6 +149,18 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
                 }
             }
         },
+        2022 => {
+            match day {
+                1 => run_day(y2022::day01::part1, y2022::day01::part2, 1, parts, opts.debug)?,
+                _ => {
+                    return Err(miette!(
+                        "Unable to run: No solution available for year {} day {}.",
+                        &year,
+                        &day
+                    ))
+                }
+            }
+        }
         _ => return Err(miette!("Unable to run: Not solution available for year {}.", year)),
     }
     Ok(())

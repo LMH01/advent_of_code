@@ -4,7 +4,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::{IntoDiagnostic, Result};
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("../input/y2021/day14.txt")?;
+    let content = read_file("input/y2021/day14.txt")?;
     let mut insertion_rules: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
     init_insertion_rules(&content, &mut input, &mut insertion_rules);
@@ -21,7 +21,7 @@ pub fn part1(debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    /*let content = read_file("../input/Y2021/day14_test.txt")?;
+    /*let content = read_file("input/Y2021/day14_test.txt")?;
     let mut insertion_rules: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
     init_insertion_rules(&content, &mut input, &mut insertion_rules);

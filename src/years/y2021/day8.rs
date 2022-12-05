@@ -4,7 +4,7 @@ use adventofcode_lmh01_lib::read_file;
 use miette::{miette, Result};
 
 pub fn part1(_debug: bool) -> Result<()> {
-    let content = read_file("../input/y2021/day8.txt")?;
+    let content = read_file("input/y2021/day8.txt")?;
     let mut output_values: Vec<String> = Vec::new();
     for line in content {
         if let Some(string) = line.split(" | ").nth(1) {
@@ -28,7 +28,7 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("../input/y2021/day8.txt")?;
+    let content = read_file("input/y2021/day8.txt")?;
     let mut entries: HashMap<String, String> = HashMap::new();
     let mut output_total = 0;
     for line in content {
