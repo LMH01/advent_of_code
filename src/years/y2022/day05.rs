@@ -1,4 +1,4 @@
-use adventofcode_lmh01_lib::{read_file, read_file_absolute};
+use adventofcode_lmh01_lib::read_file_absolute;
 use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {
@@ -31,7 +31,6 @@ pub fn part2(_debug: bool) -> Result<()> {
 
 struct TowerContainer {
     tower: Vec<Vec<char>>,
-    number_of_towers: u32,
     max_height: u32,
 }
 
@@ -46,7 +45,6 @@ impl TowerContainer {
         }
         let container = Self {
             tower,
-            number_of_towers: tower_stats.0,
             max_height: tower_stats.1,
         };
         container.print_tower();
