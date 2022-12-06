@@ -105,6 +105,7 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
         2022 => {
             run_day(y2022::day01::part1, y2022::day01::part2, 1, (true, true), opts.debug)?;
             run_day(y2022::day02::part1, y2022::day02::part2, 2, (true, true), opts.debug)?;
+            run_day(y2022::day03::part1, y2022::day03::part2, 3, (true, true), opts.debug)?;
             run_day(y2022::day05::part1, y2022::day05::part2, 5, (true, true), opts.debug)?;
             run_day(y2022::day06::part1, y2022::day06::part2, 6, (true, true), opts.debug)?;
             Ok(())
@@ -157,6 +158,7 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
             match day {
                 1 => run_day(y2022::day01::part1, y2022::day01::part2, 1, parts, opts.debug)?,
                 2 => run_day(y2022::day02::part1, y2022::day02::part2, 2, parts, opts.debug)?,
+                3 => run_day(y2022::day03::part1, y2022::day03::part2, 3, parts, opts.debug)?,
                 5 => run_day(y2022::day05::part1, y2022::day05::part2, 5, parts, opts.debug)?,
                 6 => run_day(y2022::day06::part1, y2022::day06::part2, 6, parts, opts.debug)?,
                 _ => {
