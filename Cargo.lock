@@ -29,8 +29,8 @@ dependencies = [
 
 [[package]]
 name = "adventofcode_lmh01_lib"
-version = "2.4.1"
-source = "git+https://github.com/LMH01/adventofcode_lmh01_lib.git#cd99ce51486052c5a067554bba836631f31e082b"
+version = "2.5.0"
+source = "git+https://github.com/LMH01/adventofcode_lmh01_lib.git#56a3b6c0a1374622df262ec791293ed494cdb79c"
 dependencies = [
  "miette",
 ]
