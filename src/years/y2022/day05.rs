@@ -16,7 +16,16 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("input/y2022/day05.txt")?;
+    let content = read_file_absolute("input/y2022/day05.txt")?;
+    let mut container = TowerContainer::from_input(&content);
+    let tower_height = container.max_height;
+    for (index, line) in content.iter().enumerate() {
+        if index > (tower_height + 1).try_into().unwrap() {
+            let instructions = parse_instructions(&line);
+            container.move_crate_part2(instructions.0, instructions.1, instructions.2);
+        }
+    }
+    println!("\nMessage: {}", container.message());
     Ok(())
 }
 
@@ -57,11 +66,25 @@ impl TowerContainer {
 
     /// Moves the specified amount of crates from origin to target.
     pub fn move_crate(&mut self, crate_amount: u32, origin: u32, target: u32) {
+        let origin_index: usize = (origin - 1).try_into().unwrap();
+        let target_index: usize = (target - 1).try_into().unwrap();
         for _i in 1..=crate_amount {
-            let origin_index: usize = (origin - 1).try_into().unwrap();
-            let target_index: usize = (target - 1).try_into().unwrap();
             let c = self.tower.get_mut(origin_index).unwrap().pop().unwrap();
             self.tower.get_mut(target_index).unwrap().push(c);
+        }
+    }
+
+    /// Moves the specified amount of crates from origin to target. Retains order of elements.
+    pub fn move_crate_part2(&mut self, crate_amount: u32, origin: u32, target: u32) {
+        let mut tmp: Vec<char> = Vec::new();
+        let origin_index: usize = (origin - 1).try_into().unwrap();
+        let target_index: usize = (target - 1).try_into().unwrap();
+        for _i in 1..=crate_amount {
+            let c = self.tower.get_mut(origin_index).unwrap().pop().unwrap();
+            tmp.push(c);
+        }
+        for _i in 1..=crate_amount {
+            self.tower.get_mut(target_index).unwrap().push(tmp.pop().unwrap());
         }
     }
 
