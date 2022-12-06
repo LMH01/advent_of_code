@@ -18,6 +18,21 @@ pub fn part1(_debug: bool) -> Result<()> {
 
 pub fn part2(_debug: bool) -> Result<()> {
     let content = read_file("input/y2022/day03.txt")?;
+    let mut priority_total = 0;
+    let mut current_lines = Vec::new();
+    let mut i = 0;
+    for line in content {
+        i += 1;
+        current_lines.push(line);
+        if i == 3 {
+            let duplicate = common_item(&current_lines[0], &current_lines[1], &current_lines[2]);
+            let priority = retrieve_priority(duplicate.unwrap());
+            priority_total += priority;
+            current_lines = Vec::new();
+            i = 0;
+        }
+    }
+    println!("Priority total: {priority_total}");
     Ok(())
 }
 
@@ -28,6 +43,21 @@ fn duplicate(a: &str, b: &str) -> Option<char> {
         set.insert(c);
     }
     b.chars().find(|&c| set.contains(&c))
+}
+
+/// Finds the only char that is contain in each string
+fn common_item(a: &str, b: &str, c: &str) -> Option<char> {
+    let mut set = HashSet::new();
+    let mut a_b_duplicates = HashSet::new();
+    for c in a.chars() {
+        set.insert(c);
+    }
+    for c in b.chars() {
+        if set.contains(&c) {
+            a_b_duplicates.insert(c);
+        }
+    }
+    c.chars().find(|&c| a_b_duplicates.contains(&c))
 }
 
 fn retrieve_priority(c: char) -> i32 {
