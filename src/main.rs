@@ -82,7 +82,7 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
             run_day(y2015::day01::part1, y2015::day01::part2, 1, (true, true), opts.debug)?;
             run_day(y2015::day02::part1, y2015::day02::part2, 2, (true, true), opts.debug)?;
             run_day(y2015::day03::part1, y2015::day03::part2, 3, (true, true), opts.debug)?;
-            run_day(y2015::day04::part1, y2015::day04::part2, 4, (true, true), opts.debug)?;
+            run_slow_day(y2015::day04::part1, y2015::day04::part2, 4, (true, true), opts.debug, opts.all)?;
             Ok(())
         }
         2021 => {
