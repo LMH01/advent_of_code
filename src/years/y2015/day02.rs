@@ -16,6 +16,12 @@ pub fn part1(debug: bool) -> Result<()> {
 
 pub fn part2(debug: bool) -> Result<()> {
     let content = read_file("input/y2015/day02.txt")?;
+    let mut ribbon = 0;
+    for line in content {
+        let p = Package::from_line(&line);
+        ribbon += p.required_ribbon();
+    }
+    println!("Required ribbon: {ribbon}");
     Ok(())
 }
 
@@ -39,5 +45,11 @@ impl Package {
         let mut vec = vec![self.l*self.b, self.l*self.h, self.b*self.h];
         vec.sort();
         vec[0]*2+vec[1]*2+vec[2]*2+vec[0]
+    }
+
+    fn required_ribbon(&self) -> i32 {
+        let mut vec = vec![self.l*2+self.b*2, self.l*2+self.h*2, self.b*2+self.h*2];
+        vec.sort();
+        self.b*self.h*self.l+vec[0]
     }
 }
