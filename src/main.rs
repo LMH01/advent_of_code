@@ -82,6 +82,7 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
             run_day(y2015::day01::part1, y2015::day01::part2, 1, (true, true), opts.debug)?;
             run_day(y2015::day02::part1, y2015::day02::part2, 2, (true, true), opts.debug)?;
             run_day(y2015::day03::part1, y2015::day03::part2, 3, (true, true), opts.debug)?;
+            run_day(y2015::day04::part1, y2015::day04::part2, 4, (true, true), opts.debug)?;
             Ok(())
         }
         2021 => {
@@ -141,6 +142,7 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
                 1 => run_day(y2015::day01::part1, y2015::day01::part2, 1, parts, opts.debug)?,
                 2 => run_day(y2015::day02::part1, y2015::day02::part2, 2, parts, opts.debug)?,
                 3 => run_day(y2015::day03::part1, y2015::day03::part2, 3, parts, opts.debug)?,
+                4 => run_day(y2015::day04::part1, y2015::day04::part2, 4, parts, opts.debug)?,
                 _ => {
                     return Err(miette!(
                         "Unable to run: No solution available for year {} day {}.",

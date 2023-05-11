@@ -24,6 +24,7 @@ dependencies = [
  "adventofcode_lmh01_lib",
  "clap",
  "lmh01_pathfinding",
+ "md5",
  "miette",
 ]
 
@@ -187,6 +188,12 @@ checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
 name = "lmh01_pathfinding"
 version = "2.0.0"
 source = "git+https://github.com/LMH01/rust_pathfinding.git#6d3902f0a9a6c28e8bec1d167f655ea69f3f86ec"
+
+[[package]]
+name = "md5"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "490cc448043f947bae3cbee9c203358d62dbee0db12107a74be5c30ccfd09771"
 
 [[package]]
 name = "memchr"
