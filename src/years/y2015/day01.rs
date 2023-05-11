@@ -20,5 +20,21 @@ pub fn part1(debug: bool) -> Result<()> {
 
 pub fn part2(debug: bool) -> Result<()> {
     let content = read_file("input/y2015/day01.txt")?;
+    let line = &content[0];
+    let mut floor = 0;
+    for (i, c) in line.chars().enumerate() {
+        match c {
+            '(' => floor +=1,
+            ')' => {
+                floor -=1;
+                if floor < 0 {
+                    let char_number = i+1;
+                    println!("Santa entered the basement at char {char_number}");
+                    break;
+                }
+            },
+            _ => (),
+        }
+    }
     Ok(())
 }
