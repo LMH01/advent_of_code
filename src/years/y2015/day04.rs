@@ -17,7 +17,7 @@ pub fn part2(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-/// Launches `amount` number of threads that will simultaneously try to brute force the hash.
+/// Launches `amount` number of threads that will simultaneously try to brute-force the hash.
 /// 
 /// Returns the number that is concatenated to `prefix` to receive a hash that starts with `delimiter`.
 fn launch_threads(amount: usize, prefix: &str, delimiter: &str) -> i32 {
@@ -84,7 +84,7 @@ impl Shared {
     }
 }
 
-/// Returns true when the input produces a md5 hash that starts with 5 0
+/// Returns true when the input produces a md5 hash that starts with delimiter
 fn hash_and_validate(input: &str, delimiter: &str) -> bool {
     let res = md5::compute(input);
     format!("{:?}", res).starts_with(delimiter)
