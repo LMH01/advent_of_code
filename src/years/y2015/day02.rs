@@ -1,9 +1,7 @@
-use std::{i32::MAX, mem::discriminant, collections::BinaryHeap};
-
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part1(_debug: bool) -> Result<()> {
     let content = read_file("input/y2015/day02.txt")?;
     let mut paper = 0;
     for line in content {
@@ -14,7 +12,7 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part2(_debug: bool) -> Result<()> {
     let content = read_file("input/y2015/day02.txt")?;
     let mut ribbon = 0;
     for line in content {
