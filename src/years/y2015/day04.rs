@@ -12,7 +12,8 @@ pub fn part1(_debug: bool) -> Result<()> {
 
 pub fn part2(_debug: bool) -> Result<()> {
     let input =  String::from("iwrupvqb");
-    let number = launch_threads(12, &input, "000000");
+    let cores = available_parallelism().unwrap().get();
+    let number = launch_threads(cores, &input, "000000");
     println!("Number found: {number}");
     Ok(())
 }
