@@ -8,7 +8,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     let mut nice_strings = 0;
     let vowels = get_vowels();
     for string in content {
-        if is_string_nice(&string, &vowels) {
+        if is_string_nice_part1(&string, &vowels) {
             nice_strings += 1;
         }
     }
@@ -18,6 +18,13 @@ pub fn part1(_debug: bool) -> Result<()> {
 
 pub fn part2(_debug: bool) -> Result<()> {
     let content = read_file("input/y2015/day05.txt")?;
+    let mut nice_strings = 0;
+    for string in content {
+        if is_string_nice_part2(&string) {
+            nice_strings += 1;
+        }
+    }
+    println!("Nice strings: {nice_strings}");
     Ok(())
 }
 
@@ -31,7 +38,7 @@ fn get_vowels() -> HashSet<char> {
     set
 }
 
-fn is_string_nice(string: &str, vowels: &HashSet<char>) -> bool {
+fn is_string_nice_part1(string: &str, vowels: &HashSet<char>) -> bool {
     let mut last_char = '\0';
     // Stores how many different vocals where found, needs at least a size of 3
     let mut vowels_contained = 0;
@@ -64,6 +71,40 @@ fn is_string_nice(string: &str, vowels: &HashSet<char>) -> bool {
     }
     // Check second condition (one latter twice in a row)
     if !twice {
+        return false;
+    }
+    true
+}
+
+
+fn is_string_nice_part2(string: &str) -> bool {
+    // index 0 = char in the before last iteration
+    // index 1 = char in the last iteration
+    let mut last_chars = ('\0', '\0');
+    // Stores all pairs that have occured in the string
+    let mut pairs: HashSet<(char, char)> = HashSet::new();
+    // Stores how many different vocals where found, needs at least a size of 3
+    let mut first_condition = false;
+    let mut second_condition = false;
+    for c in string.chars() {
+        // Check first condition
+        if last_chars.0 == c {
+            first_condition = true; 
+        }
+        // Check second condition
+        if pairs.contains(&(last_chars.1, c)) {
+            second_condition = true;
+        }
+        pairs.insert((last_chars.0, last_chars.1));
+        last_chars.0 = last_chars.1;
+        last_chars.1 = c;
+    }
+    // Check first condition (sandwitched letter)
+    if !first_condition {
+        return false;
+    }
+    // Check second condition (two times same two characters (no overlap))
+    if !second_condition {
         return false;
     }
     true
