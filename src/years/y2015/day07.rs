@@ -1,4 +1,4 @@
-use std::{collections::{HashSet, HashMap, LinkedList}, clone, thread, time::Duration};
+use std::{collections::{HashMap, LinkedList}};
 
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
@@ -12,17 +12,59 @@ pub fn part1(_debug: bool) -> Result<()> {
     // Load values
     let mut available_values = HashMap::new();
     let mut open_instructions = LinkedList::new();
+    load_values(&instructions, &mut available_values, &mut open_instructions);
+
+    // Update available values for each open instruction
+    update_values(&mut open_instructions, &mut available_values, None);
+
+    println!("Value of a: {}", available_values.get("a").expect("Not found!"));
+    Ok(())
+}
+
+pub fn part2(_debug: bool) -> Result<()> {
+    let content = read_file("input/y2015/day07.txt")?;
+    let mut instructions = Vec::new();
+    for line in content {
+        instructions.push(Instruction::from_str(&line).unwrap());
+    }
+    // Load values
+    let mut available_values = HashMap::new();
+    let mut open_instructions = LinkedList::new();
+    load_values(&instructions, &mut available_values, &mut open_instructions);
+
+    // Update available values for each open instruction
+    update_values(&mut open_instructions, &mut available_values, None);
+
+    // Recalculate everything for different b
+    let b = *available_values.get("a").expect("Not found!");
+    // Clear existing values
+    available_values.clear();
+    open_instructions.clear();
+    load_values(&instructions, &mut available_values, &mut open_instructions);
+    update_values(&mut open_instructions, &mut available_values, Some(b));
+
+    println!("Value of a: {}", available_values.get("a").expect("Not found!"));
+    Ok(())
+}
+
+/// Loads already existing values
+fn load_values(instructions: &Vec<Instruction>, available_values: &mut HashMap<String, u16>, open_instructions: &mut LinkedList<Instruction>) {
     for instruction in instructions {
         match instruction {
             Instruction::LoadValue(v, k) => {
-                available_values.insert(k, v);
+                available_values.insert(k.clone(), *v);
             },
-            _ => open_instructions.push_back(instruction),
+            _ => open_instructions.push_back(instruction.clone()),
         };
     }
+}
 
-    // Update available values for each open instruction
+/// If `forced_value` is set, the value contained in the option will be set value for b on each loop
+fn update_values(open_instructions: &mut LinkedList<Instruction>, available_values: &mut HashMap<String, u16>, forced_value: Option<u16>) {
     while !open_instructions.is_empty() {
+        if let Some(value) = forced_value {// not pretty but it works
+            available_values.insert(String::from("b"), value);
+        }
         let current = open_instructions.pop_front().unwrap();
         match current.clone() {
             Instruction::And(x, y, z) => {
@@ -73,15 +115,7 @@ pub fn part1(_debug: bool) -> Result<()> {
             }
             _ => (),
         }
-        println!("Open instruction length: {}", open_instructions.len());
     }
-    println!("Value of a: {}", available_values.get("a").expect("Not found!"));
-    Ok(())
-}
-
-pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("input/y2015/day07.txt")?;
-    Ok(())
 }
 
 /// Tries to parse a new value:
