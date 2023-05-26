@@ -68,14 +68,14 @@ fn update_values(open_instructions: &mut LinkedList<Instruction>, available_valu
         let current = open_instructions.pop_front().unwrap();
         match current.clone() {
             Instruction::And(x, y, z) => {
-                if let Some(v) = get_value(Operation::And, &x, &y, &available_values) {
+                if let Some(v) = get_value(Operation::And, &x, &y, available_values) {
                     available_values.insert(z, v);
                 } else {
                     open_instructions.push_back(current);
                 }
             }
             Instruction::Or(x, y, z) => {
-                if let Some(v) = get_value(Operation::Or, &x, &y, &available_values) {
+                if let Some(v) = get_value(Operation::Or, &x, &y, available_values) {
                     available_values.insert(z, v);
                 } else {
                     open_instructions.push_back(current);

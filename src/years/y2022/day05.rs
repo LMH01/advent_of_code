@@ -7,7 +7,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     let tower_height = container.max_height;
     for (index, line) in content.iter().enumerate() {
         if index > (tower_height + 1).try_into().unwrap() {
-            let instructions = parse_instructions(&line);
+            let instructions = parse_instructions(line);
             container.move_crate(instructions.0, instructions.1, instructions.2);
         }
     }
@@ -21,7 +21,7 @@ pub fn part2(_debug: bool) -> Result<()> {
     let tower_height = container.max_height;
     for (index, line) in content.iter().enumerate() {
         if index > (tower_height + 1).try_into().unwrap() {
-            let instructions = parse_instructions(&line);
+            let instructions = parse_instructions(line);
             container.move_crate_part2(instructions.0, instructions.1, instructions.2);
         }
     }
@@ -38,10 +38,10 @@ impl TowerContainer {
     /// Creates a tower container from the puzzle input
     pub fn from_input(content: &Vec<String>) -> Self {
         let mut tower: Vec<Vec<char>> = Vec::new();
-        let tower_stats = tower_stats(&content);
+        let tower_stats = tower_stats(content);
         println!("Tower stats: {}, {}", tower_stats.0, tower_stats.1);
         for i in 1..=tower_stats.0 {
-            tower.push(parse_tower(&content, tower_stats.1, i));
+            tower.push(parse_tower(content, tower_stats.1, i));
         }
         let container = Self {
             tower,

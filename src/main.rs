@@ -1,4 +1,4 @@
-use std::{time::Instant, fmt::Display};
+use std::time::Instant;
 
 use crate::years::{y2021, y2022, y2015};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};

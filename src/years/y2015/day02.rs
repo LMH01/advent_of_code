@@ -31,7 +31,7 @@ struct Package {
 
 impl Package {
     fn from_line(line: &str) -> Self {
-        let dimensions: Vec<&str> = line.split("x").collect();
+        let dimensions: Vec<&str> = line.split('x').collect();
         Self {
             l: dimensions[0].parse().unwrap(),
             b: dimensions[1].parse().unwrap(),

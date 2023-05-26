@@ -71,8 +71,9 @@ fn build_coordinates(vec: Vec<&str>) -> Result<(u16, u16), ParseIntError> {
     Ok((x, y))
 }
 
+#[allow(clippy::type_complexity)]
 /// Builds a coordinate tuple from the coordinates located and the two indexes in the `splits` vector.
-fn build_coordinate_tuple(splits: &Vec<&str>, idx_start: usize, idx_end: usize) -> Result<((u16, u16), (u16, u16)), String> {
+fn build_coordinate_tuple(splits: &[&str], idx_start: usize, idx_end: usize) -> Result<((u16, u16), (u16, u16)), String> {
     let start = build_coordinates(splits[idx_start].split(',').collect());
     let end = build_coordinates(splits[idx_end].split(',').collect());
     if start.is_err() || end.is_err() { 

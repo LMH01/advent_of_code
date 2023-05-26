@@ -27,10 +27,8 @@ fn calculate(content: Vec<String>, part1: bool) {
             if fully_contained(a, b) {
                 i += 1;
             }
-        } else {
-            if overlaps(a, b) {
-                i += 1;
-            }
+        } else if overlaps(a, b) {
+            i += 1;
         }
     }
     println!("To reconsider: {i}");
@@ -38,8 +36,6 @@ fn calculate(content: Vec<String>, part1: bool) {
 
 fn fully_contained(a: (u32, u32), b: (u32, u32)) -> bool {
     if a.0 >= b.0 && a.1 <= b.1 {
-        return true;
-    } else if b.0 >= a.0 && b.1 <= a.1 {
         return true;
     }
     false

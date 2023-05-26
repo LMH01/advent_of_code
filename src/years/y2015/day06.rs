@@ -1,6 +1,3 @@
-use std::num::ParseIntError;
-
-use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
 mod part1;

@@ -166,7 +166,7 @@ fn convert_segment_to_number(input: &str) -> Result<char> {
 /// Uses the segment_mappings to return a string that is mapped correctly
 fn resolve_input(input: String, segment_mappings: &HashMap<char, char>) -> String {
     let mut output = String::new();
-    input.chars().into_iter().for_each(|c| {
+    input.chars().for_each(|c| {
         output.push(*segment_mappings.get(&c).unwrap());
     });
     output

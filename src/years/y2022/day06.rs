@@ -17,7 +17,7 @@ pub fn part2(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-fn package_start(input: &String, header_length: usize) -> i32 {
+fn package_start(input: &str, header_length: usize) -> i32 {
     let mut chars = 0;
     let mut latest_chars = VecDeque::new();
     for c in input.chars() {

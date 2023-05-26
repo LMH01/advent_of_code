@@ -46,7 +46,7 @@ fn launch_threads(amount: usize, prefix: &str, delimiter: &str) -> i32 {
 
             // Acquire number that should be checked and increase value
             let mut current = shared.next.lock().unwrap();
-            let num = current.clone();
+            let num = *current;
             *current += 1;
             
             // make mutex available for all threads again           
@@ -66,8 +66,7 @@ fn launch_threads(amount: usize, prefix: &str, delimiter: &str) -> i32 {
         });
     }
 
-    let result = rx.recv().unwrap();
-    result
+    rx.recv().unwrap()
 }
 
 struct Shared {
