@@ -1,6 +1,6 @@
 use adventofcode_lmh01_lib::read_file;
-use lmh01_pathfinding::{Graph, djikstra};
 use miette::Result;
+use simple_graph_algorithms::{Graph, algorithms::dijkstra};
 
 pub fn part1(debug: bool) -> Result<()> {
     let content = read_file("input/y2021/day15.txt")?; 
@@ -82,12 +82,14 @@ pub fn setup_vec(content: Vec<String>) -> (Vec<Vec<i32>>, usize) {
 
 fn run_djikstra(vec: Vec<Vec<i32>>, debug: bool, max_x_size: usize) {
     println!("Constructing graph...");
-    let graph = Graph::<String>::from_i32_vec(&vec);
+    let mut graph = Graph::from(&vec);
     if debug {
         println!("{}", graph);
     }
     let target = format!("[{}|{}]", max_x_size-1, vec.len()-1);
     println!("Target: {}", target);
-    let result = djikstra(graph.node_by_id(String::from("[0|0]")).unwrap(), graph.node_by_id(target).unwrap()).unwrap_or(-1);
+    let spt = dijkstra(&mut graph, &String::from("[0|0]")).unwrap();
+    let result = spt.shortest_distance(&target).unwrap_or(-1);
+    //let result = djikstra(graph.node_by_id(String::from("[0|0]")).unwrap(), graph.node_by_id(target).unwrap()).unwrap_or(-1);
     println!("Shortest path: {}", result);
 }

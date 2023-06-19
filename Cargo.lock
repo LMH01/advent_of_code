@@ -23,9 +23,9 @@ version = "0.1.0"
 dependencies = [
  "adventofcode_lmh01_lib",
  "clap",
- "lmh01_pathfinding",
  "md5",
  "miette",
+ "simple_graph_algorithms",
 ]
 
 [[package]]
@@ -185,11 +185,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
 
 [[package]]
-name = "lmh01_pathfinding"
-version = "2.0.0"
-source = "git+https://github.com/LMH01/rust_pathfinding.git#6d3902f0a9a6c28e8bec1d167f655ea69f3f86ec"
-
-[[package]]
 name = "md5"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -335,6 +330,12 @@ name = "rustc-demangle"
 version = "0.1.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ef03e0a2b150c7a90d01faf6254c9c48a41e95fb2a8c2ac1c6f0d2b9aefc342"
+
+[[package]]
+name = "simple_graph_algorithms"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3abfe80239e5c19d840582a331d2feae1cd7a5430482c7a0410692f0c20bfd5f"
 
 [[package]]
 name = "smawk"

@@ -1,7 +1,6 @@
 use std::collections::HashSet;
 
 use adventofcode_lmh01_lib::read_file;
-use lmh01_pathfinding::{neighbor_positions};
 use miette::Result;
 
 use super::day15::setup_vec;
@@ -84,4 +83,33 @@ fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize
         basins.push(basin_size);
     }
     basins
+}
+
+/// Returns the neighboring positions for a position in a 2D graph.
+/// 
+/// # Example
+/// ```
+/// use lmh01_pathfinding::core::neighbor_positions;
+/// 
+/// let neighbors = neighbor_positions((2,2), 10, 10);
+/// assert_eq!((1, 2), neighbors[0]);
+/// assert_eq!((2, 1), neighbors[1]);
+/// assert_eq!((3, 2), neighbors[2]);
+/// assert_eq!((2, 3), neighbors[3]);
+/// ```
+pub fn neighbor_positions(pos: (usize, usize), max_x_size: usize, max_y_size: usize) -> Vec<(usize, usize)> {
+    let mut positions = Vec::new();
+    if pos.0 != 0 {
+        positions.push((pos.0-1, pos.1));
+    }
+    if pos.1 != 0 {
+        positions.push((pos.0, pos.1-1));
+    }
+    if pos.0 != max_x_size-1 {
+        positions.push((pos.0+1, pos.1));
+    }
+    if pos.1 != max_y_size-1 {
+        positions.push((pos.0, pos.1+1));
+    }
+    positions
 }

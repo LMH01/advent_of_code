@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 adventofcode_lmh01_lib = { git = "https://github.com/LMH01/adventofcode_lmh01_lib.git" }
-lmh01_pathfinding = { git = "https://github.com/LMH01/rust_pathfinding.git" }
 clap = "3.0.0-beta.5"
 #adventofcode_lmh01_lib = { path = "../../adventofcode_lmh01_lib" }
 miette = {version = "3.2.0", features = ["fancy"] }
 md5 = "0.7.0"
+simple_graph_algorithms = {version = "1.0.0", features = ["from_instruction"]}
