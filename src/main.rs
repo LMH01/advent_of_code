@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-use crate::years::{y2021, y2022, y2015};
+use crate::years::{y2021, y2022, y2015, y2023};
 use adventofcode_lmh01_lib::{run_day, run_slow_day};
 use clap::Parser;
 use miette::miette;
@@ -16,7 +16,7 @@ struct Opts {
     #[clap(
         short,
         long,
-        possible_values = ["2015", "2021", "2022"],
+        possible_values = ["2015", "2021", "2022", "2023"],
         about  = "Specify what year to run")]
     year: Option<i32>,
     #[clap(
@@ -121,6 +121,10 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
             run_day(y2022::day05::part1, y2022::day05::part2, 5, (true, true), opts.debug)?;
             run_day(y2022::day06::part1, y2022::day06::part2, 6, (true, true), opts.debug)?;
             Ok(())
+        },
+        2023 => {
+            run_day(y2023::day01::part1, y2023::day01::part2, 1, (true, true), opts.debug)?;
+            Ok(())
         }
         _ => Err(miette!("Unable to run: No solution available for year {}.", year)),
     }
@@ -192,6 +196,18 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
                 4 => run_day(y2022::day04::part1, y2022::day04::part2, 4, parts, opts.debug)?,
                 5 => run_day(y2022::day05::part1, y2022::day05::part2, 5, parts, opts.debug)?,
                 6 => run_day(y2022::day06::part1, y2022::day06::part2, 6, parts, opts.debug)?,
+                _ => {
+                    return Err(miette!(
+                        "Unable to run: No solution available for year {} day {}.",
+                        &year,
+                        &day
+                    ))
+                }
+            }
+        },
+        2023 => {
+            match day {
+                1 => run_day(y2023::day01::part1, y2023::day01::part2, 1, parts, opts.debug)?,
                 _ => {
                     return Err(miette!(
                         "Unable to run: No solution available for year {} day {}.",
