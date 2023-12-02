@@ -24,7 +24,7 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let mut content = read_file("input/y2023/day02.txt")?;
+    let content = read_file("input/y2023/day02.txt")?;
     let mut games = Vec::new();
     for line in content {
         match Game::try_from(line.split(':').collect::<Vec<&str>>()[1]) {
@@ -102,6 +102,7 @@ struct Draw {
     pub blue: u8,
 }
 
+#[allow(dead_code)]
 impl Draw {
 
     fn new(red: u8, green: u8, blue: u8) -> Self {
