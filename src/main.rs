@@ -67,6 +67,7 @@ fn main() -> miette::Result<()> {
         run_year(&opts, 2015)?; 
         run_year(&opts, 2021)?; 
         run_year(&opts, 2022)?;
+        run_year(&opts, 2023)?;
     }
     if opts.measure_time {
         println!("Execution took {:.2?}", timer.elapsed())
@@ -124,7 +125,7 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
         },
         2023 => {
             run_day(y2023::day01::part1, y2023::day01::part2, 1, (true, true), opts.debug)?;
-            run_day(y2023::day02::part1, y2023::day02::part2, 1, (true, true), opts.debug)?;
+            run_day(y2023::day02::part1, y2023::day02::part2, 2, (true, true), opts.debug)?;
             Ok(())
         }
         _ => Err(miette!("Unable to run: No solution available for year {}.", year)),
@@ -209,7 +210,7 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
         2023 => {
             match day {
                 1 => run_day(y2023::day01::part1, y2023::day01::part2, 1, parts, opts.debug)?,
-                2 => run_day(y2023::day02::part1, y2023::day02::part2, 1, parts, opts.debug)?,
+                2 => run_day(y2023::day02::part1, y2023::day02::part2, 2, parts, opts.debug)?,
                 _ => {
                     return Err(miette!(
                         "Unable to run: No solution available for year {} day {}.",
