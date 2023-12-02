@@ -15,7 +15,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     let mut sum = 0;
     for (id, game) in games.iter().enumerate() {
         // add id +1 because game id's start at 1 and not at 0
-        if game.validate(13, 14, 12) {
+        if game.validate(12, 13, 14) {
             sum += id+1;
         }
     }
@@ -25,6 +25,18 @@ pub fn part1(_debug: bool) -> Result<()> {
 
 pub fn part2(_debug: bool) -> Result<()> {
     let mut content = read_file("input/y2023/day02.txt")?;
+    let mut games = Vec::new();
+    for line in content {
+        match Game::try_from(line.split(':').collect::<Vec<&str>>()[1]) {
+            Ok(game) => games.push(game),
+            Err(e) => return Err(miette!("Unable to create game: {}", e)),
+        }
+    }
+    let mut sum = 0;
+    for game in games {
+        sum += game.min_cube_sum();
+    }
+    println!("Power sum: {sum}");
     Ok(())
 }
 
@@ -36,13 +48,31 @@ struct Game {
 impl Game {
 
     /// Validate if the input numbers are <= the used numbers
-    fn validate(&self, green: u8, blue: u8, red: u8) -> bool {
+    fn validate(&self, red: u8, green: u8, blue: u8) -> bool {
         for draw in &self.draws {
             if !draw.validate(green, blue, red) {
                 return false
             }
         }
         true
+    }
+
+    fn min_cube_sum(&self) -> u32 {
+        let mut min_red = 0;
+        let mut min_green = 0;
+        let mut min_blue = 0;
+        for draw in &self.draws {
+            if min_red < draw.red {
+                min_red = draw.red;
+            }
+            if min_green < draw.green {
+                min_green = draw.green;
+            }
+            if min_blue < draw.blue {
+                min_blue = draw.blue;
+            }
+        }
+        return min_red as u32 * min_green as u32 * min_blue as u32
     }
 }
 
@@ -67,14 +97,14 @@ impl TryFrom<&str> for Game {
 
 #[derive(PartialEq, Eq, Debug)]
 struct Draw {
-    green: u8,
-    blue: u8,
-    red: u8,
+    pub red: u8,
+    pub green: u8,
+    pub blue: u8,
 }
 
 impl Draw {
 
-    fn new(green: u8, blue: u8, red: u8) -> Self {
+    fn new(red: u8, green: u8, blue: u8) -> Self {
         Self {
             green,
             blue,
@@ -83,7 +113,7 @@ impl Draw {
     }
 
     /// Validate if the input numbers are <= the used numbers
-    fn validate(&self, green: u8, blue: u8, red: u8) -> bool {
+    fn validate(&self, red: u8, green: u8, blue: u8) -> bool {
         self.green <= green && self.blue <= blue && self.red <= red
     }
 }
