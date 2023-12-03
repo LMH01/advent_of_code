@@ -72,7 +72,7 @@ impl Game {
                 min_blue = draw.blue;
             }
         }
-        return min_red as u32 * min_green as u32 * min_blue as u32
+        min_red as u32 * min_green as u32 * min_blue as u32
     }
 }
 

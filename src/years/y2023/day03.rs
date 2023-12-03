@@ -108,7 +108,7 @@ fn check_for_symbols(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
 
 /// Checks if pos is a valid pos and if it is checks if it is a symbol.
 /// Returns true if pos is valid and contains a symbol
-fn contains_symbol(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
+fn contains_symbol(es: &[Vec<char>], pos: (usize, usize)) -> bool {
     if let Some(y) = es.get(pos.0) {
         if let Some(x) = y.get(pos.1) {
             return is_symbol(x)
@@ -235,7 +235,7 @@ fn check_for_gears(es: &Vec<Vec<char>>, pos: (usize, usize)) -> Vec<(usize, usiz
     gears
 }
 
-fn is_gear(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
+fn is_gear(es: &[Vec<char>], pos: (usize, usize)) -> bool {
     if let Some(y) = es.get(pos.0) {
         if let Some(x) = y.get(pos.1) {
             return *x == '*'

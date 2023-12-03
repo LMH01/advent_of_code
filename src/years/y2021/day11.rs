@@ -101,28 +101,28 @@ fn increase_adjacent_energy_levels(octopus_number: &usize, octopuses: &mut [u8])
     let positive_steps;
     let negative_steps;
     // Determine what octopuses are adjacent to the input octopus
-    if vec![19, 29, 39, 49, 59, 69, 79, 89].contains(octopus_number) {
+    if [19, 29, 39, 49, 59, 69, 79, 89].contains(octopus_number) {
         positive_steps = vec![9, 10];
         negative_steps = vec![1, 10, 11];
-    } else if vec![1, 2, 3, 4, 5, 6, 7, 8].contains(octopus_number) {
+    } else if [1, 2, 3, 4, 5, 6, 7, 8].contains(octopus_number) {
         positive_steps = vec![1, 9, 10, 11];
         negative_steps = vec![1];
-    } else if vec![10, 20, 30, 40, 50, 60, 70, 80].contains(octopus_number) {
+    } else if [10, 20, 30, 40, 50, 60, 70, 80].contains(octopus_number) {
         positive_steps = vec![1, 10, 11];
         negative_steps = vec![9, 10];
-    } else if vec![91, 92, 93, 94, 95, 96, 97, 98].contains(octopus_number) {
+    } else if [91, 92, 93, 94, 95, 96, 97, 98].contains(octopus_number) {
         positive_steps = vec![1];
         negative_steps = vec![1, 9, 10, 11];
-    } else if vec![0].contains(octopus_number) {
+    } else if [0].contains(octopus_number) {
         positive_steps = vec![1, 10, 11];
         negative_steps = vec![];
-    } else if vec![9].contains(octopus_number) {
+    } else if [9].contains(octopus_number) {
         positive_steps = vec![9, 10];
         negative_steps = vec![1];
-    } else if vec![90].contains(octopus_number) {
+    } else if [90].contains(octopus_number) {
         positive_steps = vec![1];
         negative_steps = vec![9, 10];
-    } else if vec![99].contains(octopus_number) {
+    } else if [99].contains(octopus_number) {
         positive_steps = vec![];
         negative_steps = vec![1, 10, 11];
     } else {

@@ -123,11 +123,7 @@ impl Board {
     fn toggle(&mut self, start: &(u16, u16), end: &(u16, u16)) {
         for i in start.1..=end.1 {
             for j in start.0..=end.0 {
-                if self.cells[i as usize][j as usize] {
-                    self.cells[i as usize][j as usize] = false;
-                } else {
-                    self.cells[i as usize][j as usize] = true;
-                }
+                self.cells[i as usize][j as usize] = !self.cells[i as usize][j as usize];
             }
         }
     }

@@ -70,8 +70,8 @@ fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize
                 basin_size += 1;
             }
         }
-        while !open_neighbors.is_empty() {
-            let neighbor = open_neighbors.pop().unwrap();
+        while let Some(neighbor) = open_neighbors.pop() {
+            
             for neighbor_neighbor in neighbor_positions(neighbor, max_x_size, input.len()) {
                 if input[neighbor_neighbor.1][neighbor_neighbor.0] != 9 && !closed_neighbors.contains(&neighbor_neighbor) && !open_neighbors.contains(&neighbor_neighbor) {
                     open_neighbors.push(neighbor_neighbor);
