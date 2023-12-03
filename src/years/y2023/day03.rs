@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use adventofcode_lmh01_lib::read_file;
-use miette::{Result, miette};
+use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {
     let content = read_file("input/y2023/day03.txt")?;
@@ -47,7 +47,6 @@ fn part_numbers(es: &Vec<Vec<char>>) -> u32 {
                 for i in 0..current_number.len() {
                     if check_for_symbols(es, (y_idx, x_idx-1-i)) {
                         total += current_number.parse::<u32>().unwrap();
-                        current_number = String::new();
                         break;
                     }
                 }
