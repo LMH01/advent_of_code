@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use adventofcode_lmh01_lib::read_file;
 use miette::{Result, miette};
 
@@ -11,6 +13,9 @@ pub fn part1(_debug: bool) -> Result<()> {
 
 pub fn part2(_debug: bool) -> Result<()> {
     let content = read_file("input/y2023/day03.txt")?;
+    let es = engine_schematic(&content);
+    let g = gears(&es);
+    println!("Sum gear rations: {g}");
     Ok(())
 }
 
@@ -115,6 +120,129 @@ fn contains_symbol(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
 
 fn is_symbol(c: &char) -> bool {
     !c.is_numeric() && *c != '.'
+}
+
+fn gears(es: &Vec<Vec<char>>) -> u32 {
+    let mut total = 0;
+    // Hash map value: .0 = number 1, .1 = number 2, .2 = determines if the corresponding gear was only used twice, otherwise entry is marked as false
+    let mut gears: HashMap<(usize, usize), (u32, Option<u32>, bool)> = HashMap::new();
+    for (y_idx, y) in es.iter().enumerate() {
+        let mut current_number = String::new();
+        for (x_idx, x) in y.iter().enumerate() {
+            if x.is_numeric() {
+                current_number.push(*x);
+            } else {
+                // check if a number has been constructed previously
+                if current_number.is_empty() {
+                    continue;
+                }
+                // check all positions, that the number spans
+                for i in 0..current_number.len() {
+                    for gear_pos in check_for_gears(es, (y_idx, x_idx-1-i)) {
+                        let nr = current_number.parse::<u32>().unwrap();
+                        println!("Gear pos: ({},{})", gear_pos.0, gear_pos.1);
+                        if let Some(value) = gears.get_mut(&gear_pos) {
+                            if value.0 == nr {
+                                // our current number is already set
+                                continue;
+                            }
+                            if let Some(val2) = value.1 {
+                                if val2 == nr {
+                                    // our current number is already set
+                                    continue;
+                                }
+                                // Gear is adjacent to more than two numbers, it is thus marked as invalid
+                                value.2 = false;
+                            } else {
+                                value.1 = Some(nr);
+                            }
+                        } else {
+                            // create new entry for our newly detected gear
+                            gears.insert(gear_pos, (nr, None, true));
+                        }
+                    }
+                }
+                current_number = String::new();
+            }
+        }
+        // check if a number has been constructed previously
+        if current_number.is_empty() {
+            continue;
+        }
+        // check all positions, that the number spans
+        for i in 0..current_number.len() {
+            for gear_pos in check_for_gears(es, (y_idx, y.len()-1-i)) {
+                if let Some(value) = gears.get_mut(&gear_pos) {
+                    if value.1.is_some() {
+                        // Gear is adjacent to more than two numbers, it is thus marked as invalid
+                        value.2 = false;
+                    } else {
+                        value.1 = Some(current_number.parse::<u32>().unwrap());
+                        current_number = String::new();
+                    }
+                } else {
+                    gears.insert(gear_pos, (current_number.parse::<u32>().unwrap(), None, true));
+                    current_number = String::new();
+                }
+            }
+        }
+    }
+    for gear in gears.values() {
+        if gear.2 {
+            if let Some(x) = gear.1 {
+                total += gear.0 * x;
+            }
+        }
+    }
+    total
+}
+
+/// Checks the surrounding area for gears, returns list that contains all adjacent gear positions
+fn check_for_gears(es: &Vec<Vec<char>>, pos: (usize, usize)) -> Vec<(usize, usize)> {
+    let mut gears = Vec::new();
+    // previous row
+    if pos.0 > 0 {
+        // previous row exists
+        if is_gear(es, (pos.0-1, pos.1-1)) {
+            gears.push((pos.0-1, pos.1-1));
+        }
+        if is_gear(es, (pos.0-1, pos.1)) {
+            gears.push((pos.0-1, pos.1));
+        }
+        if is_gear(es, (pos.0-1, pos.1+1)) {
+            gears.push((pos.0-1, pos.1+1));
+        }
+    }
+    // current row
+    if is_gear(es, (pos.0, pos.1-1)) {
+        gears.push((pos.0, pos.1-1));
+    }
+    if is_gear(es, (pos.0, pos.1+1)) {
+        gears.push((pos.0, pos.1+1));
+    }
+    // next row
+    if pos.0 <= es.len() {
+        // next row exists
+        if is_gear(es, (pos.0+1, pos.1-1)) {
+            gears.push((pos.0+1, pos.1-1));
+        }
+        if is_gear(es, (pos.0+1, pos.1)) {
+            gears.push((pos.0+1, pos.1));
+        }
+        if is_gear(es, (pos.0+1, pos.1+1)) {
+            gears.push((pos.0+1, pos.1+1));
+        }
+    }
+    gears
+}
+
+fn is_gear(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
+    if let Some(y) = es.get(pos.0) {
+        if let Some(x) = y.get(pos.1) {
+            return *x == '*'
+        }
+    }
+    false
 }
 
 #[cfg(test)]
