@@ -154,7 +154,7 @@ mod tests {
 
     #[test]
     fn test_game_try_from() {
-        assert_eq!(Game::try_from("1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"), Ok(Game { draws: vec![Draw::new(1, 2, 3), Draw::new(4, 5, 6), Draw::new(7, 8, 9)]}))
+        assert_eq!(Game::try_from("1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"), Ok(Game { draws: vec![Draw::new(3, 1, 2), Draw::new(6, 4, 5), Draw::new(9, 7, 8)]}))
     }
 
     #[test]
@@ -165,9 +165,9 @@ mod tests {
 
     #[test]
     fn test_draw_try_from() {
-        assert_eq!(Draw::try_from("1 blue, 2 red, 3 green"), Ok(Draw::new(3, 1, 2)));
-        assert_eq!(Draw::try_from("2 red, 5 green, 10 blue"), Ok(Draw::new(5, 10, 2)));
-        assert_eq!(Draw::try_from("4 green, 12 red, 20 blue"), Ok(Draw::new(4, 20, 12)));
+        assert_eq!(Draw::try_from("1 blue, 2 red, 3 green"), Ok(Draw::new(2, 3, 1)));
+        assert_eq!(Draw::try_from("2 red, 5 green, 10 blue"), Ok(Draw::new(2, 5, 10)));
+        assert_eq!(Draw::try_from("4 green, 12 red, 20 blue"), Ok(Draw::new(12, 4, 20)));
     }
 
     #[test]
