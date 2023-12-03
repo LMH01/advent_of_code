@@ -1,16 +1,16 @@
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
-use simple_graph_algorithms::{Graph, algorithms::dijkstra};
+use simple_graph_algorithms::{algorithms::dijkstra, Graph};
 
 pub fn part1(debug: bool) -> Result<()> {
-    let content = read_file("input/y2021/day15.txt")?; 
+    let content = read_file("input/y2021/day15.txt")?;
     let vec = setup_vec(content);
     run_djikstra(vec.0, debug, vec.1);
     Ok(())
 }
 
 pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("input/y2021/day15.txt")?; 
+    let content = read_file("input/y2021/day15.txt")?;
     let vec = setup_vec(content);
     let larger_map = duplicate_map(vec.0);
     if debug {
@@ -38,13 +38,17 @@ fn duplicate_map(mut map: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     // First duplicate map in y direction 4 times and increase risk values
     for i in 1..=4 {
         for y in &map {
-            larger_map.push(y.iter().map(|x| {
-                let mut new_risk = x + i;
-                if new_risk >= 10 {
-                    new_risk -= 9;
-                }
-                new_risk
-            }).collect());
+            larger_map.push(
+                y.iter()
+                    .map(|x| {
+                        let mut new_risk = x + i;
+                        if new_risk >= 10 {
+                            new_risk -= 9;
+                        }
+                        new_risk
+                    })
+                    .collect(),
+            );
         }
     }
     // Now duplicate map in x direction 4 times and increase risk values
@@ -86,7 +90,7 @@ fn run_djikstra(vec: Vec<Vec<i32>>, debug: bool, max_x_size: usize) {
     if debug {
         println!("{}", graph);
     }
-    let target = format!("[{}|{}]", max_x_size-1, vec.len()-1);
+    let target = format!("[{}|{}]", max_x_size - 1, vec.len() - 1);
     println!("Target: {}", target);
     let spt = dijkstra(&mut graph, &String::from("[0|0]")).unwrap();
     let result = spt.shortest_distance(&target).unwrap_or(-1);

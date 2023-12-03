@@ -82,7 +82,10 @@ impl TowerContainer {
             tmp.push(c);
         }
         for _i in 1..=crate_amount {
-            self.tower.get_mut(target_index).unwrap().push(tmp.pop().unwrap());
+            self.tower
+                .get_mut(target_index)
+                .unwrap()
+                .push(tmp.pop().unwrap());
         }
     }
 
@@ -149,7 +152,7 @@ fn parse_instructions(line: &str) -> (u32, u32, u32) {
             match current_data {
                 0 => crate_amount = current_number.parse().unwrap(),
                 1 => origin = current_number.parse().unwrap(),
-                _ => (),        
+                _ => (),
             };
             current_number = String::new();
             current_data += 1;

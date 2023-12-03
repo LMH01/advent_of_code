@@ -138,22 +138,20 @@ fn fold_y(dots: &mut Vec<Vec<bool>>, max_x: usize, max_y: usize) {
     for (index_y, line) in dots.iter().enumerate() {
         match index_y.cmp(&middle_line) {
             std::cmp::Ordering::Less => {
-            for (index_x, dot) in line.iter().enumerate() {
-                if *dot {
-                    set_dot_active(index_x, index_y, &mut folded);
+                for (index_x, dot) in line.iter().enumerate() {
+                    if *dot {
+                        set_dot_active(index_x, index_y, &mut folded);
+                    }
                 }
             }
-
-            },
             std::cmp::Ordering::Greater => {
-            for (index_x, dot) in line.iter().enumerate() {
-                if *dot {
-                    let distance_to_middle = index_y - middle_line;
-                    set_dot_active(index_x, middle_line - distance_to_middle, &mut folded);
+                for (index_x, dot) in line.iter().enumerate() {
+                    if *dot {
+                        let distance_to_middle = index_y - middle_line;
+                        set_dot_active(index_x, middle_line - distance_to_middle, &mut folded);
+                    }
                 }
             }
-
-            },
             _ => (),
         }
     }

@@ -40,14 +40,18 @@ impl Package {
     }
 
     fn required_paper(&self) -> i32 {
-        let mut vec = [self.l*self.b, self.l*self.h, self.b*self.h];
+        let mut vec = [self.l * self.b, self.l * self.h, self.b * self.h];
         vec.sort();
-        vec[0]*2+vec[1]*2+vec[2]*2+vec[0]
+        vec[0] * 2 + vec[1] * 2 + vec[2] * 2 + vec[0]
     }
 
     fn required_ribbon(&self) -> i32 {
-        let mut vec = [self.l*2+self.b*2, self.l*2+self.h*2, self.b*2+self.h*2];
+        let mut vec = [
+            self.l * 2 + self.b * 2,
+            self.l * 2 + self.h * 2,
+            self.b * 2 + self.h * 2,
+        ];
         vec.sort();
-        self.b*self.h*self.l+vec[0]
+        self.b * self.h * self.l + vec[0]
     }
 }

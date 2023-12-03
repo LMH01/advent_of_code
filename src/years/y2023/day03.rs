@@ -45,7 +45,7 @@ fn part_numbers(es: &Vec<Vec<char>>) -> u32 {
                 }
                 // check all positions, that the number spans
                 for i in 0..current_number.len() {
-                    if check_for_symbols(es, (y_idx, x_idx-1-i)) {
+                    if check_for_symbols(es, (y_idx, x_idx - 1 - i)) {
                         total += current_number.parse::<u32>().unwrap();
                         break;
                     }
@@ -59,7 +59,7 @@ fn part_numbers(es: &Vec<Vec<char>>) -> u32 {
         }
         // check all positions, that the number spans
         for i in 0..current_number.len() {
-            if check_for_symbols(es, (y_idx, y.len()-1-i)) {
+            if check_for_symbols(es, (y_idx, y.len() - 1 - i)) {
                 total += current_number.parse::<u32>().unwrap();
                 break;
             }
@@ -73,33 +73,33 @@ fn check_for_symbols(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
     // previous row
     if pos.0 > 0 {
         // previous row exists
-        if contains_symbol(es, (pos.0-1, pos.1-1)) {
+        if contains_symbol(es, (pos.0 - 1, pos.1 - 1)) {
             return true;
         }
-        if contains_symbol(es, (pos.0-1, pos.1)) {
+        if contains_symbol(es, (pos.0 - 1, pos.1)) {
             return true;
         }
-        if contains_symbol(es, (pos.0-1, pos.1+1)) {
+        if contains_symbol(es, (pos.0 - 1, pos.1 + 1)) {
             return true;
         }
     }
     // current row
-    if contains_symbol(es, (pos.0, pos.1-1)) {
+    if contains_symbol(es, (pos.0, pos.1 - 1)) {
         return true;
     }
-    if contains_symbol(es, (pos.0, pos.1+1)) {
+    if contains_symbol(es, (pos.0, pos.1 + 1)) {
         return true;
     }
     // next row
     if pos.0 <= es.len() {
         // next row exists
-        if contains_symbol(es, (pos.0+1, pos.1-1)) {
+        if contains_symbol(es, (pos.0 + 1, pos.1 - 1)) {
             return true;
         }
-        if contains_symbol(es, (pos.0+1, pos.1)) {
+        if contains_symbol(es, (pos.0 + 1, pos.1)) {
             return true;
         }
-        if contains_symbol(es, (pos.0+1, pos.1+1)) {
+        if contains_symbol(es, (pos.0 + 1, pos.1 + 1)) {
             return true;
         }
     }
@@ -111,7 +111,7 @@ fn check_for_symbols(es: &Vec<Vec<char>>, pos: (usize, usize)) -> bool {
 fn contains_symbol(es: &[Vec<char>], pos: (usize, usize)) -> bool {
     if let Some(y) = es.get(pos.0) {
         if let Some(x) = y.get(pos.1) {
-            return is_symbol(x)
+            return is_symbol(x);
         }
     }
     false
@@ -137,7 +137,7 @@ fn gears(es: &Vec<Vec<char>>) -> u32 {
                 }
                 // check all positions, that the number spans
                 for i in 0..current_number.len() {
-                    for gear_pos in check_for_gears(es, (y_idx, x_idx-1-i)) {
+                    for gear_pos in check_for_gears(es, (y_idx, x_idx - 1 - i)) {
                         let nr = current_number.parse::<u32>().unwrap();
                         println!("Gear pos: ({},{})", gear_pos.0, gear_pos.1);
                         if let Some(value) = gears.get_mut(&gear_pos) {
@@ -170,7 +170,7 @@ fn gears(es: &Vec<Vec<char>>) -> u32 {
         }
         // check all positions, that the number spans
         for i in 0..current_number.len() {
-            for gear_pos in check_for_gears(es, (y_idx, y.len()-1-i)) {
+            for gear_pos in check_for_gears(es, (y_idx, y.len() - 1 - i)) {
                 if let Some(value) = gears.get_mut(&gear_pos) {
                     if value.1.is_some() {
                         // Gear is adjacent to more than two numbers, it is thus marked as invalid
@@ -180,7 +180,10 @@ fn gears(es: &Vec<Vec<char>>) -> u32 {
                         current_number = String::new();
                     }
                 } else {
-                    gears.insert(gear_pos, (current_number.parse::<u32>().unwrap(), None, true));
+                    gears.insert(
+                        gear_pos,
+                        (current_number.parse::<u32>().unwrap(), None, true),
+                    );
                     current_number = String::new();
                 }
             }
@@ -202,34 +205,34 @@ fn check_for_gears(es: &Vec<Vec<char>>, pos: (usize, usize)) -> Vec<(usize, usiz
     // previous row
     if pos.0 > 0 {
         // previous row exists
-        if is_gear(es, (pos.0-1, pos.1-1)) {
-            gears.push((pos.0-1, pos.1-1));
+        if is_gear(es, (pos.0 - 1, pos.1 - 1)) {
+            gears.push((pos.0 - 1, pos.1 - 1));
         }
-        if is_gear(es, (pos.0-1, pos.1)) {
-            gears.push((pos.0-1, pos.1));
+        if is_gear(es, (pos.0 - 1, pos.1)) {
+            gears.push((pos.0 - 1, pos.1));
         }
-        if is_gear(es, (pos.0-1, pos.1+1)) {
-            gears.push((pos.0-1, pos.1+1));
+        if is_gear(es, (pos.0 - 1, pos.1 + 1)) {
+            gears.push((pos.0 - 1, pos.1 + 1));
         }
     }
     // current row
-    if is_gear(es, (pos.0, pos.1-1)) {
-        gears.push((pos.0, pos.1-1));
+    if is_gear(es, (pos.0, pos.1 - 1)) {
+        gears.push((pos.0, pos.1 - 1));
     }
-    if is_gear(es, (pos.0, pos.1+1)) {
-        gears.push((pos.0, pos.1+1));
+    if is_gear(es, (pos.0, pos.1 + 1)) {
+        gears.push((pos.0, pos.1 + 1));
     }
     // next row
     if pos.0 <= es.len() {
         // next row exists
-        if is_gear(es, (pos.0+1, pos.1-1)) {
-            gears.push((pos.0+1, pos.1-1));
+        if is_gear(es, (pos.0 + 1, pos.1 - 1)) {
+            gears.push((pos.0 + 1, pos.1 - 1));
         }
-        if is_gear(es, (pos.0+1, pos.1)) {
-            gears.push((pos.0+1, pos.1));
+        if is_gear(es, (pos.0 + 1, pos.1)) {
+            gears.push((pos.0 + 1, pos.1));
         }
-        if is_gear(es, (pos.0+1, pos.1+1)) {
-            gears.push((pos.0+1, pos.1+1));
+        if is_gear(es, (pos.0 + 1, pos.1 + 1)) {
+            gears.push((pos.0 + 1, pos.1 + 1));
         }
     }
     gears
@@ -238,7 +241,7 @@ fn check_for_gears(es: &Vec<Vec<char>>, pos: (usize, usize)) -> Vec<(usize, usiz
 fn is_gear(es: &[Vec<char>], pos: (usize, usize)) -> bool {
     if let Some(y) = es.get(pos.0) {
         if let Some(x) = y.get(pos.1) {
-            return *x == '*'
+            return *x == '*';
         }
     }
     false

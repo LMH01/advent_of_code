@@ -1,9 +1,15 @@
-use std::{sync::{Mutex, Arc, mpsc::{self, Sender, Receiver}, RwLock}, thread::{self, available_parallelism}};
+use std::{
+    sync::{
+        mpsc::{self, Receiver, Sender},
+        Arc, Mutex, RwLock,
+    },
+    thread::{self, available_parallelism},
+};
 
 use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {
-    let input =  String::from("iwrupvqb");
+    let input = String::from("iwrupvqb");
     let cores = available_parallelism().unwrap().get();
     let number = launch_threads(cores, &input, "00000");
     println!("Number found: {number}");
@@ -11,7 +17,7 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let input =  String::from("iwrupvqb");
+    let input = String::from("iwrupvqb");
     let cores = available_parallelism().unwrap().get();
     let number = launch_threads(cores, &input, "000000");
     println!("Number found: {number}");
@@ -19,7 +25,7 @@ pub fn part2(_debug: bool) -> Result<()> {
 }
 
 /// Launches `amount` number of threads that will simultaneously try to brute-force the hash.
-/// 
+///
 /// Returns the number that is concatenated to `prefix` to receive a hash that starts with `delimiter`.
 fn launch_threads(amount: usize, prefix: &str, delimiter: &str) -> i32 {
     let shared = Arc::new(Shared::new());
@@ -48,8 +54,8 @@ fn launch_threads(amount: usize, prefix: &str, delimiter: &str) -> i32 {
             let mut current = shared.next.lock().unwrap();
             let num = *current;
             *current += 1;
-            
-            // make mutex available for all threads again           
+
+            // make mutex available for all threads again
             drop(current);
 
             // Setup and compute hash

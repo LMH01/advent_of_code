@@ -14,7 +14,7 @@ pub fn part1(debug: bool) -> Result<()> {
         if debug {
             println!("{},{}: {}", point.0, point.1, point.2);
         }
-        risk += point.2+1;
+        risk += point.2 + 1;
     }
     println!("Total risk level: {}", risk);
     Ok(())
@@ -31,7 +31,9 @@ pub fn part2(_debug: bool) -> Result<()> {
         largest_basins.push(basins.pop().unwrap());
     }
     println!("Largest basins: {:?}", largest_basins);
-    let sum = largest_basins.pop().unwrap() * largest_basins.pop().unwrap() * largest_basins.pop().unwrap();
+    let sum = largest_basins.pop().unwrap()
+        * largest_basins.pop().unwrap()
+        * largest_basins.pop().unwrap();
     println!("Sum: {}", sum);
     Ok(())
 }
@@ -55,7 +57,11 @@ fn lowpoints(input: &Vec<Vec<i32>>) -> Vec<(usize, usize, i32)> {
 }
 
 /// Returns a vector containing the sizes of all basins that where found
-fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize, i32)>) -> Vec<i32> {
+fn basins(
+    input: &Vec<Vec<i32>>,
+    max_x_size: usize,
+    lowpoints: Vec<(usize, usize, i32)>,
+) -> Vec<i32> {
     let mut basins = Vec::new();
     // Get basin size of entry
     for entry in lowpoints {
@@ -71,9 +77,11 @@ fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize
             }
         }
         while let Some(neighbor) = open_neighbors.pop() {
-            
             for neighbor_neighbor in neighbor_positions(neighbor, max_x_size, input.len()) {
-                if input[neighbor_neighbor.1][neighbor_neighbor.0] != 9 && !closed_neighbors.contains(&neighbor_neighbor) && !open_neighbors.contains(&neighbor_neighbor) {
+                if input[neighbor_neighbor.1][neighbor_neighbor.0] != 9
+                    && !closed_neighbors.contains(&neighbor_neighbor)
+                    && !open_neighbors.contains(&neighbor_neighbor)
+                {
                     open_neighbors.push(neighbor_neighbor);
                     basin_size += 1;
                 }
@@ -86,30 +94,34 @@ fn basins(input: &Vec<Vec<i32>>, max_x_size: usize, lowpoints: Vec<(usize, usize
 }
 
 /// Returns the neighboring positions for a position in a 2D graph.
-/// 
+///
 /// # Example
 /// ```
 /// use lmh01_pathfinding::core::neighbor_positions;
-/// 
+///
 /// let neighbors = neighbor_positions((2,2), 10, 10);
 /// assert_eq!((1, 2), neighbors[0]);
 /// assert_eq!((2, 1), neighbors[1]);
 /// assert_eq!((3, 2), neighbors[2]);
 /// assert_eq!((2, 3), neighbors[3]);
 /// ```
-pub fn neighbor_positions(pos: (usize, usize), max_x_size: usize, max_y_size: usize) -> Vec<(usize, usize)> {
+pub fn neighbor_positions(
+    pos: (usize, usize),
+    max_x_size: usize,
+    max_y_size: usize,
+) -> Vec<(usize, usize)> {
     let mut positions = Vec::new();
     if pos.0 != 0 {
-        positions.push((pos.0-1, pos.1));
+        positions.push((pos.0 - 1, pos.1));
     }
     if pos.1 != 0 {
-        positions.push((pos.0, pos.1-1));
+        positions.push((pos.0, pos.1 - 1));
     }
-    if pos.0 != max_x_size-1 {
-        positions.push((pos.0+1, pos.1));
+    if pos.0 != max_x_size - 1 {
+        positions.push((pos.0 + 1, pos.1));
     }
-    if pos.1 != max_y_size-1 {
-        positions.push((pos.0, pos.1+1));
+    if pos.1 != max_y_size - 1 {
+        positions.push((pos.0, pos.1 + 1));
     }
     positions
 }

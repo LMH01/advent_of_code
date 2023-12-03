@@ -1,5 +1,5 @@
 use adventofcode_lmh01_lib::read_file;
-use miette::{Result, miette};
+use miette::{miette, Result};
 
 // too high - 2265
 
@@ -16,7 +16,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     for (id, game) in games.iter().enumerate() {
         // add id +1 because game id's start at 1 and not at 0
         if game.validate(12, 13, 14) {
-            sum += id+1;
+            sum += id + 1;
         }
     }
     println!("GameID sum: {sum}");
@@ -46,12 +46,11 @@ struct Game {
 }
 
 impl Game {
-
     /// Validate if the input numbers are <= the used numbers
     fn validate(&self, red: u8, green: u8, blue: u8) -> bool {
         for draw in &self.draws {
             if !draw.validate(green, blue, red) {
-                return false
+                return false;
             }
         }
         true
@@ -89,9 +88,7 @@ impl TryFrom<&str> for Game {
                 Err(e) => return Err(format!("Unable to create game, draw is invalid: {e}")),
             }
         }
-        Ok( Self {
-            draws,
-        })
+        Ok(Self { draws })
     }
 }
 
@@ -104,13 +101,8 @@ struct Draw {
 
 #[allow(dead_code)]
 impl Draw {
-
     fn new(red: u8, green: u8, blue: u8) -> Self {
-        Self {
-            green,
-            blue,
-            red
-        }
+        Self { green, blue, red }
     }
 
     /// Validate if the input numbers are <= the used numbers
@@ -139,35 +131,54 @@ impl TryFrom<&str> for Draw {
             }
         }
 
-        Ok(Self {
-            green,
-            blue,
-            red,
-        })
+        Ok(Self { green, blue, red })
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::years::y2023::day02::{Game, Draw};
-
+    use crate::years::y2023::day02::{Draw, Game};
 
     #[test]
     fn test_game_try_from() {
-        assert_eq!(Game::try_from("1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"), Ok(Game { draws: vec![Draw::new(3, 1, 2), Draw::new(6, 4, 5), Draw::new(9, 7, 8)]}))
+        assert_eq!(
+            Game::try_from(
+                "1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"
+            ),
+            Ok(Game {
+                draws: vec![Draw::new(3, 1, 2), Draw::new(6, 4, 5), Draw::new(9, 7, 8)]
+            })
+        )
     }
 
     #[test]
     fn test_game_validate() {
-        assert!(Game::try_from("1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red").unwrap().validate(10, 10, 10));
-        assert!(!Game::try_from("1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red").unwrap().validate(6, 6, 6));
+        assert!(Game::try_from(
+            "1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"
+        )
+        .unwrap()
+        .validate(10, 10, 10));
+        assert!(!Game::try_from(
+            "1 green, 2 blue, 3 red; 4 green, 5 blue, 6 red; 7 green, 8 blue, 9 red"
+        )
+        .unwrap()
+        .validate(6, 6, 6));
     }
 
     #[test]
     fn test_draw_try_from() {
-        assert_eq!(Draw::try_from("1 blue, 2 red, 3 green"), Ok(Draw::new(2, 3, 1)));
-        assert_eq!(Draw::try_from("2 red, 5 green, 10 blue"), Ok(Draw::new(2, 5, 10)));
-        assert_eq!(Draw::try_from("4 green, 12 red, 20 blue"), Ok(Draw::new(12, 4, 20)));
+        assert_eq!(
+            Draw::try_from("1 blue, 2 red, 3 green"),
+            Ok(Draw::new(2, 3, 1))
+        );
+        assert_eq!(
+            Draw::try_from("2 red, 5 green, 10 blue"),
+            Ok(Draw::new(2, 5, 10))
+        );
+        assert_eq!(
+            Draw::try_from("4 green, 12 red, 20 blue"),
+            Ok(Draw::new(12, 4, 20))
+        );
     }
 
     #[test]
@@ -175,5 +186,4 @@ mod tests {
         assert!(Draw::new(9, 20, 30).validate(10, 20, 30));
         assert!(!Draw::new(10, 20, 30).validate(9, 20, 30));
     }
-
 }

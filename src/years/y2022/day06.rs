@@ -1,4 +1,4 @@
-use std::collections::{VecDeque, HashSet};
+use std::collections::{HashSet, VecDeque};
 
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
@@ -22,7 +22,7 @@ fn package_start(input: &str, header_length: usize) -> i32 {
     let mut latest_chars = VecDeque::new();
     for c in input.chars() {
         chars += 1;
-        latest_chars.push_back(c); 
+        latest_chars.push_back(c);
         if latest_chars.len() == header_length {
             if unique(&latest_chars) {
                 return chars;

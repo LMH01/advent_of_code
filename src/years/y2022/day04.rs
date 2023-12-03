@@ -1,4 +1,4 @@
-use adventofcode_lmh01_lib::{read_file, numbers_from_string};
+use adventofcode_lmh01_lib::{numbers_from_string, read_file};
 use miette::Result;
 
 pub fn part1(_debug: bool) -> Result<()> {

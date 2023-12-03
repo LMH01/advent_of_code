@@ -76,7 +76,6 @@ fn is_string_nice_part1(string: &str, vowels: &HashSet<char>) -> bool {
     true
 }
 
-
 fn is_string_nice_part2(string: &str) -> bool {
     // index 0 = char in the before last iteration
     // index 1 = char in the last iteration
@@ -89,7 +88,7 @@ fn is_string_nice_part2(string: &str) -> bool {
     for c in string.chars() {
         // Check first condition
         if last_chars.0 == c {
-            first_condition = true; 
+            first_condition = true;
         }
         // Check second condition
         if pairs.contains(&(last_chars.1, c)) {

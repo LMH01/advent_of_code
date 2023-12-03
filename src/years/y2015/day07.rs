@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, LinkedList}};
+use std::collections::{HashMap, LinkedList};
 
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
@@ -17,7 +17,10 @@ pub fn part1(_debug: bool) -> Result<()> {
     // Update available values for each open instruction
     update_values(&mut open_instructions, &mut available_values, None);
 
-    println!("Value of a: {}", available_values.get("a").expect("Not found!"));
+    println!(
+        "Value of a: {}",
+        available_values.get("a").expect("Not found!")
+    );
     Ok(())
 }
 
@@ -43,26 +46,38 @@ pub fn part2(_debug: bool) -> Result<()> {
     load_values(&instructions, &mut available_values, &mut open_instructions);
     update_values(&mut open_instructions, &mut available_values, Some(b));
 
-    println!("Value of a: {}", available_values.get("a").expect("Not found!"));
+    println!(
+        "Value of a: {}",
+        available_values.get("a").expect("Not found!")
+    );
     Ok(())
 }
 
 /// Loads already existing values
-fn load_values(instructions: &Vec<Instruction>, available_values: &mut HashMap<String, u16>, open_instructions: &mut LinkedList<Instruction>) {
+fn load_values(
+    instructions: &Vec<Instruction>,
+    available_values: &mut HashMap<String, u16>,
+    open_instructions: &mut LinkedList<Instruction>,
+) {
     for instruction in instructions {
         match instruction {
             Instruction::LoadValue(v, k) => {
                 available_values.insert(k.clone(), *v);
-            },
+            }
             _ => open_instructions.push_back(instruction.clone()),
         };
     }
 }
 
 /// If `forced_value` is set, the value contained in the option will be set value for b on each loop
-fn update_values(open_instructions: &mut LinkedList<Instruction>, available_values: &mut HashMap<String, u16>, forced_value: Option<u16>) {
+fn update_values(
+    open_instructions: &mut LinkedList<Instruction>,
+    available_values: &mut HashMap<String, u16>,
+    forced_value: Option<u16>,
+) {
     while !open_instructions.is_empty() {
-        if let Some(value) = forced_value {// not pretty but it works
+        if let Some(value) = forced_value {
+            // not pretty but it works
             available_values.insert(String::from("b"), value);
         }
         let current = open_instructions.pop_front().unwrap();
@@ -119,21 +134,35 @@ fn update_values(open_instructions: &mut LinkedList<Instruction>, available_valu
 }
 
 /// Tries to parse a new value:
-/// 
+///
 /// Checks if `v1` and `v2`s values are contained in `available_values`.
 /// If values are contained, these values will be used to calculate the new value.
 /// If the values are not contained, it will be tried to parse them into u16.
 /// If that succeeds, these values are used to calculate the new value.
 /// If nothing works, `None` is returned.
-fn get_value(operation: Operation, v1: &str, v2: &str, available_values: &HashMap<String, u16>) -> Option::<u16> {
+fn get_value(
+    operation: Operation,
+    v1: &str,
+    v2: &str,
+    available_values: &HashMap<String, u16>,
+) -> Option<u16> {
     if v1.parse::<u16>().is_ok() && v2.parse::<u16>().is_ok() {
         return Some(operation.calculate(&v1.parse::<u16>().unwrap(), &v2.parse::<u16>().unwrap()));
     } else if v1.parse::<u16>().is_ok() && available_values.contains_key(v2) {
-        return Some(operation.calculate(&v1.parse::<u16>().unwrap(), available_values.get(v2).unwrap()));
+        return Some(operation.calculate(
+            &v1.parse::<u16>().unwrap(),
+            available_values.get(v2).unwrap(),
+        ));
     } else if available_values.contains_key(v1) && v2.parse::<u16>().is_ok() {
-        return Some(operation.calculate(available_values.get(v1).unwrap(), &v1.parse::<u16>().unwrap()))
+        return Some(operation.calculate(
+            available_values.get(v1).unwrap(),
+            &v1.parse::<u16>().unwrap(),
+        ));
     } else if available_values.contains_key(v1) && available_values.contains_key(v2) {
-        return Some(operation.calculate(available_values.get(v1).unwrap(), available_values.get(v2).unwrap()));
+        return Some(operation.calculate(
+            available_values.get(v1).unwrap(),
+            available_values.get(v2).unwrap(),
+        ));
     }
     None
 }
@@ -177,33 +206,71 @@ impl Instruction {
             // Instruction is load
             let num = splits[0].parse();
             if num.is_err() {
-                return Ok(Instruction::Redirect(String::from(splits[0]), String::from(splits[2])));
+                return Ok(Instruction::Redirect(
+                    String::from(splits[0]),
+                    String::from(splits[2]),
+                ));
             }
-            return Ok(Instruction::LoadValue(num.unwrap(), String::from(splits[2])));
+            return Ok(Instruction::LoadValue(
+                num.unwrap(),
+                String::from(splits[2]),
+            ));
         } else if splits.len() == 4 {
             // instruction is NOT
-            return Ok(Instruction::Not(String::from(splits[1]), String::from(splits[3])));
+            return Ok(Instruction::Not(
+                String::from(splits[1]),
+                String::from(splits[3]),
+            ));
         } else if splits.len() == 5 {
             match splits[1] {
-                "AND" => return Ok(Instruction::And(String::from(splits[0]), String::from(splits[2]), String::from(splits[4]))),
-                "OR" => return Ok(Instruction::Or(String::from(splits[0]), String::from(splits[2]), String::from(splits[4]))),
+                "AND" => {
+                    return Ok(Instruction::And(
+                        String::from(splits[0]),
+                        String::from(splits[2]),
+                        String::from(splits[4]),
+                    ))
+                }
+                "OR" => {
+                    return Ok(Instruction::Or(
+                        String::from(splits[0]),
+                        String::from(splits[2]),
+                        String::from(splits[4]),
+                    ))
+                }
                 "LSHIFT" => {
                     let num = splits[2].parse();
                     if num.is_err() {
                         return Err(format!("Unable to parse input value: {}", num.unwrap_err()));
                     }
-                    return Ok(Instruction::LShift(String::from(splits[0]), num.unwrap(), String::from(splits[4])))
-                },
+                    return Ok(Instruction::LShift(
+                        String::from(splits[0]),
+                        num.unwrap(),
+                        String::from(splits[4]),
+                    ));
+                }
                 "RSHIFT" => {
                     let num = splits[2].parse();
                     if num.is_err() {
                         return Err(format!("Unable to parse input value: {}", num.unwrap_err()));
                     }
-                    return Ok(Instruction::RShift(String::from(splits[0]), num.unwrap(), String::from(splits[4])))
-                },
-                _ => return Err(format!("Unable to parse instruction: Unknown operation: {}", splits[1])),
+                    return Ok(Instruction::RShift(
+                        String::from(splits[0]),
+                        num.unwrap(),
+                        String::from(splits[4]),
+                    ));
+                }
+                _ => {
+                    return Err(format!(
+                        "Unable to parse instruction: Unknown operation: {}",
+                        splits[1]
+                    ))
+                }
             }
         }
-        Err(format!("Unable to parse string, unexpected input length!: {} - {}", string, splits.len()))
+        Err(format!(
+            "Unable to parse string, unexpected input length!: {} - {}",
+            string,
+            splits.len()
+        ))
     }
 }
