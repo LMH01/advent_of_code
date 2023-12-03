@@ -42,7 +42,6 @@ fn part_numbers(es: &Vec<Vec<char>>) -> u32 {
                 for i in 0..current_number.len() {
                     if check_for_symbols(es, (y_idx, x_idx-1-i)) {
                         total += current_number.parse::<u32>().unwrap();
-                        println!("Number added: {current_number}");
                         current_number = String::new();
                         break;
                     }
