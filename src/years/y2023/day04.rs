@@ -57,7 +57,6 @@ pub fn part2(_debug: bool) -> Result<()> {
             }
             total_cards += 1;
         }
-        println!("{:?}", cards);
     }
     println!("Total cards: {total_cards}");
     Ok(())
