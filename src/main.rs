@@ -296,6 +296,13 @@ fn run_year(opts: &Opts, year: i32) -> miette::Result<()> {
                 (true, true),
                 opts.debug,
             )?;
+            run_day(
+                y2023::day04::part1,
+                y2023::day04::part2,
+                4,
+                (true, true),
+                opts.debug,
+            )?;
             Ok(())
         }
         _ => Err(miette!(
@@ -501,6 +508,13 @@ fn run_year_part(opts: &Opts, year: i32, day: i32) -> miette::Result<()> {
                 y2023::day03::part1,
                 y2023::day03::part2,
                 3,
+                parts,
+                opts.debug,
+            )?,
+            4 => run_day(
+                y2023::day04::part1,
+                y2023::day04::part2,
+                4,
                 parts,
                 opts.debug,
             )?,
