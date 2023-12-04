@@ -93,17 +93,3 @@ fn construct_sets(mut line: String, demo: bool) -> (HashSet<u32>, HashSet<u32>) 
     }
     (winning_numbers, owned_numbers)
 }
-
-//fn remove_empty(chunks: &mut Vec<&str>) {
-//    let mut empty_strings = 0;
-//    // determine amount of empty strings
-//    for i in 0..chunks.len() {
-//        if chunks[i].is_empty() {
-//            empty_strings += 1;
-//        }
-//    }
-//    // remove empty strings
-//    for _ in 0..=empty_strings {
-//        chunks.remove
-//    }
-//}
