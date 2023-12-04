@@ -92,6 +92,9 @@ fn simulate_steps(
                         .parse()
                         .into_diagnostic()?,
                 );
+            } else {
+                // TODO try what happens when last char is removed from string (or second last char?) because it is not used and thus following
+                // iterations won't have to iterate over it again
             }
         }
         *current_template = (*current_exchanges).to_string();
