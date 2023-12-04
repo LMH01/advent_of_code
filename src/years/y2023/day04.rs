@@ -6,7 +6,7 @@ use miette::Result;
 pub fn part1(_debug: bool) -> Result<()> {
     let content = read_file("input/y2023/day04.txt")?;
     let mut points = 0;
-    for mut line in content {
+    for line in content {
         let (winning_numbers, owned_numbers) = construct_sets(line, false);
         // check matches
         let mut card_points = 0;
@@ -17,7 +17,7 @@ pub fn part1(_debug: bool) -> Result<()> {
             if card_points == 0 {
                 card_points = 1;
             } else {
-                card_points = card_points*2;
+                card_points *= 2;
             }
         }
         points += card_points;
@@ -27,10 +27,11 @@ pub fn part1(_debug: bool) -> Result<()> {
 }
 
 pub fn part2(_debug: bool) -> Result<()> {
-    let content = read_file("input/y2023/day04-demo.txt")?;
-    let mut total_matches = 0;
-    for mut line in content {
-        let (winning_numbers, owned_numbers) = construct_sets(line, true);
+    let content = read_file("input/y2023/day04.txt")?;
+    let mut total_cards = 0;
+    let mut cards = HashMap::new();
+    for (idx, line) in content.iter().enumerate() {
+        let (winning_numbers, owned_numbers) = construct_sets(line.clone(), false);
         
         // check matches
         let mut card_matches = 0;
@@ -40,12 +41,29 @@ pub fn part2(_debug: bool) -> Result<()> {
             }
             card_matches += 1;
         }
-        total_matches += card_matches;
+        
+        // add these copies for each copy of the current card
+        let current_card_copies = match cards.get(&(idx+1)) {
+            Some(v) => *v,
+            None => 1,
+        };
+        for _ in 1..=current_card_copies {
+            // updated owned cards and add new copies
+            for i in 1..=card_matches {
+                match cards.get_mut(&(idx+1+i)) {
+                    Some(v) => *v += 1,
+                    None => _ = cards.insert(idx+1+i, 2),
+                }
+            }
+            total_cards += 1;
+        }
+        println!("{:?}", cards);
     }
-    //println!("Total points: {points}");
+    println!("Total cards: {total_cards}");
     Ok(())
 }
 
+#[allow(clippy::collapsible_else_if)]
 fn construct_sets(mut line: String, demo: bool) -> (HashSet<u32>, HashSet<u32>) {
     // remove duplicated whitespaces (otherwise empty strings may be contained in the vector)
     line = line.replace("   ", " ");
@@ -56,7 +74,7 @@ fn construct_sets(mut line: String, demo: bool) -> (HashSet<u32>, HashSet<u32>) 
     // filter out empty strings
 
     // construct sets
-    for i in 2..chunks.len() {
+    for (i, _) in chunks.iter().enumerate().skip(2) {
         // we skip the first two chunks because they are something like //Card 1:
         // comment in this code for the example
         if demo {
