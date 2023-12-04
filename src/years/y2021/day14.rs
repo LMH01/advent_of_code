@@ -20,8 +20,8 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
-    /*let content = read_file("input/Y2021/day14_test.txt")?;
+pub fn part2(debug: bool) -> Result<()> {
+    let content = read_file("input/y2021/day14.txt")?;
     let mut insertion_rules: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
     init_insertion_rules(&content, &mut input, &mut insertion_rules);
@@ -33,7 +33,7 @@ pub fn part2(_debug: bool) -> Result<()> {
     }
     let mut current_template = input;
     simulate_steps(40, debug, &mut current_template, insertion_rules)?;
-    println!("Result: {}", result(current_template));*/
+    println!("Result: {}", result(current_template));
     println!("No solution available for part 2!");
     Ok(())
 }
@@ -70,24 +70,28 @@ fn simulate_steps(
         }
         let mut current_exchanges = String::new();
         for j in 0..=current_template.len() {
-            if let Some(p1) = current_template.chars().nth(j) {
-                if let Some(p2) = current_template.chars().nth(j + 1) {
-                    let mut to_search = String::from(p1);
-                    to_search.push(p2);
-                    if insertion_rules.contains_key(&to_search) {
-                        current_exchanges.push(p1);
-                        current_exchanges.push(
-                            insertion_rules
-                                .get(&to_search)
-                                .unwrap()
-                                .parse()
-                                .into_diagnostic()?,
-                        );
-                    }
-                } else {
-                    current_exchanges.push(p1);
+            let p1 = match current_template.as_bytes().len() > j {
+                true => current_template.as_bytes()[j],
+                false => continue,
+            };
+            let p2 = match current_template.as_bytes().len() > j+1 {
+                true => current_template.as_bytes()[j+1],
+                false => {
+                    current_exchanges.push(p1 as char);
                     break;
-                }
+                },
+            };
+            let mut to_search = String::from(p1 as char);
+            to_search.push(p2 as char);
+            if insertion_rules.contains_key(&to_search) {
+                current_exchanges.push(p1 as char);
+                current_exchanges.push(
+                    insertion_rules
+                        .get(&to_search)
+                        .unwrap()
+                        .parse()
+                        .into_diagnostic()?,
+                );
             }
         }
         *current_template = (*current_exchanges).to_string();
