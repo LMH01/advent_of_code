@@ -20,20 +20,20 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
-    let content = read_file("input/y2021/day14.txt")?;
-    let mut insertion_rules: HashMap<String, String> = HashMap::new();
-    let mut input = String::new();
-    init_insertion_rules(&content, &mut input, &mut insertion_rules);
-    if debug {
-        println!("insertion rules:");
-        for (k, v) in &insertion_rules {
-            println!("{} -> {}", k, v);
-        }
-    }
-    let mut current_template = input;
-    simulate_steps(40, debug, &mut current_template, insertion_rules)?;
-    println!("Result: {}", result(current_template));
+pub fn part2(_debug: bool) -> Result<()> {
+    //let content = read_file("input/y2021/day14_test.txt")?;
+    //let mut insertion_rules: HashMap<String, String> = HashMap::new();
+    //let mut input = String::new();
+    //init_insertion_rules(&content, &mut input, &mut insertion_rules);
+    //if debug {
+    //    println!("insertion rules:");
+    //    for (k, v) in &insertion_rules {
+    //        println!("{} -> {}", k, v);
+    //    }
+    //}
+    //let mut current_template = input;
+    //simulate_steps(40, debug, &mut current_template, insertion_rules)?;
+    //println!("Result: {}", result(current_template));
     println!("No solution available for part 2!");
     Ok(())
 }
@@ -66,7 +66,7 @@ fn simulate_steps(
 ) -> Result<()> {
     for i in 1..=steps {
         if debug {
-            println!("Calculating step {}...", i);
+            println!("Calculating step {}... (with {} elements)", i, current_template.len());
         }
         let mut current_exchanges = String::new();
         for j in 0..=current_template.len() {
@@ -92,9 +92,6 @@ fn simulate_steps(
                         .parse()
                         .into_diagnostic()?,
                 );
-            } else {
-                // TODO try what happens when last char is removed from string (or second last char?) because it is not used and thus following
-                // iterations won't have to iterate over it again
             }
         }
         *current_template = (*current_exchanges).to_string();
