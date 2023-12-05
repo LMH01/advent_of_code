@@ -5,7 +5,8 @@ use adventofcode_lmh01_lib::get_draw_numbers;
 aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
-    // TODO fix
+    // for some reason this code no longer works after being copied from the old project layout
+    // (code was not changed in any way, except for the input)
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
     let mut current_bingo_numbers: Vec<i32> = Vec::new();
@@ -22,7 +23,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
                 board_number += 1
             }
         } else {
-            current_bingo_numbers.append(&mut read_numbers_from_line(&line).unwrap());
+            current_bingo_numbers.append(&mut read_numbers_from_line(&line.trim()).unwrap());
         }
     }
     bingo_boards.push(BingoBoard::new(current_bingo_numbers, board_number));
