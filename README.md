@@ -1,14 +1,20 @@
 # Advent of Code
 This repository contains the code that i'm using to complete the tasks given by the [Advent of Code](https://adventofcode.com/) event.
 
-As of 05.12.2022 this repository was changed to contain the solutions for all advent of code years where I participated.
+I'm using [aocli](https://github.com/sncxyz/aocli) for my project structure.
 
 ## Usage
-If you would like to run all tasks of each year at once just use `cargo run --release -- -a`. Just know that some tasks might take a while to complete. To exclude these use `cargo run --release`.\
-Make sure that you use the `--release` flag as some things might take longer without it.
 
-To run a specific day use `cargo run --release -- -y [YEAR] -d [DAY]`\
-For example, `cargo run --release -- -y 2021 -d 2` will run all parts of day two of year 2021.
+First you have to install [aocli](https://github.com/sncxyz/aocli). You can do so by using the following command: `cargo install aocli`. Make sure that `~/.cargo/bin` is added to your `$PATH`.
 
-To only run a specific part of a specific day use `cargo run --release -- -y [YEAR] -d [DAY] -p [PART]`.\
-For example, `cargo run --release -- -y 2021 -d 2 -p 2` will run only part two of day two of year 2021.
+Once it is installed and available you will have to set your session token, it can be extracted from the web browser you are using to access the advent fo code site. It will be used to fetch your specific input data. The session token needs to be saved in a file named `.session` placed in the root directory.
+
+Once this is done, you can use the following commands (for more information see [aocli](https://github.com/sncxyz/aocli/blob/master/README.md#commands)):
+
+### Get input
+
+`aoc get <YEAR> <DAY>`
+
+### Run solution
+
+`aoc run <YEAR> <DAY>`
