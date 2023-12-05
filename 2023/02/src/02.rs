@@ -17,7 +17,6 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     }
     println!("GameID sum: {sum}");
     sum.to_string()
-    // TODO fix, current result is somehow wrong
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
@@ -45,7 +44,7 @@ impl Game {
     /// Validate if the input numbers are <= the used numbers
     fn validate(&self, red: u8, green: u8, blue: u8) -> bool {
         for draw in &self.draws {
-            if !draw.validate(green, blue, red) {
+            if !draw.validate(red, green, blue) {
                 return false;
             }
         }
