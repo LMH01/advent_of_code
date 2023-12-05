@@ -3,14 +3,14 @@ use std::collections::{HashSet, VecDeque};
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day06.txt")?;
     let p_start = package_start(content.get(0).unwrap(), 4);
     println!("Package start after at char {}", p_start);
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day06.txt")?;
     let p_start = package_start(content.get(0).unwrap(), 14);
     println!("Package start after at char {}", p_start);

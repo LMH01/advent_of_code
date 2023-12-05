@@ -1,14 +1,14 @@
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day01.txt")?;
     let total = get_total(&content);
     println!("Total calibration value: {total}");
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut content = read_file("input/y2023/day01.txt")?;
     //let replaced = replace_string_nr(content);
     replace_string_nr_x(&mut content);

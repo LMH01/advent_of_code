@@ -1,12 +1,10 @@
 use std::collections::{HashMap, LinkedList};
 
-use adventofcode_lmh01_lib::read_file;
-use miette::Result;
+aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day07.txt")?;
     let mut instructions = Vec::new();
-    for line in content {
+    for line in input {
         instructions.push(Instruction::from_str(&line).unwrap());
     }
     // Load values
@@ -21,13 +19,12 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
         "Value of a: {}",
         available_values.get("a").expect("Not found!")
     );
-    Ok(())
+    available_values.get("a").expect("not found").clone()
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day07.txt")?;
     let mut instructions = Vec::new();
-    for line in content {
+    for line in input {
         instructions.push(Instruction::from_str(&line).unwrap());
     }
     // Load values
@@ -50,7 +47,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
         "Value of a: {}",
         available_values.get("a").expect("Not found!")
     );
-    Ok(())
+    available_values.get("a").expect("not found").clone()
 }
 
 /// Loads already existing values

@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day03.txt")?;
     let es = engine_schematic(&content);
     let pn = part_numbers(&es);
@@ -11,7 +11,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day03.txt")?;
     let es = engine_schematic(&content);
     let g = gears(&es);

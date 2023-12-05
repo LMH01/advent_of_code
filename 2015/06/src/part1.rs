@@ -1,23 +1,16 @@
 use std::num::ParseIntError;
 
-use adventofcode_lmh01_lib::read_file;
-use miette::Result;
-
-pub fn part_1(debug: bool) -> impl ToString {
-    let content = read_file("input/y2015/day06.txt")?;
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut instructions = Vec::new();
     let mut board = Board::new();
-    for line in content {
+    for line in input {
         instructions.push(Instruction::from_str(&line).unwrap());
     }
     for instruction in instructions {
         instruction.run(&mut board);
     }
-    if debug {
-        board.print();
-    }
     println!("Turned on lamps: {}", board.count_on());
-    Ok(())
+    board.count_on()
 }
 
 enum Instruction {
@@ -148,19 +141,5 @@ impl Board {
             }
         }
         count
-    }
-
-    /// Prints the board
-    fn print(&self) {
-        for i in &self.cells {
-            for j in i {
-                if *j {
-                    print!("X");
-                } else {
-                    print!("O");
-                }
-            }
-            println!();
-        }
     }
 }

@@ -3,7 +3,7 @@ use std::i32::MAX;
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part_1(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day1.txt")?;
     let mut x;
     let mut y = MAX;
@@ -23,7 +23,7 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part_2(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day1.txt")?;
     let mut increases = 0;
     let mut i = 0;

@@ -3,7 +3,7 @@ use std::collections::{HashSet, HashMap};
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day04.txt")?;
     let mut points = 0;
     for line in content {
@@ -26,7 +26,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day04.txt")?;
     let mut total_cards = 0;
     let mut cards = HashMap::new();

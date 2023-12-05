@@ -3,7 +3,7 @@ use miette::{miette, Result};
 
 // too high - 2265
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day02.txt")?;
     let mut games = Vec::new();
     for line in content {
@@ -23,7 +23,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2023/day02.txt")?;
     let mut games = Vec::new();
     for line in content {

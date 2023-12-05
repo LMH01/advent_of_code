@@ -2,14 +2,14 @@ use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 use simple_graph_algorithms::{algorithms::dijkstra, Graph};
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part_1(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day15.txt")?;
     let vec = setup_vec(content);
     run_djikstra(vec.0, debug, vec.1);
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part_2(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day15.txt")?;
     let vec = setup_vec(content);
     let larger_map = duplicate_map(vec.0);

@@ -3,7 +3,7 @@ use miette::Result;
 
 use std::cmp::Ordering;
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part_1(debug: bool) -> impl ToString {
     let vec = read_file("input/y2021/day6.txt")?;
     let mut fish = get_draw_numbers::<u8>(vec.get(0).unwrap_or(&String::from("")))?;
     for i in 1..=80 {
@@ -32,7 +32,7 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let vec = read_file("input/y2021/day6.txt")?;
     let fish = get_draw_numbers::<u8>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut ages: Ages = Ages {

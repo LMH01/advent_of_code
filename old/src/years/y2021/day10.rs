@@ -1,7 +1,7 @@
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2021/day10.txt")?;
     let mut synatx_error_score = 0;
     for line in content {
@@ -28,7 +28,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part_2(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day10.txt")?;
     let mut corrupted_lines = Vec::new();
     for line in &content {

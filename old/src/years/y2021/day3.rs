@@ -1,7 +1,7 @@
 use adventofcode_lmh01_lib::{read_file, transform_vec};
 use miette::{IntoDiagnostic, Result};
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let vec = transform_vec(read_file("input/y2021/day3.txt")?);
     let mut gamma = String::new();
     let mut epsilon = String::new();
@@ -38,7 +38,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let vec = read_file("input/y2021/day3.txt")?;
     let ogr = get_raiting(&vec, 0, SystemRaiting::OxygenGeneratorRating)
         .get(0)

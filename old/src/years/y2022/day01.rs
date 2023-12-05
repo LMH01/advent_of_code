@@ -1,7 +1,7 @@
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day01.txt")?;
     let mut calories = get_calories(&content);
     calories.sort();
@@ -10,7 +10,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day01.txt")?;
     let mut calories = get_calories(&content);
     calories.sort();

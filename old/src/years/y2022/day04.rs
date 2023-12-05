@@ -1,13 +1,13 @@
 use adventofcode_lmh01_lib::{numbers_from_string, read_file};
 use miette::Result;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day04.txt")?;
     calculate(content, true);
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2022/day04.txt")?;
     calculate(content, false);
     Ok(())

@@ -3,7 +3,7 @@ use miette::{IntoDiagnostic, Result};
 
 use std::collections::HashMap;
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let vec = read_file("input/y2021/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;
@@ -48,7 +48,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let vec = read_file("input/y2021/day4.txt")?;
     let mut draw_numbers: Vec<i32> = Vec::new();
     let mut first_line = true;

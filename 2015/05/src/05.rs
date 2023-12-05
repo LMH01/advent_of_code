@@ -1,31 +1,28 @@
 use std::collections::HashSet;
 
-use adventofcode_lmh01_lib::read_file;
-use miette::Result;
+aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day05.txt")?;
     let mut nice_strings = 0;
     let vowels = get_vowels();
-    for string in content {
+    for string in input {
         if is_string_nice_part1(&string, &vowels) {
             nice_strings += 1;
         }
     }
     println!("Nice strings: {nice_strings}");
-    Ok(())
+    nice_strings
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day05.txt")?;
     let mut nice_strings = 0;
-    for string in content {
+    for string in input {
         if is_string_nice_part2(&string) {
             nice_strings += 1;
         }
     }
     println!("Nice strings: {nice_strings}");
-    Ok(())
+    nice_strings
 }
 
 fn get_vowels() -> HashSet<char> {

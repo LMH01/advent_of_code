@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use adventofcode_lmh01_lib::read_file;
 use miette::{miette, Result};
 
-pub fn part1(_debug: bool) -> Result<()> {
+pub fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2021/day8.txt")?;
     let mut output_values: Vec<String> = Vec::new();
     for line in content {
@@ -27,7 +27,7 @@ pub fn part1(_debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part_2(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day8.txt")?;
     let mut entries: HashMap<String, String> = HashMap::new();
     let mut output_total = 0;

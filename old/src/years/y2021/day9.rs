@@ -5,7 +5,7 @@ use miette::Result;
 
 use super::day15::setup_vec;
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part_1(debug: bool) -> impl ToString {
     let content = read_file("input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);
@@ -20,7 +20,7 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2021/day9.txt")?;
     let vec = setup_vec(content);
     let lowpoints = lowpoints(&vec.0);

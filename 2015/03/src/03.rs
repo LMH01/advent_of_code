@@ -1,22 +1,18 @@
 use std::collections::HashSet;
 
-use adventofcode_lmh01_lib::read_file;
-use miette::Result;
+aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day03.txt")?;
     let mut visited_coordinates: HashSet<(i32, i32)> = HashSet::new();
-    visit_houses(&content[0], &mut visited_coordinates);
-    println!("duplicate visits: {}", visited_coordinates.len());
-    Ok(())
+    visit_houses(&input[0], &mut visited_coordinates);
+    visited_coordinates.len()
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
-    let content = read_file("input/y2015/day03.txt")?;
     let mut visited_coordinates: HashSet<(i32, i32)> = HashSet::new();
     let mut instructions_1 = String::new();
     let mut instructions_2 = String::new();
-    for (i, c) in content[0].chars().enumerate() {
+    for (i, c) in input[0].chars().enumerate() {
         if i % 2 == 0 {
             instructions_1.push(c);
         } else {
@@ -25,8 +21,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
     }
     visit_houses(&instructions_1, &mut visited_coordinates);
     visit_houses(&instructions_2, &mut visited_coordinates);
-    println!("duplicate visits: {}", visited_coordinates.len());
-    Ok(())
+    visited_coordinates.len()
 }
 
 fn visit_houses(instructions: &str, visited_coordinates: &mut HashSet<(i32, i32)>) {

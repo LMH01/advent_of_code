@@ -1,27 +1,21 @@
-use std::{
-    sync::{
-        mpsc::{self, Receiver, Sender},
-        Arc, Mutex, RwLock,
-    },
-    thread::{self, available_parallelism},
-};
+use std::{thread::{available_parallelism, self}, sync::{Arc, mpsc::{Sender, Receiver, self}, Mutex, RwLock}};
 
-use miette::Result;
+aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
-    let input = String::from("iwrupvqb");
+    let input = input[0];
     let cores = available_parallelism().unwrap().get();
     let number = launch_threads(cores, &input, "00000");
     println!("Number found: {number}");
-    Ok(())
+    number
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
-    let input = String::from("iwrupvqb");
+    let input = input[0];
     let cores = available_parallelism().unwrap().get();
     let number = launch_threads(cores, &input, "000000");
     println!("Number found: {number}");
-    Ok(())
+    number
 }
 
 /// Launches `amount` number of threads that will simultaneously try to brute-force the hash.

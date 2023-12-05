@@ -3,7 +3,7 @@ use miette::Result;
 
 use std::{cmp::Ordering, u128::MAX as U128_MAX, u32::MAX};
 
-pub fn part1(debug: bool) -> Result<()> {
+pub fn part_1(debug: bool) -> impl ToString {
     let vec = read_file("input/y2021/day7.txt")?;
     let crabs = get_draw_numbers::<u32>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut least_fuel_consumption: (u32, u32) = (MAX, MAX);
@@ -28,7 +28,7 @@ pub fn part1(debug: bool) -> Result<()> {
     Ok(())
 }
 
-pub fn part2(debug: bool) -> Result<()> {
+pub fn part_2(debug: bool) -> impl ToString {
     let vec = read_file("input/y2021/day7.txt")?;
     let crabs = get_draw_numbers::<u128>(vec.get(0).unwrap_or(&String::from("")))?;
     let mut least_fuel_consumption: (u128, u128) = (U128_MAX, U128_MAX);

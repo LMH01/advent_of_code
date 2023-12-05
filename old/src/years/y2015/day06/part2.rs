@@ -3,7 +3,7 @@ use std::num::ParseIntError;
 use adventofcode_lmh01_lib::read_file;
 use miette::Result;
 
-pub fn part2(_debug: bool) -> Result<()> {
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2015/day06.txt")?;
     let mut instructions = Vec::new();
     let mut board = Board::new();

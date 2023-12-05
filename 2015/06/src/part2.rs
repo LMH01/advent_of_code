@@ -1,23 +1,16 @@
 use std::num::ParseIntError;
 
-use adventofcode_lmh01_lib::read_file;
-use miette::Result;
-
-pub fn part_1(debug: bool) -> impl ToString {
-    let content = read_file("input/y2015/day06.txt")?;
+pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut instructions = Vec::new();
     let mut board = Board::new();
-    for line in content {
+    for line in input {
         instructions.push(Instruction::from_str(&line).unwrap());
     }
     for instruction in instructions {
         instruction.run(&mut board);
     }
-    if debug {
-        board.print();
-    }
-    println!("Turned on lamps: {}", board.count_on());
-    Ok(())
+    println!("Combined brightness: {}", board.count_brightness());
+    board.count_brightness()
 }
 
 enum Instruction {
@@ -94,7 +87,7 @@ fn build_coordinate_tuple(
 }
 
 struct Board {
-    cells: Vec<Vec<bool>>,
+    cells: Vec<Vec<u16>>,
 }
 
 impl Board {
@@ -103,7 +96,7 @@ impl Board {
         for _i in 1..=1000 {
             let mut vec = Vec::new();
             for _j in 1..=1000 {
-                vec.push(false);
+                vec.push(0);
             }
             cells.push(vec);
         }
@@ -114,7 +107,7 @@ impl Board {
     fn turn_on(&mut self, start: &(u16, u16), end: &(u16, u16)) {
         for i in start.1..=end.1 {
             for j in start.0..=end.0 {
-                self.cells[i as usize][j as usize] = true;
+                self.cells[i as usize][j as usize] += 1;
             }
         }
     }
@@ -123,7 +116,9 @@ impl Board {
     fn turn_off(&mut self, start: &(u16, u16), end: &(u16, u16)) {
         for i in start.1..=end.1 {
             for j in start.0..=end.0 {
-                self.cells[i as usize][j as usize] = false;
+                if self.cells[i as usize][j as usize] != 0 {
+                    self.cells[i as usize][j as usize] -= 1;
+                }
             }
         }
     }
@@ -132,35 +127,19 @@ impl Board {
     fn toggle(&mut self, start: &(u16, u16), end: &(u16, u16)) {
         for i in start.1..=end.1 {
             for j in start.0..=end.0 {
-                self.cells[i as usize][j as usize] = !self.cells[i as usize][j as usize];
+                self.cells[i as usize][j as usize] += 2;
             }
         }
     }
 
     /// Counts how many lamps are turned on
-    fn count_on(&self) -> u32 {
-        let mut count = 0;
+    fn count_brightness(&self) -> u32 {
+        let mut count: u32 = 0;
         for i in &self.cells {
             for j in i {
-                if *j {
-                    count += 1;
-                }
+                count += *j as u32;
             }
         }
         count
-    }
-
-    /// Prints the board
-    fn print(&self) {
-        for i in &self.cells {
-            for j in i {
-                if *j {
-                    print!("X");
-                } else {
-                    print!("O");
-                }
-            }
-            println!();
-        }
     }
 }
