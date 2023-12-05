@@ -63,12 +63,12 @@ fn simulate_steps(
 }
 
 /// Calculate the result
-fn result(template: &String) -> i32 {
+fn result(template: &str) -> i32 {
     let abc: Vec<char> = vec![
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     ];
-    let mut least: usize = MAX.try_into().unwrap();
+    let mut least: usize = MAX;
     let mut most = 0;
     for letter in abc {
         let count = template.matches(letter).count();

@@ -77,6 +77,7 @@ fn part_2(input: aoc::Input) -> impl ToString {
     board.overlapping_points()
 }
 
+#[allow(dead_code)]
 struct Line {
     x1: i32,
     y1: i32,
