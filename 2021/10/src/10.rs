@@ -48,7 +48,7 @@ fn part_2(input: aoc::Input) -> impl ToString {
             }
         }
     }
-    let incomplete_lines = get_incomplete_lines(&input.as_lines(), &corrupted_lines);
+    let incomplete_lines = get_incomplete_lines(input.as_lines(), &corrupted_lines);
     let mut completion_scores: Vec<i64> = Vec::new();
     for line in incomplete_lines {
         let mut completion_string = String::new();
@@ -84,10 +84,9 @@ fn part_2(input: aoc::Input) -> impl ToString {
         "Middle score: {}",
         completion_scores.get(completion_scores.len() / 2).unwrap()
     );
-    completion_scores
+    *completion_scores
         .get(completion_scores.len() / 2)
         .unwrap()
-        .clone()
 }
 
 fn increase_error_score(c: char, error_score: &mut i32) {

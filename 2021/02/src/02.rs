@@ -5,11 +5,11 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut depth = 0;
     for line in input {
         if line.contains("forward") {
-            horizontal += replace_line(&line, "forward");
+            horizontal += replace_line(line, "forward");
         } else if line.contains("down") {
-            depth += replace_line(&line, "down");
+            depth += replace_line(line, "down");
         } else if line.contains("up") {
-            depth -= replace_line(&line, "up");
+            depth -= replace_line(line, "up");
         }
     }
     println!("Final horizontal: {}", horizontal);
@@ -25,13 +25,13 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut aim = 0;
     for line in input {
         if line.contains("forward") {
-            let value = replace_line(&line, "forward");
+            let value = replace_line(line, "forward");
             horizontal += value;
             depth += aim * value;
         } else if line.contains("down") {
-            aim += replace_line(&line, "down");
+            aim += replace_line(line, "down");
         } else if line.contains("up") {
-            aim -= replace_line(&line, "up");
+            aim -= replace_line(line, "up");
         }
     }
     println!("Final horizontal: {}", horizontal);

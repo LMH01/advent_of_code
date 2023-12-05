@@ -5,7 +5,7 @@ aoc::parts!(1, 2);
 pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut i = 0;
     for line in input {
-        let numbers = numbers_from_string(&line);
+        let numbers = numbers_from_string(line);
         let a0 = numbers[0];
         let a1 = numbers[1];
         let a: (u32, u32) = (a0, a1);
@@ -27,7 +27,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
 fn calculate(content: &[&str], part1: bool) -> i32 {
     let mut i = 0;
     for line in content {
-        let numbers = numbers_from_string(&line);
+        let numbers = numbers_from_string(line);
         let a0 = numbers[0];
         let a1 = numbers[1];
         let a: (u32, u32) = (a0, a1);

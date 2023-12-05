@@ -116,7 +116,7 @@ fn get_raiting(vec: Vec<String>, index: usize, system_type: SystemRaiting) -> Ve
             || (line.chars().nth(index).unwrap_or('-').eq(&'1')
                 && matches!(operation, Operation::KeepOnes))
         {
-            accepted.push(String::from(line));
+            accepted.push(line);
         }
     }
     // ''accepted' vector has been filled with the remaining values
@@ -131,7 +131,7 @@ fn get_raiting(vec: Vec<String>, index: usize, system_type: SystemRaiting) -> Ve
 
 pub fn transform_vec(vec: &[&str]) -> Vec<String> {
     let mut output: Vec<String> =
-        vec![String::new(); vec.get(0).unwrap_or(&String::new().as_str()).len()];
+        vec![String::new(); vec.first().unwrap_or(&String::new().as_str()).len()];
     for line in vec {
         for (index, character) in line.chars().enumerate() {
             output

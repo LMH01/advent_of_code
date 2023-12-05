@@ -14,7 +14,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut board_number: i32 = 1;
     for line in input {
         if first_line {
-            draw_numbers = get_draw_numbers(&line).unwrap();
+            draw_numbers = get_draw_numbers(line).unwrap();
             first_line = false;
         } else if line.is_empty() {
             if !current_bingo_numbers.is_empty() {
@@ -23,7 +23,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
                 board_number += 1
             }
         } else {
-            current_bingo_numbers.append(&mut read_numbers_from_line(&line.trim()).unwrap());
+            current_bingo_numbers.append(&mut read_numbers_from_line(line.trim()).unwrap());
         }
     }
     bingo_boards.push(BingoBoard::new(current_bingo_numbers, board_number));
@@ -58,7 +58,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut board_number: i32 = 1;
     for line in input {
         if first_line {
-            draw_numbers = get_draw_numbers(&line).unwrap();
+            draw_numbers = get_draw_numbers(line).unwrap();
             first_line = false;
         } else if line.is_empty() {
             if !current_bingo_numbers.is_empty() {
@@ -67,7 +67,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
                 board_number += 1
             }
         } else {
-            current_bingo_numbers.append(&mut read_numbers_from_line(&line).unwrap());
+            current_bingo_numbers.append(&mut read_numbers_from_line(line).unwrap());
         }
     }
     bingo_boards.push(BingoBoard::new(current_bingo_numbers, board_number));

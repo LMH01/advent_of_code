@@ -6,7 +6,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut nice_strings = 0;
     let vowels = get_vowels();
     for string in input {
-        if is_string_nice_part1(&string, &vowels) {
+        if is_string_nice_part1(string, &vowels) {
             nice_strings += 1;
         }
     }
@@ -17,7 +17,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
 pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut nice_strings = 0;
     for string in input {
-        if is_string_nice_part2(&string) {
+        if is_string_nice_part2(string) {
             nice_strings += 1;
         }
     }

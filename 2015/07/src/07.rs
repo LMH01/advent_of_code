@@ -5,7 +5,7 @@ aoc::parts!(1, 2);
 pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut instructions = Vec::new();
     for line in input {
-        instructions.push(Instruction::from_str(&line).unwrap());
+        instructions.push(Instruction::from_str(line).unwrap());
     }
     // Load values
     let mut available_values = HashMap::new();
@@ -19,13 +19,13 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
         "Value of a: {}",
         available_values.get("a").expect("Not found!")
     );
-    available_values.get("a").expect("not found").clone()
+    *available_values.get("a").expect("not found")
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut instructions = Vec::new();
     for line in input {
-        instructions.push(Instruction::from_str(&line).unwrap());
+        instructions.push(Instruction::from_str(line).unwrap());
     }
     // Load values
     let mut available_values = HashMap::new();
@@ -47,7 +47,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
         "Value of a: {}",
         available_values.get("a").expect("Not found!")
     );
-    available_values.get("a").expect("not found").clone()
+    *available_values.get("a").expect("not found")
 }
 
 /// Loads already existing values

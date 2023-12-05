@@ -6,7 +6,7 @@ aoc::parts!(1, 2);
 
 fn part_1(input: aoc::Input) -> impl ToString {
     let mut fish = get_draw_numbers::<u8>(input[0]).unwrap();
-    for i in 1..=80 {
+    for _i in 1..=80 {
         // 80 days
         let mut fish_to_add = 0;
         for f in fish.iter_mut() {

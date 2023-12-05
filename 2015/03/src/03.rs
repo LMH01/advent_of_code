@@ -4,7 +4,7 @@ aoc::parts!(1, 2);
 
 pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut visited_coordinates: HashSet<(i32, i32)> = HashSet::new();
-    visit_houses(&input[0], &mut visited_coordinates);
+    visit_houses(input[0], &mut visited_coordinates);
     visited_coordinates.len()
 }
 

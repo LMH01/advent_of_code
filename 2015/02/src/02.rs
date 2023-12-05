@@ -3,7 +3,7 @@ aoc::parts!(1, 2);
 pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut paper = 0;
     for line in input {
-        let p = Package::from_line(&line);
+        let p = Package::from_line(line);
         paper += p.required_paper();
     }
     paper
@@ -12,7 +12,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
 pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut ribbon = 0;
     for line in input {
-        let p = Package::from_line(&line);
+        let p = Package::from_line(line);
         ribbon += p.required_ribbon();
     }
     ribbon

@@ -4,7 +4,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     let mut instructions = Vec::new();
     let mut board = Board::new();
     for line in input {
-        instructions.push(Instruction::from_str(&line).unwrap());
+        instructions.push(Instruction::from_str(line).unwrap());
     }
     for instruction in instructions {
         instruction.run(&mut board);

@@ -22,7 +22,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
         i += 1;
         current_lines.push(line);
         if i == 3 {
-            let duplicate = common_item(&current_lines[0], &current_lines[1], &current_lines[2]);
+            let duplicate = common_item(current_lines[0], current_lines[1], current_lines[2]);
             let priority = retrieve_priority(duplicate.unwrap());
             priority_total += priority;
             current_lines = Vec::new();

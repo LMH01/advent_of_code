@@ -11,7 +11,7 @@ aoc::parts!(1, 2);
 pub fn part_1(input: aoc::Input) -> impl ToString {
     let input = input[0];
     let cores = available_parallelism().unwrap().get();
-    let number = launch_threads(cores, &input, "00000");
+    let number = launch_threads(cores, input, "00000");
     println!("Number found: {number}");
     number
 }
@@ -19,7 +19,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
 pub fn part_2(input: aoc::Input) -> impl ToString {
     let input = input[0];
     let cores = available_parallelism().unwrap().get();
-    let number = launch_threads(cores, &input, "000000");
+    let number = launch_threads(cores, input, "000000");
     println!("Number found: {number}");
     number
 }
