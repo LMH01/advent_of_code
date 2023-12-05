@@ -491,3 +491,46 @@ dependencies = [
  "aoclib",
  "simple_graph_algorithms",
 ]
+
+[[package]]
+name = "y2022d01"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
+
+[[package]]
+name = "y2022d02"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
+
+[[package]]
+name = "y2022d03"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
+
+[[package]]
+name = "y2022d04"
+version = "0.1.0"
+dependencies = [
+ "adventofcode_lmh01_lib",
+ "aoclib",
+]
+
+[[package]]
+name = "y2022d05"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
+
+[[package]]
+name = "y2022d06"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
