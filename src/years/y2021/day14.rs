@@ -3,7 +3,7 @@ use std::{collections::HashMap, i32::MAX};
 use adventofcode_lmh01_lib::read_file;
 use miette::{IntoDiagnostic, Result};
 
-pub fn part_1(debug: bool) -> impl ToString {
+fn part_1(input: aoc::Input) -> impl ToString {
     let content = read_file("input/y2021/day14.txt")?;
     let mut insertion_rules: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
@@ -90,7 +90,7 @@ fn simulate_steps(
                         .get(&to_search)
                         .unwrap()
                         .parse()
-                        .into_diagnostic()?,
+                        .unwrap(),
                 );
             }
         }
