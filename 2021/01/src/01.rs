@@ -22,16 +22,15 @@ fn part_2(input: aoc::Input) -> impl ToString {
     'outer: while i != input.len() {
         let mut current_number = 0;
         for j in 0..3 {
-            let con = input[i + j]; // TODO fix
-            //let con = input.get(i + j);
-            //if con.is_none() {
-            //    break 'outer;
-            //} else {
-            //    current_number += input[i + j]
-            //        .to_string()
-            //        .parse::<i32>()
-            //        .unwrap();
-            //}
+            let con = input.as_lines().get(i + j);
+            if con.is_none() {
+                break 'outer;
+            } else {
+                current_number += input[i + j]
+                    .to_string()
+                    .parse::<i32>()
+                    .unwrap();
+            }
         }
         match last_number {
             None => (),
