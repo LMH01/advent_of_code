@@ -89,7 +89,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
                             board.print_board();
                             println!("Last number: {}", i);
                             println!("Result: {}", i * board.sum_of_unmarked());
-                            return i*board.sum_of_unmarked();
+                            return i * board.sum_of_unmarked();
                         }
                     }
                 }

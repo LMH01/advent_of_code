@@ -38,14 +38,22 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {
-    let ogr = get_raiting(create_vec(input.as_lines()), 0, SystemRaiting::OxygenGeneratorRating)
-        .get(0)
-        .unwrap()
-        .clone();
-    let csr = get_raiting(create_vec(input.as_lines()), 0, SystemRaiting::CO2ScrubberRating)
-        .get(0)
-        .unwrap()
-        .clone();
+    let ogr = get_raiting(
+        create_vec(input.as_lines()),
+        0,
+        SystemRaiting::OxygenGeneratorRating,
+    )
+    .get(0)
+    .unwrap()
+    .clone();
+    let csr = get_raiting(
+        create_vec(input.as_lines()),
+        0,
+        SystemRaiting::CO2ScrubberRating,
+    )
+    .get(0)
+    .unwrap()
+    .clone();
     println!("Oxygen Generator Raiting: {:?}", &ogr);
     println!("CO2 Scrubber Raiting: {:?}", &csr);
     // convert values from binary to decimal
@@ -122,7 +130,8 @@ fn get_raiting(vec: Vec<String>, index: usize, system_type: SystemRaiting) -> Ve
 }
 
 pub fn transform_vec(vec: &[&str]) -> Vec<String> {
-    let mut output: Vec<String> = vec![String::new(); vec.get(0).unwrap_or(&String::new().as_str()).len()];
+    let mut output: Vec<String> =
+        vec![String::new(); vec.get(0).unwrap_or(&String::new().as_str()).len()];
     for line in vec {
         for (index, character) in line.chars().enumerate() {
             output

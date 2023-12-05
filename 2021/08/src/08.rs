@@ -110,7 +110,6 @@ fn part_2(input: aoc::Input) -> impl ToString {
             output_number.push(convert_segment_to_number(string).unwrap());
         }
         output_total += &output_number.parse().unwrap();
-        
     }
     println!("Output total: {}", output_total);
     output_total

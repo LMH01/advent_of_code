@@ -5,7 +5,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     for line in input {
         match Game::try_from(line.split(':').collect::<Vec<&str>>()[1]) {
             Ok(game) => games.push(game),
-            Err(e) => return format!("Unable to create game: {e}")
+            Err(e) => return format!("Unable to create game: {e}"),
         }
     }
     let mut sum = 0;
@@ -24,7 +24,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
     for line in input {
         match Game::try_from(line.split(':').collect::<Vec<&str>>()[1]) {
             Ok(game) => games.push(game),
-            Err(e) => return format!("Unable to create game: {e}")
+            Err(e) => return format!("Unable to create game: {e}"),
         }
     }
     let mut sum = 0;
@@ -132,8 +132,7 @@ impl TryFrom<&str> for Draw {
 
 #[cfg(test)]
 mod tests {
-    use crate::{Game, Draw};
-
+    use crate::{Draw, Game};
 
     #[test]
     fn test_game_try_from() {

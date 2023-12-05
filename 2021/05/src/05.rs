@@ -185,7 +185,6 @@ impl Board {
             }
         }
     }
-
 }
 
 fn ord_to_dir(ord: Ordering) -> i8 {

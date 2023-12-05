@@ -1,4 +1,4 @@
-use simple_graph_algorithms::{Graph, algorithms::dijkstra};
+use simple_graph_algorithms::{algorithms::dijkstra, Graph};
 
 aoc::parts!(1, 2);
 

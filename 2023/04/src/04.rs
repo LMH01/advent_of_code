@@ -29,7 +29,7 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
     let mut cards = HashMap::new();
     for (idx, line) in input.as_lines().iter().enumerate() {
         let (winning_numbers, owned_numbers) = construct_sets(line.to_string(), false);
-        
+
         // check matches
         let mut card_matches = 0;
         for i in owned_numbers {
@@ -38,18 +38,18 @@ pub fn part_2(input: aoc::Input) -> impl ToString {
             }
             card_matches += 1;
         }
-        
+
         // add these copies for each copy of the current card
-        let current_card_copies = match cards.get(&(idx+1)) {
+        let current_card_copies = match cards.get(&(idx + 1)) {
             Some(v) => *v,
             None => 1,
         };
         for _ in 1..=current_card_copies {
             // updated owned cards and add new copies
             for i in 1..=card_matches {
-                match cards.get_mut(&(idx+1+i)) {
+                match cards.get_mut(&(idx + 1 + i)) {
                     Some(v) => *v += 1,
-                    None => _ = cards.insert(idx+1+i, 2),
+                    None => _ = cards.insert(idx + 1 + i, 2),
                 }
             }
             total_cards += 1;

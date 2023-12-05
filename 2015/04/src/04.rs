@@ -1,4 +1,10 @@
-use std::{thread::{available_parallelism, self}, sync::{Arc, mpsc::{Sender, Receiver, self}, Mutex, RwLock}};
+use std::{
+    sync::{
+        mpsc::{self, Receiver, Sender},
+        Arc, Mutex, RwLock,
+    },
+    thread::{self, available_parallelism},
+};
 
 aoc::parts!(1, 2);
 

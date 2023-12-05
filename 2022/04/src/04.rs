@@ -64,7 +64,6 @@ fn overlaps(a: (u32, u32), b: (u32, u32)) -> bool {
 mod tests {
     use crate::fully_contained;
 
-    
     #[test]
     fn test_fully_contained() {
         assert!(!fully_contained((2, 4), (6, 8)));

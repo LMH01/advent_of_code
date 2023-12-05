@@ -8,11 +8,7 @@ fn part_1(input: aoc::Input) -> impl ToString {
     for line in input {
         if let Some(x) = line.split(',').next() {
             if let Some(y) = line.split(',').nth(1) {
-                set_dot_active(
-                    x.parse().unwrap(),
-                    y.parse().unwrap(),
-                    &mut dots,
-                );
+                set_dot_active(x.parse().unwrap(), y.parse().unwrap(), &mut dots);
             }
         }
     }
@@ -30,11 +26,7 @@ fn part_2(input: aoc::Input) -> impl ToString {
     for line in input {
         if let Some(x) = line.split(',').next() {
             if let Some(y) = line.split(',').nth(1) {
-                set_dot_active(
-                    x.parse().unwrap(),
-                    y.parse().unwrap(),
-                    &mut dots,
-                );
+                set_dot_active(x.parse().unwrap(), y.parse().unwrap(), &mut dots);
             }
         }
         // Determine the folding directions

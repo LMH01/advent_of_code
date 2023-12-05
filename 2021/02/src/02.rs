@@ -16,7 +16,7 @@ pub fn part_1(input: aoc::Input) -> impl ToString {
     println!("Final depth: {}", depth);
     println!("Final result: {}", depth * horizontal);
 
-    depth*horizontal
+    depth * horizontal
 }
 
 pub fn part_2(input: aoc::Input) -> impl ToString {

@@ -1,4 +1,4 @@
-use std::{u32::MAX, cmp::Ordering};
+use std::{cmp::Ordering, u32::MAX};
 
 use adventofcode_lmh01_lib::get_draw_numbers;
 

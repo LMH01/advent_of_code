@@ -1,4 +1,4 @@
-use std::collections::{VecDeque, HashSet};
+use std::collections::{HashSet, VecDeque};
 
 aoc::parts!(1, 2);
 

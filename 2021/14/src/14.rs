@@ -44,24 +44,18 @@ fn simulate_steps(
                 true => current_template.as_bytes()[j],
                 false => continue,
             };
-            let p2 = match current_template.as_bytes().len() > j+1 {
-                true => current_template.as_bytes()[j+1],
+            let p2 = match current_template.as_bytes().len() > j + 1 {
+                true => current_template.as_bytes()[j + 1],
                 false => {
                     current_exchanges.push(p1 as char);
                     break;
-                },
+                }
             };
             let mut to_search = String::from(p1 as char);
             to_search.push(p2 as char);
             if insertion_rules.contains_key(&to_search) {
                 current_exchanges.push(p1 as char);
-                current_exchanges.push(
-                    insertion_rules
-                        .get(&to_search)
-                        .unwrap()
-                        .parse()
-                        .unwrap(),
-                );
+                current_exchanges.push(insertion_rules.get(&to_search).unwrap().parse().unwrap());
             }
         }
         *current_template = (*current_exchanges).to_string();

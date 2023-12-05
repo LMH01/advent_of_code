@@ -26,10 +26,7 @@ fn part_2(input: aoc::Input) -> impl ToString {
             if con.is_none() {
                 break 'outer;
             } else {
-                current_number += input[i + j]
-                    .to_string()
-                    .parse::<i32>()
-                    .unwrap();
+                current_number += input[i + j].to_string().parse::<i32>().unwrap();
             }
         }
         match last_number {

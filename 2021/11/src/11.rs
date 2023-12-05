@@ -23,7 +23,6 @@ fn part_2(input: aoc::Input) -> impl ToString {
         }
     }
     for i in 1..=1000 {
-
         let mut flashes = 0;
         simulate_step(&mut octopuses, &mut flashes);
         if flashes == 100 {
