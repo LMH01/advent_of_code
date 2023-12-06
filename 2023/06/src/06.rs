@@ -1,13 +1,13 @@
 use adventofcode_lmh01_lib::numbers_from_string;
 
-aoc::parts!(1);
+aoc::parts!(1, 2);
 
 fn part_1(input: aoc::Input) -> impl ToString {
     let times = numbers_from_string(input[0]);
     let distances = numbers_from_string(input[1]);
     let mut races = Vec::new();
     for i in 0..times.len() {
-        races.push(Race::new(times[i], distances[i]));
+        races.push(Race::new(times[i] as u64, distances[i] as u64));
     }
     let mut result = 0;
     for race in races {
@@ -20,18 +20,22 @@ fn part_1(input: aoc::Input) -> impl ToString {
     result
 }
 
-// fn part_2(input: aoc::Input) -> impl ToString {
-//     0
-// }
+fn part_2(input: aoc::Input) -> impl ToString {
+    let time = input[0].replace("Time:", "").trim().replace(' ', "").parse::<u64>().unwrap();
+    let distance = input[1].replace("Distance:", "").trim().replace(' ', "").parse::<u64>().unwrap();
+    println!("{time}|{distance}");
+    let race = Race::new(time, distance); 
+    race.possible_ways()
+}
 
 struct Race {
-    duration: u32,
-    distance: u32,
+    duration: u64,
+    distance: u64,
 }
 
 impl Race {
 
-    fn new(duration: u32, distance: u32) -> Self {
+    fn new(duration: u64, distance: u64) -> Self {
         Self {
             duration,
             distance,
@@ -50,7 +54,7 @@ impl Race {
     }
 }
 
-fn construct_range_vec(duration: u32) -> Vec<u32> {
+fn construct_range_vec(duration: u64) -> Vec<u64> {
     let mut vec = Vec::new();
     for i in 0..=duration {
         vec.push((duration-i)*i);
