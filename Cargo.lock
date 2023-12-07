@@ -570,3 +570,10 @@ dependencies = [
  "adventofcode_lmh01_lib",
  "aoclib",
 ]
+
+[[package]]
+name = "y2023d07"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
