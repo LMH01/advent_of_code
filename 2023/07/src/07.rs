@@ -17,7 +17,8 @@ fn part_1(input: aoc::Input) -> impl ToString {
 
     let mut result = 0;
     for (idx, hand) in hands.iter().enumerate() {
-        result += idx+1 * (hand.bid as usize);
+        result += (idx+1) * (hand.bid as usize);
+        println!("Result: {} - {}", result, hand.bid);
     }
     result
 }
