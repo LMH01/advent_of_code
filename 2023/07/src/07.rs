@@ -1,11 +1,19 @@
 use std::{collections::HashMap, cmp::Ordering};
 
-aoc::parts!(1);
+aoc::parts!(1, 2);
 
 fn part_1(input: aoc::Input) -> impl ToString {
+    run_solution(input, false)
+}
+
+fn part_2(input: aoc::Input) -> impl ToString {
+    run_solution(input, true)
+}
+
+fn run_solution(input: aoc::Input, part_two: bool) -> impl ToString {
     let mut hands = Vec::new();
     for line in input {
-        hands.push(Hand::try_from(line).unwrap());
+        hands.push(Hand::try_from((line, part_two)).unwrap());
     }
 
     // hands are sorted in ascending order using the trait implementations below
@@ -23,15 +31,13 @@ fn part_1(input: aoc::Input) -> impl ToString {
     result
 }
 
-// fn part_2(input: aoc::Input) -> impl ToString {
-//     0
-// }
-
 #[derive(Debug, PartialEq, Eq, Hash, Ord)]
 struct Hand {
     cards: Vec<Card>,
     bid: u32,
     hand_type: Option<HandType>,
+    /// If part two is enabled, jacks are treated as jokers and but will individually be the weakest card
+    part_two: bool,
 }
 
 impl Hand {
@@ -54,9 +60,14 @@ impl Hand {
         }
         // we have to store if we have found a three of a kind to check for full houses
         let mut three_of_a_kind_found = false;
+        let jokers = match self.part_two {
+            true => cards.get(&Card::J(true)).unwrap_or(&0),
+            false => &0,
+        };
         // collect pairs that have been found
         let mut pairs = 0;
-        for (_card, amount) in cards {
+        for (_card, amount) in cards.iter() {
+            let amount = amount + jokers;
             match amount {
                 5 => return HandType::FiveOfAKind,
                 4 => return HandType::FourOfAKind,
@@ -98,22 +109,30 @@ impl Hand {
     }
 }
 
+impl TryFrom<(&str, bool)> for Hand {
+    type Error = String;
+
+    fn try_from(value: (&str, bool)) -> Result<Self, Self::Error> {
+        // chunks[0] = cards
+        // chunks[1] = bid
+        let chunks = value.0.split(' ').collect::<Vec<&str>>();
+        let mut cards = Vec::new();
+        for c in chunks[0].chars() {
+            cards.push(Card::try_from((c, value.1))?);
+        }
+        let bid = chunks[1].parse::<u32>().unwrap(); // again too lazy for proper error handling
+        // calculate hand type
+        let mut hand = Hand{ cards, bid, hand_type: None, part_two: value.1};
+        hand.hand_type = Some(hand.calc_hand_type());
+        Ok(hand)
+    }
+}
+
 impl TryFrom<&str> for Hand {
     type Error = String;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        // chunks[0] = cards
-        // chunks[1] = bid
-        let chunks = value.split(' ').collect::<Vec<&str>>();
-        let mut cards = Vec::new();
-        for c in chunks[0].chars() {
-            cards.push(Card::try_from(c)?);
-        }
-        let bid = chunks[1].parse::<u32>().unwrap(); // again too lazy for proper error handling
-        // calculate hand type
-        let mut hand = Hand{ cards, bid, hand_type: None};
-        hand.hand_type = Some(hand.calc_hand_type());
-        Ok(hand)
+        Self::try_from((value, false))
     }
 }
 
@@ -183,7 +202,8 @@ enum Card {
     A,
     K,
     Q,
-    J,
+    /// Set to true to treat jack as jocker
+    J(bool),
     Ten,
     Nine,
     Eight,
@@ -202,7 +222,13 @@ impl Card {
             Card::A => 14,
             Card::K => 13,
             Card::Q => 12,
-            Card::J => 11,
+            Card::J(b) => {
+                if *b {
+                    0
+                } else {
+                    11
+                }
+            },
             Card::Ten => 10,
             Card::Nine => 9,
             Card::Eight => 8,
@@ -222,15 +248,15 @@ impl PartialOrd for Card {
     }
 }
 
-impl TryFrom<char> for Card {
+impl TryFrom<(char, bool)> for Card {
     type Error = String;
 
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
+    fn try_from(value: (char, bool)) -> Result<Self, Self::Error> {
+        match value.0 {
             'A' => Ok(Card::A),
             'K' => Ok(Card::K),
             'Q' => Ok(Card::Q),
-            'J' => Ok(Card::J),
+            'J' => Ok(Card::J(value.1)),
             'T' => Ok(Card::Ten),
             '9' => Ok(Card::Nine),
             '8' => Ok(Card::Eight),
@@ -252,7 +278,7 @@ mod tests {
     #[test]
     fn test_hand_from_str() {
         let hand = Hand::try_from("32T3K 765").unwrap();
-        assert_eq!(hand, Hand {cards: vec![Card::Three, Card::Two, Card::Ten, Card::Three, Card::K], bid: 765, hand_type: None})
+        assert_eq!(hand, Hand {cards: vec![Card::Three, Card::Two, Card::Ten, Card::Three, Card::K], bid: 765, hand_type: Some(HandType::OnePair), part_two: false})
     }
 
     #[test]
