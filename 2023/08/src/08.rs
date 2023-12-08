@@ -1,18 +1,19 @@
 use std::{
     collections::HashMap,
-    sync::{mpsc::{self, Receiver, Sender}, RwLock, Arc},
-    thread, process::exit,
+    process::exit,
+    sync::{
+        mpsc::{self, Receiver, Sender},
+        Arc, RwLock,
+    },
+    thread,
 };
 
-aoc::parts!(1, 2);
+aoc::parts!(1);
 
 fn part_1(input: aoc::Input) -> impl ToString {
     let mut steps = 0;
     let parsed = parse(input);
     let mut current = "AAA";
-    for entry in &parsed.1 {
-        println!("{}-{:?}", entry.0, entry.1);
-    }
     loop {
         for c in parsed.0.chars() {
             match c {
@@ -32,6 +33,121 @@ fn part_1(input: aoc::Input) -> impl ToString {
     steps
 }
 
+// doesn't work
+//fn part_2(input: aoc::Input) -> impl ToString {
+//    let parsed = parse(input);
+//    // determine start nodes
+//    let mut start_nodes = Vec::new();
+//    for entry in &parsed.1 {
+//        if entry.0.ends_with('A') {
+//            start_nodes.push(entry.0.clone());
+//        }
+//    }
+//    let mut circle_sizes = Vec::new();
+//    let mut offsets = Vec::new();
+//    for start_node in start_nodes {
+//        let res = determine_circle_size_and_offset(&start_node, &parsed);
+//        circle_sizes.push(res.0);
+//        offsets.push(res.1);
+//    }
+//
+//    for circle in &circle_sizes {
+//        println!("Size: {circle}");
+//    }
+//
+//    let mut lcm = lcm(&circle_sizes.as_slice());
+//    // add offset that we need to traverse until we get to a circle
+//    for offset in offsets {
+//        lcm += offset;
+//    }
+//    lcm
+//}
+//
+//fn determine_circle_size_and_offset(
+//    start_node: &String,
+//    parsed: &(String, HashMap<String, (String, String)>),
+//) -> (u32, u32) {
+//    let mut current = start_node.as_str();
+//    let mut steps = 0;
+//    println!("Determining circle for start node {start_node}");
+//    let mut visited_nodes: HashMap<&str, (bool, bool)> = HashMap::new();
+//    let mut circle_size = None;
+//    loop {
+//        for c in parsed.0.chars() {
+//            println!("{current}-{steps}-{:?}", circle_size);
+//            match c {
+//                'L' => {
+//                    if let Some(node) = visited_nodes.get(current) {
+//                        if node.0 {
+//                            // this node was already visited, so a circle has been found
+//                            // check if circle size was started
+//                            match circle_size {
+//                                None => circle_size = Some((current, 0)),
+//                                Some(v) => {
+//                                    if v.0 == current {
+//                                        return (v.1, steps-v.1)
+//                                    }
+//                                },
+//                            }
+//                        } else {
+//                            // this node was already visited but the path taken was the other
+//                            visited_nodes.insert(current, (true, false));
+//                        }
+//                    } else {
+//                        visited_nodes.insert(current, (true, true));
+//                    }
+//                    current = parsed.1.get(current).unwrap().0.as_str();
+//                },
+//                'R' => {
+//                    if let Some(node) = visited_nodes.get(current) {
+//                        if node.1 {
+//                            // this node was already visited, so a circle has been found
+//                            // check if circle size was started
+//                            match circle_size {
+//                                None => circle_size = Some((current, 0)),
+//                                Some(v) => {
+//                                    if v.0 == current {
+//                                        return (v.1, steps-v.1)
+//                                    }
+//                                },
+//                            }
+//                        } else {
+//                            // this node was already visited but the path taken was the other
+//                            visited_nodes.insert(current, (true, true));
+//                        }
+//                    } else {
+//                        visited_nodes.insert(current, (false, true));
+//                    }
+//                    current = parsed.1.get(current).unwrap().1.as_str();
+//                },
+//                _ => (),
+//            }
+//            steps += 1;
+//            // increment circle size, when circle calculation was started
+//            if let Some(v) = circle_size.as_mut() {
+//                v.1 += 1;
+//            }
+//        }
+//    }
+//}
+//
+//fn lcm(nums: &[u32]) -> u32 {
+//    if nums.len() == 1 {
+//        return nums[0];
+//    }
+//    let a = nums[0];
+//    let b = lcm(&nums[1..]);
+//    a * b / gcd(a, b)
+//}
+//
+//fn gcd(a: u32, b: u32) -> u32 {
+//    if b == 0 {
+//        return a;
+//    }
+//    gcd(b, a % b)
+//}
+
+// would probably work but takes far too long
 //fn part_2(input: aoc::Input) -> impl ToString {
 //    let mut steps = 0;
 //    let parsed = parse(input);
@@ -120,6 +236,7 @@ fn part_1(input: aoc::Input) -> impl ToString {
 //    0
 //}
 
+// could probably work but would take forever
 //fn part_2(input: aoc::Input) -> impl ToString {
 //    let mut steps = 0;
 //    let parsed = parse(input);
