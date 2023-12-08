@@ -84,9 +84,7 @@ fn part_2(input: aoc::Input) -> impl ToString {
         "Middle score: {}",
         completion_scores.get(completion_scores.len() / 2).unwrap()
     );
-    *completion_scores
-        .get(completion_scores.len() / 2)
-        .unwrap()
+    *completion_scores.get(completion_scores.len() / 2).unwrap()
 }
 
 fn increase_error_score(c: char, error_score: &mut i32) {

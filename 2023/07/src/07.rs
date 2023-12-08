@@ -1,4 +1,4 @@
-use std::{collections::HashMap, cmp::Ordering};
+use std::{cmp::Ordering, collections::HashMap};
 
 aoc::parts!(1, 2);
 
@@ -25,7 +25,7 @@ fn run_solution(input: aoc::Input, part_two: bool) -> impl ToString {
 
     let mut result = 0;
     for (idx, hand) in hands.iter().enumerate() {
-        result += (idx+1) * (hand.bid as usize);
+        result += (idx + 1) * (hand.bid as usize);
         //println!("Result: {} - {}", result, hand.bid);
     }
     result
@@ -41,7 +41,6 @@ struct Hand {
 }
 
 impl Hand {
-
     fn calc_hand_type(&self) -> HandType {
         let mut cards = HashMap::new();
         // function only works if we have exactly 5 cards
@@ -71,27 +70,29 @@ impl Hand {
             // skip joker card except when it matches an amount of 5 cards
             if **card == Card::J(true) {
                 if *amount == 5 {
-                    return HandType::FiveOfAKind
+                    return HandType::FiveOfAKind;
                 }
                 continue;
-            } 
+            }
             let amount = amount + jokers;
             match amount {
                 5 => return HandType::FiveOfAKind,
                 4 => return HandType::FourOfAKind,
                 3 => {
-                    if pairs == 1 && jokers == 0 { // joker cases are handled below
-                        return HandType::FullHouse
+                    if pairs == 1 && jokers == 0 {
+                        // joker cases are handled below
+                        return HandType::FullHouse;
                     }
                     threes += 1;
                     three_of_a_kind_found = true
-                },
+                }
                 2 => {
-                    if three_of_a_kind_found && jokers == 0 { // joker cases are handled below
-                        return HandType::FullHouse
+                    if three_of_a_kind_found && jokers == 0 {
+                        // joker cases are handled below
+                        return HandType::FullHouse;
                     }
                     pairs += 1;
-                },
+                }
                 _ => (),
             }
         }
@@ -113,15 +114,15 @@ impl Hand {
             1 => {
                 // Check if joker exists because that one pair would become a three of a kind
                 if jokers == 1 {
-                    return HandType::TheeOfAKind
+                    return HandType::TheeOfAKind;
                 }
-                return HandType::OnePair
-            },
+                return HandType::OnePair;
+            }
             _ => (),
         };
         // Check if 1 pair is created because of the joker
         if jokers == 1 {
-            return HandType::OnePair
+            return HandType::OnePair;
         }
         HandType::HighCard
     }
@@ -147,8 +148,13 @@ impl TryFrom<(&str, bool)> for Hand {
             cards.push(Card::try_from((c, value.1))?);
         }
         let bid = chunks[1].parse::<u32>().unwrap(); // again too lazy for proper error handling
-        // calculate hand type
-        let mut hand = Hand{ cards, bid, hand_type: None, part_two: value.1};
+                                                     // calculate hand type
+        let mut hand = Hand {
+            cards,
+            bid,
+            hand_type: None,
+            part_two: value.1,
+        };
         hand.hand_type = Some(hand.calc_hand_type());
         Ok(hand)
     }
@@ -182,7 +188,7 @@ impl PartialOrd for Hand {
                     }
                     // all cards have ben checked, decks are identical
                     Some(Ordering::Equal)
-                },
+                }
             }
         } else {
             None
@@ -190,7 +196,7 @@ impl PartialOrd for Hand {
     }
 }
 
-/// Specifies 
+/// Specifies
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Ord)]
 enum HandType {
     FiveOfAKind,
@@ -203,7 +209,6 @@ enum HandType {
 }
 
 impl HandType {
-
     fn strength(&self) -> u8 {
         match self {
             HandType::FiveOfAKind => 7,
@@ -238,11 +243,10 @@ enum Card {
     Five,
     Four,
     Three,
-    Two
+    Two,
 }
 
 impl Card {
-
     fn strength(&self) -> u8 {
         match self {
             Card::A => 14,
@@ -254,7 +258,7 @@ impl Card {
                 } else {
                     11
                 }
-            },
+            }
             Card::Ten => 10,
             Card::Nine => 9,
             Card::Eight => 8,
@@ -292,19 +296,27 @@ impl TryFrom<(char, bool)> for Card {
             '4' => Ok(Card::Four),
             '3' => Ok(Card::Three),
             '2' => Ok(Card::Two),
-            _ => Err(String::from("could not map char to chard"))
+            _ => Err(String::from("could not map char to chard")),
         }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{Hand, Card, HandType};
+    use crate::{Card, Hand, HandType};
 
     #[test]
     fn test_hand_from_str() {
         let hand = Hand::try_from("32T3K 765").unwrap();
-        assert_eq!(hand, Hand {cards: vec![Card::Three, Card::Two, Card::Ten, Card::Three, Card::K], bid: 765, hand_type: Some(HandType::OnePair), part_two: false})
+        assert_eq!(
+            hand,
+            Hand {
+                cards: vec![Card::Three, Card::Two, Card::Ten, Card::Three, Card::K],
+                bid: 765,
+                hand_type: Some(HandType::OnePair),
+                part_two: false
+            }
+        )
     }
 
     #[test]
@@ -348,7 +360,7 @@ mod tests {
         let hand = Hand::try_from("34TJ5 765").unwrap();
         assert_eq!(hand.hand_type(), HandType::HighCard)
     }
-    
+
     #[test]
     fn test_hand_type_five_of_a_kind_p2() {
         let hand = Hand::try_from(("AAAAJ 765", true)).unwrap();

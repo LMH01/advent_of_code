@@ -21,10 +21,20 @@ fn part_1(input: aoc::Input) -> impl ToString {
 }
 
 fn part_2(input: aoc::Input) -> impl ToString {
-    let time = input[0].replace("Time:", "").trim().replace(' ', "").parse::<u64>().unwrap();
-    let distance = input[1].replace("Distance:", "").trim().replace(' ', "").parse::<u64>().unwrap();
+    let time = input[0]
+        .replace("Time:", "")
+        .trim()
+        .replace(' ', "")
+        .parse::<u64>()
+        .unwrap();
+    let distance = input[1]
+        .replace("Distance:", "")
+        .trim()
+        .replace(' ', "")
+        .parse::<u64>()
+        .unwrap();
     println!("{time}|{distance}");
-    let race = Race::new(time, distance); 
+    let race = Race::new(time, distance);
     race.possible_ways()
 }
 
@@ -34,12 +44,8 @@ struct Race {
 }
 
 impl Race {
-
     fn new(duration: u64, distance: u64) -> Self {
-        Self {
-            duration,
-            distance,
-        }
+        Self { duration, distance }
     }
 
     fn possible_ways(&self) -> u32 {
@@ -57,7 +63,7 @@ impl Race {
 fn construct_range_vec(duration: u64) -> Vec<u64> {
     let mut vec = Vec::new();
     for i in 0..=duration {
-        vec.push((duration-i)*i);
+        vec.push((duration - i) * i);
     }
     vec
 }
@@ -65,7 +71,6 @@ fn construct_range_vec(duration: u64) -> Vec<u64> {
 #[cfg(test)]
 mod tests {
     use crate::Race;
-
 
     #[test]
     fn test_possible_ways() {
