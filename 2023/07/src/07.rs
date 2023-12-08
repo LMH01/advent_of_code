@@ -19,14 +19,14 @@ fn run_solution(input: aoc::Input, part_two: bool) -> impl ToString {
     // hands are sorted in ascending order using the trait implementations below
     hands.sort();
 
-    for hand in &hands {
-        println!("{:?}", hand);
-    }
+    //for hand in &hands {
+    //    println!("{:?}", hand);
+    //}
 
     let mut result = 0;
     for (idx, hand) in hands.iter().enumerate() {
         result += (idx+1) * (hand.bid as usize);
-        println!("Result: {} - {}", result, hand.bid);
+        //println!("Result: {} - {}", result, hand.bid);
     }
     result
 }
