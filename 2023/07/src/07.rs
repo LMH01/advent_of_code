@@ -64,28 +64,43 @@ impl Hand {
             true => *cards.get(&Card::J(true)).unwrap_or(&0),
             false => 0,
         };
-        let mut joker_used_for_full_house = false;
+        let mut threes = 0;
         // collect pairs that have been found
         let mut pairs = 0;
-        for (_card, amount) in cards.iter() {
+        for (card, amount) in cards.iter() {
+            // skip joker card except when it matches an amount of 5 cards
+            if **card == Card::J(true) {
+                if *amount == 5 {
+                    return HandType::FiveOfAKind
+                }
+                continue;
+            } 
             let amount = amount + jokers;
             match amount {
                 5 => return HandType::FiveOfAKind,
                 4 => return HandType::FourOfAKind,
                 3 => {
-                    if pairs == 1 {
+                    if pairs == 1 && jokers == 0 { // joker cases are handled below
                         return HandType::FullHouse
                     }
+                    threes += 1;
                     three_of_a_kind_found = true
                 },
                 2 => {
-                    if three_of_a_kind_found {
+                    if three_of_a_kind_found && jokers == 0 { // joker cases are handled below
                         return HandType::FullHouse
                     }
                     pairs += 1;
                 },
                 _ => (),
             }
+        }
+        // handle three of a kind and full house for joker cases
+        if threes == 2 {
+            return HandType::FullHouse;
+        }
+        if threes > 1 {
+            return HandType::TheeOfAKind;
         }
         // if three of a kind is set here we know that the deck is not full house,
         // we can return three of a kind
@@ -344,6 +359,12 @@ mod tests {
     fn test_hand_type_four_of_a_kind_p2() {
         let hand = Hand::try_from(("JAAJ3 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::FourOfAKind);
+        let hand = Hand::try_from(("2333J 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FourOfAKind);
+        let hand = Hand::try_from(("233JJ 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FourOfAKind);
+        let hand = Hand::try_from(("23JJJ 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FourOfAKind);
         let hand = Hand::try_from(("AJA2J 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::FourOfAKind)
     }
@@ -351,6 +372,8 @@ mod tests {
     #[test]
     fn test_hand_type_full_house_p2() {
         let hand = Hand::try_from(("AJA22 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FullHouse);
+        let hand = Hand::try_from(("2233J 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::FullHouse)
     }
 
@@ -359,12 +382,22 @@ mod tests {
         let hand = Hand::try_from(("AJA82 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
         let hand = Hand::try_from(("AJ233 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
+        let hand = Hand::try_from(("Q2KJJ 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
+        let hand = Hand::try_from(("2344J 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
+        let hand = Hand::try_from(("234JJ 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
+        let hand = Hand::try_from(("AJJ94 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::TheeOfAKind)
     }
 
     #[test]
     fn test_hand_type_one_pair_p2() {
         let hand = Hand::try_from(("9KT2J 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::OnePair);
+        let hand = Hand::try_from(("2345J 765", true)).unwrap();
         assert_eq!(hand.hand_type(), HandType::OnePair)
     }
 
@@ -381,5 +414,26 @@ mod tests {
         assert_eq!(hands[0].bid, 3);
         assert_eq!(hands[1].bid, 1);
         assert_eq!(hands[2].bid, 2);
+    }
+
+    #[test]
+    fn test_hand_partial_ord_p2() {
+        let hand_1 = Hand::try_from(("AJJ94 2", true)).unwrap();
+        let hand_2 = Hand::try_from(("A2223 1", true)).unwrap();
+        let hand_3 = Hand::try_from(("KKK23 3", true)).unwrap();
+        let mut hands = vec![hand_1, hand_2, hand_3];
+        //println!("{:?}\n", hands);
+        for hand in &hands {
+            println!("{:?}", hand);
+        }
+        hands.sort();
+        for hand in &hands {
+            println!("{:?}", hand);
+        }
+        //println!("{:?}", hands);
+
+        assert_eq!(hands[0].bid, 3);
+        assert_eq!(hands[1].bid, 2);
+        assert_eq!(hands[2].bid, 1);
     }
 }
