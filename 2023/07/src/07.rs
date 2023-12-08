@@ -31,7 +31,7 @@ fn run_solution(input: aoc::Input, part_two: bool) -> impl ToString {
     result
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Ord)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 struct Hand {
     cards: Vec<Card>,
     bid: u32,
@@ -168,36 +168,38 @@ impl TryFrom<&str> for Hand {
     }
 }
 
-impl PartialOrd for Hand {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+impl Ord for Hand {
+    fn cmp(&self, other: &Self) -> Ordering {
         let self_type = self.hand_type();
         let other_type = other.hand_type();
 
-        if let Some(t) = self_type.partial_cmp(&other_type) {
-            match t {
-                Ordering::Less => Some(Ordering::Less),
-                Ordering::Greater => Some(Ordering::Greater),
-                Ordering::Equal => {
-                    // determine which card is stronger
-                    for (idx, card) in self.cards.iter().enumerate() {
-                        match card.partial_cmp(&other.cards[idx]).unwrap() {
-                            Ordering::Less => return Some(Ordering::Less),
-                            Ordering::Greater => return Some(Ordering::Greater),
-                            _ => (),
-                        }
+        match self_type.cmp(&other_type) {
+            Ordering::Less => Ordering::Less,
+            Ordering::Greater => Ordering::Greater,
+            Ordering::Equal => {
+                // determine which card is stronger
+                for (idx, card) in self.cards.iter().enumerate() {
+                    match card.partial_cmp(&other.cards[idx]).unwrap() {
+                        Ordering::Less => return Ordering::Less,
+                        Ordering::Greater => return Ordering::Greater,
+                        _ => (),
                     }
-                    // all cards have ben checked, decks are identical
-                    Some(Ordering::Equal)
                 }
+                // all cards have ben checked, decks are identical
+                Ordering::Equal
             }
-        } else {
-            None
         }
     }
 }
 
+impl PartialOrd for Hand {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
 /// Specifies
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Ord)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 enum HandType {
     FiveOfAKind,
     FourOfAKind,
@@ -222,13 +224,19 @@ impl HandType {
     }
 }
 
-impl PartialOrd for HandType {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.strength().cmp(&other.strength()))
+impl Ord for HandType {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.strength().cmp(&other.strength())
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Ord)]
+impl PartialOrd for HandType {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Hash)]
 enum Card {
     A,
     K,
@@ -272,9 +280,15 @@ impl Card {
     }
 }
 
+impl Ord for Card {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.strength().cmp(&other.strength())
+    }
+}
+
 impl PartialOrd for Card {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.strength().cmp(&other.strength()))
+        Some(self.cmp(other))
     }
 }
 
