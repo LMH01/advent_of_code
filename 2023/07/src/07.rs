@@ -61,9 +61,10 @@ impl Hand {
         // we have to store if we have found a three of a kind to check for full houses
         let mut three_of_a_kind_found = false;
         let jokers = match self.part_two {
-            true => cards.get(&Card::J(true)).unwrap_or(&0),
-            false => &0,
+            true => *cards.get(&Card::J(true)).unwrap_or(&0),
+            false => 0,
         };
+        let mut joker_used_for_full_house = false;
         // collect pairs that have been found
         let mut pairs = 0;
         for (_card, amount) in cards.iter() {
@@ -94,9 +95,19 @@ impl Hand {
         // check pairs
         match pairs {
             2 => return HandType::TwoPair,
-            1 => return HandType::OnePair,
+            1 => {
+                // Check if joker exists because that one pair would become a three of a kind
+                if jokers == 1 {
+                    return HandType::TheeOfAKind
+                }
+                return HandType::OnePair
+            },
             _ => (),
         };
+        // Check if 1 pair is created because of the joker
+        if jokers == 1 {
+            return HandType::OnePair
+        }
         HandType::HighCard
     }
 
@@ -321,6 +332,40 @@ mod tests {
     fn test_hand_type_high_card() {
         let hand = Hand::try_from("34TJ5 765").unwrap();
         assert_eq!(hand.hand_type(), HandType::HighCard)
+    }
+    
+    #[test]
+    fn test_hand_type_five_of_a_kind_p2() {
+        let hand = Hand::try_from(("AAAAJ 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FiveOfAKind);
+    }
+
+    #[test]
+    fn test_hand_type_four_of_a_kind_p2() {
+        let hand = Hand::try_from(("JAAJ3 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FourOfAKind);
+        let hand = Hand::try_from(("AJA2J 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FourOfAKind)
+    }
+
+    #[test]
+    fn test_hand_type_full_house_p2() {
+        let hand = Hand::try_from(("AJA22 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::FullHouse)
+    }
+
+    #[test]
+    fn test_hand_type_three_of_a_kind_p2() {
+        let hand = Hand::try_from(("AJA82 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind);
+        let hand = Hand::try_from(("AJ233 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::TheeOfAKind)
+    }
+
+    #[test]
+    fn test_hand_type_one_pair_p2() {
+        let hand = Hand::try_from(("9KT2J 765", true)).unwrap();
+        assert_eq!(hand.hand_type(), HandType::OnePair)
     }
 
     #[test]
