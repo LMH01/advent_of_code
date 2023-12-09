@@ -1,4 +1,4 @@
-aoc::parts!(1);
+aoc::parts!(1, 2);
 
 fn part_1(input: aoc::Input) -> impl ToString {
     let mut lines = Vec::new();
@@ -13,12 +13,25 @@ fn part_1(input: aoc::Input) -> impl ToString {
     total
 }
 
-// fn part_2(input: aoc::Input) -> impl ToString {
-//     0
-// }
+fn part_2(input: aoc::Input) -> impl ToString {
+    let mut lines = Vec::new();
+    // construct lines that we have to analyze
+    for line in input {
+        lines.push(numbers_from_string(line));
+    }
+    let mut total = 0;
+    for line in lines {
+        total += determine_spacing_p2(line.as_slice(), true);
+    }
+    total
+}
+
+fn determine_spacing(line: &[i64]) -> i64 {
+    determine_spacing_p2(line, false)
+}
 
 /// Return value is the last value of the line
-fn determine_spacing(line: &[i64]) -> i64 {
+fn determine_spacing_p2(line: &[i64], p2: bool) -> i64 {
     let mut zero = true;
     let mut last_element = None;
     let mut new_line = Vec::new();
@@ -39,7 +52,11 @@ fn determine_spacing(line: &[i64]) -> i64 {
     if zero {
         return 0;
     }
-    determine_spacing(&new_line.as_slice()) + line.last().unwrap_or(&0)
+    if p2 {
+        line.first().unwrap_or(&0) - determine_spacing_p2(&new_line.as_slice(), p2)
+    } else {
+        determine_spacing_p2(&new_line.as_slice(), p2) + line.last().unwrap_or(&0)
+    }
 }
 
 fn numbers_from_string(input: &str) -> Vec<i64> {
@@ -53,7 +70,7 @@ fn numbers_from_string(input: &str) -> Vec<i64> {
 
 #[cfg(test)]
 mod tests {
-    use crate::{determine_spacing, numbers_from_string};
+    use crate::{determine_spacing, numbers_from_string, determine_spacing_p2};
 
     #[test]
     fn test_determine_spacing() {
@@ -67,7 +84,21 @@ mod tests {
         assert_eq!(determine_spacing(vec![-3, -3, -3, -3].as_slice()), -3);
         assert_eq!(determine_spacing(vec![3, 2, 1].as_slice()), 0);
         assert_eq!(determine_spacing(vec![0, 2].as_slice()), 4);
-        assert_eq!(determine_spacing(vec![12, 9, 6, 3, 0, -3, -6, -9, -12, -15, -18, -21, -24, -27, -30, -33, -36, -39, -42, -45, -48].as_slice()), -51);
+        assert_eq!(
+            determine_spacing(
+                vec![
+                    12, 9, 6, 3, 0, -3, -6, -9, -12, -15, -18, -21, -24, -27, -30, -33, -36, -39,
+                    -42, -45, -48
+                ]
+                .as_slice()
+            ),
+            -51
+        );
+    }
+
+    #[test]
+    fn test_determine_spacing_p2() {
+        assert_eq!(determine_spacing_p2(vec![10, 13, 16, 21, 30, 45].as_slice(), true), 5);
     }
 
     #[test]
