@@ -1,20 +1,27 @@
-use std::thread::current;
+use std::collections::HashSet;
 
-aoc::parts!(1);
+aoc::parts!(1, 2);
 
 fn part_1(input: aoc::Input) -> impl ToString {
     let mut grid = construct_grid(input.as_lines());
     let start = find_start(&grid);
     // I was too lazy to write a parser what the first pipe is, so we have to specify it manually
-    // For the two examples it is F, for the real input it is -
+    // For the examples 1 and 2 it is F, for example 3 it is 7 and for the real input it is -
     //let c = 'F';
     let c = '-';
-    traverse_tunnels(&mut grid, start.unwrap(), c)
+    traverse_tunnels(&mut grid, start.unwrap(), c).0
 }
 
-// fn part_2(input: aoc::Input) -> impl ToString {
-//     0
-// }
+fn part_2(input: aoc::Input) -> impl ToString {
+    let mut grid = construct_grid(input.as_lines());
+    let start = find_start(&grid);
+    // I was too lazy to write a parser what the first pipe is, so we have to specify it manually
+    // For the examples 1 and 2 it is F, for example 3 it is 7 and for the real input it is -
+    //let c = 'F';
+    let c = '-';
+    let visited_tiles = traverse_tunnels(&mut grid, start.unwrap(), c).1;
+    tiles_inside_loop(&grid, visited_tiles)
+}
 
 fn construct_grid(input: &[&str]) -> Vec<Vec<char>> {
     let mut vec = Vec::new();
@@ -39,13 +46,15 @@ fn find_start(grid: &Vec<Vec<char>>) -> Option<(usize, usize)> {
     None
 }
 
-fn traverse_tunnels(grid: &mut Vec<Vec<char>>, start: (usize, usize), start_pipe: char) -> u32 {
+fn traverse_tunnels(grid: &mut Vec<Vec<char>>, start: (usize, usize), start_pipe: char) -> (u32, HashSet<(usize, usize)>) {
     let mut current_r = start;
     let mut prev_r = start;
     let mut current_l = start;
     let mut prev_l = start;
     let mut counter = 0;
     let mut first = true;
+    let mut visited_tiles = HashSet::new();
+    visited_tiles.insert(start);
     loop {
         if first {
             first = false;
@@ -54,6 +63,8 @@ fn traverse_tunnels(grid: &mut Vec<Vec<char>>, start: (usize, usize), start_pipe
             current_r = neighbors[0];
             current_l = neighbors[1];
             counter += 1;
+            visited_tiles.insert(current_r);
+            visited_tiles.insert(current_l);
             continue;
         }
         let next_prev_r = current_r;
@@ -62,10 +73,12 @@ fn traverse_tunnels(grid: &mut Vec<Vec<char>>, start: (usize, usize), start_pipe
         current_l = next_pipe(grid, current_l, prev_l);
         prev_r = next_prev_r;
         prev_l = next_prev_l;
+        visited_tiles.insert(current_r);
+        visited_tiles.insert(current_l);
         // check if circle is completed
         counter += 1;
         if current_l == current_r {
-            return counter;
+            return (counter, visited_tiles);
         }
     }
 }
@@ -115,22 +128,43 @@ fn next_pipe(grid: &Vec<Vec<char>>, point: (usize, usize), previous: (usize, usi
 //    }
 //}
 
-fn surrounding_points(point: (usize, usize)) -> Vec<(usize, usize)> {
-    vec![
-        (point.0-1, point.1-1),
-        (point.0-1, point.1),
-        (point.0-1, point.1+1),
-        (point.0, point.1-1),
-        (point.0, point.1-1),
-        (point.0+1, point.1-1),
-        (point.0+1, point.1),
-        (point.0+1, point.1+1),
-    ]
+//fn surrounding_points(point: (usize, usize)) -> Vec<(usize, usize)> {
+//    vec![
+//        (point.0-1, point.1-1),
+//        (point.0-1, point.1),
+//        (point.0-1, point.1+1),
+//        (point.0, point.1-1),
+//        (point.0, point.1-1),
+//        (point.0+1, point.1-1),
+//        (point.0+1, point.1),
+//        (point.0+1, point.1+1),
+//    ]
+//}
+
+fn tiles_inside_loop(grid: &Vec<Vec<char>>, visited_tiles: HashSet<(usize, usize)>) -> u32 {
+    let mut tiles_inside = 0;
+    for (y_idx, y) in grid.iter().enumerate() {
+        let mut inside_loop = false;
+        for (x_idx, x) in y.iter().enumerate() {
+            if visited_tiles.contains(&(x_idx, y_idx)) {
+                // flip if we are inside the loop and if the last tile was not part of the loop
+                if *x == '|' || *x == 'L' || *x == 'J' {
+                    inside_loop = !inside_loop;
+                }
+            } else {
+                if inside_loop {
+                    tiles_inside += 1;
+                    continue;
+                }
+            }
+        }
+    }
+    tiles_inside
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{neighboring_pipes, next_pipe, traverse_tunnels};
+    use crate::{neighboring_pipes, next_pipe, traverse_tunnels, tiles_inside_loop};
 
 
     #[test]
@@ -170,6 +204,29 @@ mod tests {
             vec!['.', 'S', '.', '.', 'L', '7', '.', '.'],
             vec!['.', 'L', '-', '-', '-', 'J', '.', '.'],
         ];
-        assert_eq!(traverse_tunnels(&mut grid, (1, 1), '|'), 6);
+        assert_eq!(traverse_tunnels(&mut grid, (1, 1), '|').0, 6);
+    }
+
+    #[test]
+    fn test_tiles_inside_loop() {
+        let mut grid = vec![
+            vec!['.', 'F', '-', '-', '7', '.', '.', '.'],
+            vec!['.', 'S', '.', '.', 'L', '7', '.', '.'],
+            vec!['.', 'L', '-', '-', '-', 'J', '.', '.'],
+        ];
+        let visited_tiles = traverse_tunnels(&mut grid, (1, 1), '|').1;
+        assert_eq!(tiles_inside_loop(&grid, visited_tiles), 2);
+    }
+
+    #[test]
+    fn test_tiles_inside_loop_2() {
+        let mut grid = vec![
+            vec!['.', 'F', '-', '-', '7', 'F', '-', '7'],
+            vec!['.', 'S', '.', '.', 'L', 'J', 'F', 'J'],
+            vec!['.', 'L', '-', '-', '7', '.', '|', '.'],
+            vec!['.', '.', '.', '.', 'L', '-', 'J', '.'],
+        ];
+        let visited_tiles = traverse_tunnels(&mut grid, (1, 1), '|').1;
+        assert_eq!(tiles_inside_loop(&grid, visited_tiles), 3);
     }
 }
