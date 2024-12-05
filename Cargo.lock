@@ -613,3 +613,10 @@ dependencies = [
  "aoclib",
  "simple_graph_algorithms",
 ]
+
+[[package]]
+name = "y2024d01"
+version = "0.1.0"
+dependencies = [
+ "aoclib",
+]
